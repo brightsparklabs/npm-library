@@ -1,0 +1,9 @@
+= BSL NPM Library
+
+BSL standard library for use across NPM projects.
+
+== TODO
+
+== License
+
+Refer to the `LICENSE` file for details.
