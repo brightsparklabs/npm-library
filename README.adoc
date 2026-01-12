@@ -2,7 +2,15 @@
 
 BSL standard library for use across NPM projects.
 
-== TODO
+The project is setup with [Bun workspaces](https://bun.com/docs/pm/workspaces), simply run the following
+from the project root directory to install dependencies for all packages:
+
+[source,bash]
+----
+bun install
+----
+
+This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
 
 == License
 
