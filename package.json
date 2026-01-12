@@ -7,5 +7,9 @@
     "type": "git",
     "url": "https://github.com/brightsparklabs/npm-library.git"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": ["packages/*"],
+  "catalog": {
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
 }
