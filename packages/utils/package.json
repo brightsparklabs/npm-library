@@ -1,8 +1,8 @@
 {
-  "name": "utils",
-  "private": true,
+  "name": "@brightsparklabs/utils",
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "bun@1.3.5",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
