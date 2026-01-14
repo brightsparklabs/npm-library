@@ -32,5 +32,6 @@
     "vitest": "catalog:vite",
     "vite-plugin-dts": "catalog:vite",
     "@types/node": "catalog:"
-  }
+  },
+  "sideEffects": false
 }

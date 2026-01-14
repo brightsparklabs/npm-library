@@ -3,19 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-app": {
-      "projectType": "application",
+    "angular-toolkit": {
+      "projectType": "library",
       "root": ".",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "bsl",
       "architect": {
         "build": {
           "builder": "@analogjs/platform:vite",
           "options": {
             "configFile": "vite.config.ts",
-            "main": "src/main.ts",
-            "outputPath": "dist/client",
-            "tsConfig": "tsconfig.app.json"
+            "outputPath": "dist"
           },
           "defaultConfiguration": "production",
           "configurations": {
@@ -23,7 +21,7 @@
               "mode": "development"
             },
             "production": {
-              "sourcemap": false,
+              "sourcemap": true,
               "mode": "production"
             }
           }
@@ -32,16 +30,16 @@
           "builder": "@analogjs/platform:vite-dev-server",
           "defaultConfiguration": "development",
           "options": {
-            "buildTarget": "my-app:build",
+            "buildTarget": "angular-toolkit:build",
             "port": 5173
           },
           "configurations": {
             "development": {
-              "buildTarget": "my-app:build:development",
+              "buildTarget": "angular-toolkit:build:development",
               "hmr": true
             },
             "production": {
-              "buildTarget": "my-app:build:production"
+              "buildTarget": "angular-toolkit:build:production"
             }
           }
         }

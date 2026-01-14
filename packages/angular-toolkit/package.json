@@ -6,22 +6,37 @@
     "node": ">=20.19.1"
   },
   "scripts": {
-    "ng": "ng",
-    "dev": "vite",
-    "start": "bun run dev",
+    "start": "vite",
     "build": "vite build",
     "watch": "vite build --watch",
     "test": "vitest",
     "preview": "node dist/analog/server/index.mjs"
   },
-  "private": true,
+  "main": "dist/fesm2022/angular-toolkit.js",
+  "types": "dist/public-api.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/public-api.d.ts",
+      "default": "./dist/fesm2022/angular-toolkit.js"
+    }
+  },
   "dependencies": {
+    "tslib": "catalog:"
+  },
+  "peerDependencies": {
+    "@angular/common": "catalog:angular",
+    "@angular/core": "catalog:angular",
+    "rxjs": "catalog:angular"
+  },
+  "devDependencies": {
+    "@analogjs/platform": "catalog:angular",
     "@analogjs/content": "catalog:angular",
     "@analogjs/router": "catalog:angular",
     "@angular/animations": "catalog:angular",
-    "@angular/common": "catalog:angular",
     "@angular/compiler": "catalog:angular",
-    "@angular/core": "catalog:angular",
     "@angular/forms": "catalog:angular",
     "@angular/platform-browser": "catalog:angular",
     "@angular/platform-server": "catalog:angular",
@@ -32,11 +47,6 @@
     "marked-highlight": "catalog:marked",
     "marked-mangle": "catalog:marked",
     "prismjs": "catalog:",
-    "rxjs": "catalog:angular",
-    "tslib": "catalog:"
-  },
-  "devDependencies": {
-    "@analogjs/platform": "catalog:angular",
     "@analogjs/vite-plugin-angular": "catalog:angular",
     "@analogjs/vitest-angular": "catalog:angular",
     "@angular/build": "catalog:angular",
@@ -47,5 +57,6 @@
     "vite": "catalog:vite",
     "vite-tsconfig-paths": "catalog:vite",
     "vitest": "catalog:vite"
-  }
+  },
+  "sideEffects": false
 }
