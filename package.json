@@ -10,13 +10,18 @@
   "workspaces": [
     "packages/*"
   ],
+  "devDependencies": {
+    "playwright": "catalog:",
+    "vitest": "catalog:vite",
+    "@vitest/browser-playwright": "catalog:vite"
+  },
   "catalog": {
     "typescript": "~5.9.0",
     "@types/node": "^24.0.0",
     "front-matter": "^4.0.2",
     "prismjs": "^1.29.0",
     "tslib": "^2.3.0",
-    "jsdom": "^22.0.0"
+    "playwright": "^1.57.0"
   },
   "catalogs": {
     "angular": {
@@ -48,7 +53,8 @@
       "vite": "^7.0.0",
       "vitest": "^4.0.0",
       "vite-tsconfig-paths": "^4.2.0",
-      "vite-plugin-dts": "^4.5.4"
+      "vite-plugin-dts": "^4.5.4",
+      "@vitest/browser-playwright": "^4.0.17"
     }
   }
 }

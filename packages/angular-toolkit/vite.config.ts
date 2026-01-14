@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
+import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig(({ mode }) => ({
   root: __dirname,
@@ -32,5 +33,17 @@ export default defineConfig(({ mode }) => ({
       },
     },
     minify: false,
+  },
+  test: {
+    name: '@brightsparklabs/angular-toolkit',
+    globals: true,
+    setupFiles: ['src/test-setup.ts'],
+    reporters: ['default'],
+    browser: {
+      enabled: true,
+      headless: true,
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
+    },
   },
 }));
