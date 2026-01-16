@@ -7,13 +7,10 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
-      "lib": [
-        "./dist/lib"
-      ]
+      "lib": ["./dist/lib"]
     },
-        "types": [
-      "vitest/globals"
-    ],
+    "types": ["vitest/globals"],
+    "typeRoots": ["../../node_modules/@primeng"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
@@ -42,6 +39,6 @@
     },
     {
       "path": "./projects/lib/tsconfig.spec.json"
-    },
+    }
   ]
 }

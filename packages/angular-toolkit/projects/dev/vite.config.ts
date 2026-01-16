@@ -10,12 +10,13 @@ export default defineConfig(({ mode }) => ({
     analog({
       ssr: false,
       static: true,
-      liveReload: true,
       prerender: {
         routes: [],
       },
     }),
-    angular(),
+    angular({
+      "liveReload": true
+    }),
   ],
   build: {
     target: ['es2022'],

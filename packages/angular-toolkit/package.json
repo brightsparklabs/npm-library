@@ -20,9 +20,11 @@
     "tslib": "catalog:"
   },
   "peerDependencies": {
+    "@angular/cdk": "catalog:angular",
     "@angular/common": "catalog:angular",
     "@angular/core": "catalog:angular",
     "@primeuix/themes": "catalog:angular",
+    "@tabler/icons-webfont": "catalog:",
     "primeng": "catalog:angular"
   },
   "devDependencies": {
@@ -45,6 +47,7 @@
     "playwright": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:vite",
-    "vitest": "catalog:vite"
+    "vitest": "catalog:vite",
+    "rxjs": "catalog:angular"
   }
 }
