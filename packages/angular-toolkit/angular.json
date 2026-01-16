@@ -34,18 +34,6 @@
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
               "outputHashing": "all"
             },
             "development": {
@@ -70,7 +58,11 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@analogjs/vitest-angular:test"
+          "builder": "@analogjs/vitest-angular:test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "configFile": "vite.config.ts"
+          }
         }
       }
     },
@@ -81,19 +73,29 @@
       "prefix": "bsl",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/lib/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/lib/tsconfig.lib.json"
-            }
+          "builder": "@analogjs/platform:vite",
+          "options": {
+            "configFile": "projects/lib/vite.config.ts",
+            "outputPath": "../../dist/lib",
+            "liveReload": true
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "production",
+          "configurations": {
+            "development": {
+              "mode": "development"
+            },
+            "production": {
+              "sourcemap": true,
+              "mode": "production"
+            }
+          }
         },
         "test": {
-          "builder": "@analogjs/vitest-angular:test"
+          "builder": "@analogjs/vitest-angular:test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "configFile": "vite.config.ts"
+          }
         }
       }
     }

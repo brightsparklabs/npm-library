@@ -4,49 +4,44 @@
   "scripts": {
     "start": "ng serve",
     "build:lib": "ng build lib",
-    "watch:lib": "ng build lib --watch --configuration development",
-    "test": "vitest"
+    "test": "ng test"
   },
   "private": true,
   "type": "module",
-  "module": "dist/libfesm2022/brightsparklabs-angular-toolkit.mjs",
-  "typings": "dist/libtypes/brightsparklabs-angular-toolkit.d.ts",
+  "module": "dist/lib/fesm2022/brightsparklabs-angular-toolkit.mjs",
+  "typings": "dist/lib/public-api.d.ts",
   "exports": {
-    "./package.json": {
-      "default": "./dist/lib/package.json"
-    },
     ".": {
-      "types": "./dist/lib/types/brightsparklabs-angular-toolkit.d.ts",
+      "types": "./dist/lib/public-api.d.ts",
       "default": "./dist/lib/fesm2022/brightsparklabs-angular-toolkit.mjs"
     }
   },
   "packageManager": "bun@1.3.5",
   "dependencies": {
+    "tslib": "catalog:"
+  },
+  "devDependencies": {
     "@analogjs/content": "catalog:angular",
+    "@analogjs/platform": "catalog:angular",
     "@analogjs/router": "catalog:angular",
+    "@analogjs/vite-plugin-angular": "catalog:angular",
+    "@analogjs/vitest-angular": "catalog:angular",
     "@angular/animations": "catalog:angular",
+    "@angular/build": "catalog:angular",
+    "@angular/cli": "catalog:angular",
     "@angular/common": "catalog:angular",
     "@angular/compiler": "catalog:angular",
+    "@angular/compiler-cli": "catalog:angular",
     "@angular/core": "catalog:angular",
     "@angular/forms": "catalog:angular",
     "@angular/platform-browser": "catalog:angular",
     "@angular/router": "catalog:angular",
     "@brightsparklabs/angular-toolkit-root": "workspace:*",
-    "tslib": "catalog:"
-  },
-  "devDependencies": {
-    "@analogjs/platform": "catalog:angular",
-    "@analogjs/vite-plugin-angular": "catalog:angular",
-    "@analogjs/vitest-angular": "catalog:angular",
-    "@angular/build": "catalog:angular",
-    "@angular/cli": "catalog:angular",
-    "@angular/compiler-cli": "catalog:angular",
     "@vitest/browser-playwright": "catalog:vite",
     "ng-packagr": "catalog:angular",
     "playwright": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:vite",
-    "vite-tsconfig-paths": "catalog:vite",
     "vitest": "catalog:vite"
   }
 }
