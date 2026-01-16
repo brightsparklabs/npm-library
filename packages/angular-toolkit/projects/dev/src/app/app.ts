@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HelloWorld } from '@brightsparklabs/angular-toolkit-root'
+import { HelloWorld } from '@brightsparklabs/angular-toolkit'
 
 @Component({
   selector: 'app-root',

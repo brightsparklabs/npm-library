@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => ({
     minify: false,
   },
   test: {
-    name: '@brightsparklabs/angular-toolkit',
+    name: '@brightsparklabs/angular-toolkit/lib',
     globals: true,
     setupFiles: [resolve(__dirname, '../test-setup.ts')],
     reporters: ['default'],

@@ -11,7 +11,7 @@
       },
     },
     "packages/angular-toolkit": {
-      "name": "@brightsparklabs/angular-toolkit-root",
+      "name": "@brightsparklabs/angular-toolkit",
       "version": "0.0.0",
       "dependencies": {
         "tslib": "catalog:",
@@ -25,20 +25,24 @@
         "@angular/animations": "catalog:angular",
         "@angular/build": "catalog:angular",
         "@angular/cli": "catalog:angular",
-        "@angular/common": "catalog:angular",
         "@angular/compiler": "catalog:angular",
         "@angular/compiler-cli": "catalog:angular",
-        "@angular/core": "catalog:angular",
         "@angular/forms": "catalog:angular",
         "@angular/platform-browser": "catalog:angular",
         "@angular/router": "catalog:angular",
-        "@brightsparklabs/angular-toolkit-root": "workspace:*",
+        "@brightsparklabs/angular-toolkit": "workspace:*",
         "@vitest/browser-playwright": "catalog:vite",
         "ng-packagr": "catalog:angular",
         "playwright": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:vite",
         "vitest": "catalog:vite",
+      },
+      "peerDependencies": {
+        "@angular/common": "catalog:angular",
+        "@angular/core": "catalog:angular",
+        "@primeuix/themes": "catalog:angular",
+        "primeng": "catalog:angular",
       },
     },
     "packages/utils": {
@@ -195,7 +199,7 @@
 
     "@babel/types": ["@babel/types@7.28.6", "", { "dependencies": { "@babel/helper-string-parser": "^7.27.1", "@babel/helper-validator-identifier": "^7.28.5" } }, "sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg=="],
 
-    "@brightsparklabs/angular-toolkit-root": ["@brightsparklabs/angular-toolkit-root@workspace:packages/angular-toolkit"],
+    "@brightsparklabs/angular-toolkit": ["@brightsparklabs/angular-toolkit@workspace:packages/angular-toolkit"],
 
     "@brightsparklabs/utils": ["@brightsparklabs/utils@workspace:packages/utils"],
 

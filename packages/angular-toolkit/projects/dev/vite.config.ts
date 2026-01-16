@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => ({
     target: ['es2022'],
   },
   test: {
-    name: '@brightsparklabs/angular-toolkit',
+    name: '@brightsparklabs/angular-toolkit/dev',
     globals: true,
     setupFiles: [resolve(__dirname, '../test-setup.ts')],
     reporters: ['default'],
