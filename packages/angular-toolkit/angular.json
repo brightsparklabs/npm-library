@@ -1,47 +1,99 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "bun"
+  },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-toolkit": {
-      "projectType": "library",
-      "root": ".",
-      "sourceRoot": "src",
-      "prefix": "bsl",
+    "dev": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/dev",
+      "sourceRoot": "projects/dev/src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@analogjs/platform:vite",
           "options": {
-            "configFile": "vite.config.ts",
-            "outputPath": "dist"
+            "tsConfig": "tsconfig.app.json",
+            "outputPath": "../../dist/dev",
+            "main": "src/main.ts",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/dev/public"
+              }
+            ],
+            "styles": ["projects/dev/src/styles.scss"]
           },
-          "defaultConfiguration": "production",
           "configurations": {
-            "development": {
-              "mode": "development"
-            },
             "production": {
-              "sourcemap": true,
-              "mode": "production"
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@analogjs/platform:vite-dev-server",
-          "defaultConfiguration": "development",
-          "options": {
-            "buildTarget": "angular-toolkit:build",
-            "port": 5173
-          },
           "configurations": {
-            "development": {
-              "buildTarget": "angular-toolkit:build:development",
-              "hmr": true
-            },
             "production": {
-              "buildTarget": "angular-toolkit:build:production"
+              "buildTarget": "dev:build:production"
+            },
+            "development": {
+              "buildTarget": "dev:build:development",
+              "hmr": true
             }
-          }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@analogjs/vitest-angular:test"
+        }
+      }
+    },
+    "lib": {
+      "projectType": "library",
+      "root": "projects/lib",
+      "sourceRoot": "projects/lib/src",
+      "prefix": "bsl",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@analogjs/vitest-angular:test"
         }
       }
     }

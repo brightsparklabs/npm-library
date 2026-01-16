@@ -8,7 +8,8 @@
     "url": "https://github.com/brightsparklabs/npm-library.git"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/angular-toolkit/projects/*"
   ],
   "devDependencies": {
     "playwright": "catalog:",
@@ -22,6 +23,9 @@
     "playwright": "^1.57.0"
   },
   "catalogs": {
+    "local": {
+      "@brightsparklabs/angular-toolkit": "workspace:@brightsparklabs/angular-toolkit-root/dist/lib"
+    },
     "angular": {
       "@angular/animations": "^21.0.0",
       "@angular/common": "^21.0.0",
@@ -38,6 +42,7 @@
       "@analogjs/platform": "^2.2.1",
       "@analogjs/vite-plugin-angular": "^2.2.1",
       "@analogjs/vitest-angular": "^2.2.1",
+      "ng-packagr": "^21.0.0",
       "rxjs": "~7.8.0"
     },
     "vite": {
