@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
   test: {
     name: '@brightsparklabs/angular-toolkit/dev',
     globals: true,
-    setupFiles: [resolve(__dirname, '../test-setup.ts')],
+    setupFiles: [resolve(__dirname, 'src/test-setup.ts')],
     reporters: ['default'],
     browser: {
       enabled: true,

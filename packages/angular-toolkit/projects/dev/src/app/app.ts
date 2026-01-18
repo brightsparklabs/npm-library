@@ -11,7 +11,6 @@ import {
   RouterOutlet,
   RouterLinkWithHref,
   NavigationEnd,
-  ActivatedRoute,
 } from '@angular/router';
 import { Toolbar } from 'primeng/toolbar';
 import { Button } from 'primeng/button';
@@ -20,6 +19,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs/operators';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ import { MenuItem } from 'primeng/api';
     Button,
     Drawer,
     RouterLinkWithHref,
-  ],
+],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -3,6 +3,6 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     globals: true,
-    projects: ["packages/*"],
+    projects: ["packages/!(angular-toolkit)","packages/angular-toolkit/projects/*"],
   },
 });
