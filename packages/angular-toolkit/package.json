@@ -5,7 +5,9 @@
   "scripts": {
     "start": "ng serve",
     "build:lib": "ng build lib",
-    "test": "ng test"
+    "watch:lib": "nodemon --watch projects/lib/src -e ts,scss,css,html -x \"bun run build:lib\"",
+    "test": "ng test",
+    "test:": "ng test:lib"
   },
   "type": "module",
   "module": "dist/lib/fesm2022/brightsparklabs-angular-toolkit.mjs",
@@ -44,10 +46,11 @@
     "@brightsparklabs/angular-toolkit": "workspace:*",
     "@vitest/browser-playwright": "catalog:vite",
     "ng-packagr": "catalog:angular",
+    "nodemon": "^3.1.11",
     "playwright": "catalog:",
+    "rxjs": "catalog:angular",
     "typescript": "catalog:",
     "vite": "catalog:vite",
-    "vitest": "catalog:vite",
-    "rxjs": "catalog:angular"
+    "vitest": "catalog:vite"
   }
 }
