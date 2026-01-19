@@ -7,14 +7,31 @@
     "type": "git",
     "url": "https://github.com/brightsparklabs/npm-library.git"
   },
+  "scripts": {
+    "test": "vitest",
+    "lint:check": "eslint --cache --cache-location=./node_modules/.cache/.eslintcache .",
+    "lint:fix": "eslint --cache --cache-location=./node_modules/.cache/.eslintcache  --fix .",
+    "format:check": "prettier --check --cache-location=./node_modules/.cache/.prettiercache .",
+    "format:fix": "prettier --write --cache --cache-location=./node_modules/.cache/.prettiercache ."
+  },
   "workspaces": [
     "packages/*",
     "packages/angular-toolkit/projects/*"
   ],
   "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.2",
+    "@eslint/markdown": "^7.5.1",
+    "@vitest/browser-playwright": "catalog:vite",
+    "angular-eslint": "^21.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-jsdoc": "^62.1.0",
+    "globals": "^17.0.0",
     "playwright": "catalog:",
-    "vitest": "catalog:vite",
-    "@vitest/browser-playwright": "catalog:vite"
+    "prettier": "^3.8.0",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript-eslint": "^8.53.0",
+    "vitest": "catalog:vite"
   },
   "catalog": {
     "typescript": "~5.9.0",
