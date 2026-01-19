@@ -19,7 +19,7 @@ import { filter, map } from "rxjs/operators";
 @Component({
   selector: "app-root",
   imports: [RouterOutlet, Toolbar, Breadcrumb, Button, Drawer, RouterLinkWithHref],
-  templateUrl: "./app.html",
+  templateUrl: "./app.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
