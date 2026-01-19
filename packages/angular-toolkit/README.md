@@ -6,6 +6,8 @@ commonly used across BSL projects.
 The library code can be found in [./projects/lib](./projects/lib) and a basic dev showcase app using
 the library has been setup in [./projects/dev](./projects/dev).
 
+This project is using the [Analog](https://analogjs.org/) meta-framework for Angular.
+
 ## Development server
 
 To start a local development server, run either:
