@@ -49,7 +49,8 @@ To build the project run:
 bun run build:lib
 ```
 
-This will compile the library and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This will compile the library and store the build artifacts in the `dist/` directory. By default,
+the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
@@ -61,4 +62,5 @@ bun run test
 
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For more information on using the Angular CLI, including detailed command references, visit the
+[Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -2,15 +2,26 @@
 
 BSL standard library for use across NPM projects.
 
-The project is setup with https://bun.com/docs/pm/workspaces[Bun workspaces], simply run the following
-from the project root directory to install dependencies for all packages:
+== Installation
+
+The project uses [https://bun.comBun] for package management and is setup with https://bun.com/docs/pm/workspaces[Bun workspaces],
+simply run the following from the project root directory to install the dependencies for all
+packages:
 
 [source,bash]
 ----
 bun install
 ----
 
-This project was created using `bun init` in bun v1.3.5. https://bun.com[Bun] is a fast all-in-one JavaScript runtime.
+== Running unit tests
+
+To run execute the unit tests across all packages with the [Vitest](https://vitest.dev) test runner,
+use the following command:
+
+[source,bash]
+----
+bun run vitest
+----
 
 == License
 
