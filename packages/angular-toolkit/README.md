@@ -10,7 +10,15 @@ This project is using the [Analog](https://analogjs.org/) meta-framework for Ang
 
 ## Development server
 
-To start a local development server, run either:
+To start a local development server, first build the library with either:
+
+```bash
+bun run build:lib
+
+bun run watch:lib
+```
+
+Then you can start the development server with:
 
 ```bash
 bun run start
@@ -18,15 +26,6 @@ bun run start
 
 Once the dev server is running, open your browser and navigate to `http://localhost:5173/`. The
 application will automatically reload whenever you modify any of the dev source files in [./projects/dev/src](./projects/dev/src)
-
-To also setup the `lib` project to rebuild run the following:
-
-```bash
-bun run watch:lib
-```
-
-Any changes made to the `lib` project source files in [./projects/lib/src](./projects/dev/src) will cause the dev server
-to automatically reload.
 
 ## Code scaffolding
 

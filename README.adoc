@@ -2,7 +2,14 @@
 
 BSL standard library for use across NPM projects.
 
-== Installation
+== Quick start
+
+=== Prerequisites
+
+. https://bun.com[Bun] >= v1.35
+. https://nodejs.org/en[Nodejs] >= v24 (LTS)
+
+=== Installation
 
 The project uses https://bun.com[Bun] for package management and is setup with https://bun.com/docs/pm/workspaces[Bun workspaces],
 simply run the following from the project root directory to install the dependencies for all
@@ -11,6 +18,16 @@ packages:
 [source,bash]
 ----
 bun install
+----
+
+It's recommended to use https://github.com/nvm-sh/nvm[nvm] to manage you Nodejs version, once
+installed, use the following commands from this directory to switch to the correct version:
+
+[source,bash]
+----
+nvm install
+
+nvm use
 ----
 
 == Linting and formatting
