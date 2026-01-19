@@ -14,9 +14,9 @@
 <p-drawer [(visible)]="expanded">
   Components
   <ul>
-    @for (page of componentPages(); track page.path) {
+    @for (page of componentPages(); track page.routerLink) {
     <li>
-      <a [routerLink]="page.path" (click)="expanded.set(false)">
+      <a [routerLink]="page.routerLink" (click)="expanded.set(false)">
         {{page.label}}
       </a>
     </li>
