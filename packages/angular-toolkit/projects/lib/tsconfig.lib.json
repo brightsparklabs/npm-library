@@ -8,11 +8,6 @@
     "declarationMap": true,
     "types": []
   },
-  "include": [
-    "src/**/*.ts",
-    "./package.json"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts", "./package.json"],
+  "exclude": ["**/*.spec.ts"]
 }

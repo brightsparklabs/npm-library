@@ -23,7 +23,7 @@ To also setup the `lib` project to rebuild run the following:
 bun run watch:lib
 ```
 
-Any changes made to the `lib` project source files in [./projects/lib/src] will cause the dev server
+Any changes made to the `lib` project source files in [./projects/lib/src](./projects/dev/src) will cause the dev server
 to automatically reload.
 
 ## Code scaffolding

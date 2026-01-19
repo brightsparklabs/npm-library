@@ -1,13 +1,10 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { App } from './app/app';
-import {
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
-} from '@angular/core';
-import { provideFileRouter } from '@analogjs/router';
-import { withComponentInputBinding } from '@angular/router';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
+import { provideFileRouter } from "@analogjs/router";
+import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from "@angular/core";
+import { bootstrapApplication } from "@angular/platform-browser";
+import { withComponentInputBinding } from "@angular/router";
+import Aura from "@primeuix/themes/aura";
+import { providePrimeNG } from "primeng/config";
+import { App } from "./app/app.component";
 
 bootstrapApplication(App, {
   providers: [
@@ -18,7 +15,7 @@ bootstrapApplication(App, {
       theme: {
         preset: Aura,
         options: {
-          darkModeSelector: '[data-theme=DARK]',
+          darkModeSelector: "[data-theme=DARK]",
         },
       },
     }),

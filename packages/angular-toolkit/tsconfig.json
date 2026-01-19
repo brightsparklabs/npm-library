@@ -11,7 +11,7 @@
     },
     "rootDir": "./",
     "types": ["vitest/globals"],
-    "typeRoots": ["./node_modules","./node_modules/@primeng"],
+    "typeRoots": ["./node_modules", "./node_modules/@primeng"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,

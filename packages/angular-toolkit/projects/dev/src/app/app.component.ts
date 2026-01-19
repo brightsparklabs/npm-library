@@ -6,30 +6,19 @@ import {
   inject,
   signal,
 } from "@angular/core";
-import {
-  Router,
-  RouterOutlet,
-  RouterLinkWithHref,
-  NavigationEnd,
-} from "@angular/router";
-import { Toolbar } from "primeng/toolbar";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { NavigationEnd, Router, RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { MenuItem } from "primeng/api";
+import { Breadcrumb } from "primeng/breadcrumb";
 import { Button } from "primeng/button";
 import { Drawer } from "primeng/drawer";
-import { toSignal } from "@angular/core/rxjs-interop";
+import { Toolbar } from "primeng/toolbar";
 import { filter, map } from "rxjs/operators";
-import { Breadcrumb } from "primeng/breadcrumb";
-import { MenuItem } from "primeng/api";
 
+/** The root component and entry point for the application. */
 @Component({
   selector: "app-root",
-  imports: [
-    RouterOutlet,
-    Toolbar,
-    Breadcrumb,
-    Button,
-    Drawer,
-    RouterLinkWithHref,
-  ],
+  imports: [RouterOutlet, Toolbar, Breadcrumb, Button, Drawer, RouterLinkWithHref],
   templateUrl: "./app.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -81,9 +70,7 @@ export class App {
     // Reload the content any time the navigate ends.
     this.navigationEnd();
 
-    const dashboardRoute = this.router.config.find(
-      (r) => r.path === "components",
-    );
+    const dashboardRoute = this.router.config.find((r) => r.path === "components");
 
     return (
       dashboardRoute?.children?.map((route) => ({
@@ -95,9 +82,7 @@ export class App {
 
   /** The current theme of the application. */
   protected readonly theme = signal<"LIGHT" | "DARK">(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "DARK"
-      : "LIGHT",
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "DARK" : "LIGHT",
   );
 
   // -----------------------------------------------------------------------------------------------
@@ -111,9 +96,7 @@ export class App {
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", () =>
         this.theme.set(
-          window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "DARK"
-            : "LIGHT",
+          window.matchMedia("(prefers-color-scheme: dark)").matches ? "DARK" : "LIGHT",
         ),
       );
     effect(() => {
