@@ -4,13 +4,27 @@ BSL standard library for use across NPM projects.
 
 == Installation
 
-The project uses [https://bun.comBun] for package management and is setup with https://bun.com/docs/pm/workspaces[Bun workspaces],
+The project uses https://bun.com[Bun] for package management and is setup with https://bun.com/docs/pm/workspaces[Bun workspaces],
 simply run the following from the project root directory to install the dependencies for all
 packages:
 
 [source,bash]
 ----
 bun install
+----
+
+== Linting and formatting
+
+This project uses https://eslint.org/[Eslint] and https://prettier.io/[Prettier] for linting and
+formatting respectively. To run the linter and formatter use following commands:
+
+[source,bash]
+----
+bun run lint:check
+bun run lint:fix
+
+bun run format:check
+bun run format:fix
 ----
 
 == Running unit tests
