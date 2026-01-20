@@ -46,8 +46,8 @@ bun run format:fix
 
 == Running unit tests
 
-Before running the tests you'll need to install first setup playwright. Officially Playwright only
-supports Windows, MacOS and Debian based Linux distros. However there are workaround for installing
+Before running the tests you'll need to first setup playwright. Officially Playwright only
+supports Windows, MacOS and Debian based Linux distros. However there are workarounds for installing
 on other distributions:
 
 * Debian
@@ -76,7 +76,7 @@ bunx playwright install
 * https://github.com/microsoft/playwright/issues/26482[Docker]
 
 
-To run execute the unit tests across all packages with the [Vitest](https://vitest.dev) test runner,
+To run execute the unit tests across all packages with the https://vitest.dev[Vitest] test runner,
 use the following command:
 
 [source,bash]
