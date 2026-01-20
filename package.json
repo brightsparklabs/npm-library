@@ -7,11 +7,68 @@
     "type": "git",
     "url": "https://github.com/brightsparklabs/npm-library.git"
   },
-  "workspaces": ["packages/*"],
+  "scripts": {
+    "test": "vitest",
+    "lint:check": "eslint --cache --cache-location=./node_modules/.cache/.eslintcache .",
+    "lint:fix": "eslint --cache --cache-location=./node_modules/.cache/.eslintcache  --fix .",
+    "format:check": "prettier --check --cache-location=./node_modules/.cache/.prettiercache .",
+    "format:fix": "prettier --write --cache --cache-location=./node_modules/.cache/.prettiercache ."
+  },
+  "workspaces": [
+    "packages/*",
+    "packages/angular-toolkit/projects/*"
+  ],
+  "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.39.2",
+    "@eslint/markdown": "^7.5.1",
+    "@vitest/browser-playwright": "catalog:vite",
+    "angular-eslint": "^21.1.0",
+    "eslint": "^9.39.2",
+    "eslint-plugin-jsdoc": "^62.1.0",
+    "globals": "^17.0.0",
+    "playwright": "catalog:",
+    "prettier": "^3.8.0",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript-eslint": "^8.53.0",
+    "vitest": "catalog:vite"
+  },
   "catalog": {
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1",
-    "vitest": "^4.0.17",
-    "@types/node": "^24.10.7"
+    "typescript": "~5.9.0",
+    "@types/node": "^24.0.0",
+    "tslib": "^2.3.0",
+    "playwright": "^1.57.0",
+    "@tabler/icons-webfont": "^3.36.1"
+  },
+  "catalogs": {
+    "angular": {
+      "@angular/animations": "^21.0.0",
+      "@angular/common": "^21.0.0",
+      "@angular/compiler": "^21.0.0",
+      "@angular/core": "^21.0.0",
+      "@angular/forms": "^21.0.0",
+      "@angular/platform-browser": "^21.0.0",
+      "@angular/router": "^21.0.0",
+      "@angular/build": "^21.0.0",
+      "@angular/cli": "^21.0.0",
+      "@angular/cdk": "^21.0.0",
+      "@angular/compiler-cli": "^21.0.0",
+      "@analogjs/content": "^2.2.1",
+      "@analogjs/router": "^2.2.1",
+      "@analogjs/platform": "^2.2.1",
+      "@analogjs/vite-plugin-angular": "^2.2.1",
+      "@analogjs/vitest-angular": "^2.2.1",
+      "ng-packagr": "^21.0.0",
+      "rxjs": "~7.8.0",
+      "@primeuix/themes": "^2.0.2",
+      "primeng": "^21.0.3"
+    },
+    "vite": {
+      "vite": "^7.0.0",
+      "vitest": "^4.0.0",
+      "vite-tsconfig-paths": "^4.2.0",
+      "vite-plugin-dts": "^4.5.4",
+      "@vitest/browser-playwright": "^4.0.17"
+    }
   }
 }

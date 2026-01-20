@@ -1,0 +1,24 @@
+<p-toolbar>
+  <ng-template #start>
+    <p-button text icon="ti ti-menu-2" (onClick)="expanded.set(!expanded())" />
+    <p-breadcrumb [model]="breadcrumb()" />
+  </ng-template>
+  <ng-template #end>
+    <p-button
+      icon="ti ti-{{ theme() === 'LIGHT' ? 'sun' : 'moon' }}"
+      text
+      (onClick)="theme.set(theme() === 'LIGHT' ? 'DARK' : 'LIGHT')"
+    />
+  </ng-template>
+</p-toolbar>
+<p-drawer [(visible)]="expanded">
+  Components
+  <ul>
+    @for (page of componentPages(); track page.routerLink) {
+      <li>
+        <a [routerLink]="page.routerLink" (click)="expanded.set(false)"> {{ page.label }} </a>
+      </li>
+    }
+  </ul>
+</p-drawer>
+<router-outlet />

@@ -2,15 +2,87 @@
 
 BSL standard library for use across NPM projects.
 
-The project is setup with https://bun.com/docs/pm/workspaces[Bun workspaces], simply run the following
-from the project root directory to install dependencies for all packages:
+== Quick start
+
+=== Prerequisites
+
+. https://bun.com[Bun] >= v1.35
+. https://nodejs.org/en[Nodejs] >= v24 (LTS)
+
+=== Installation
+
+The project uses https://bun.com[Bun] for package management and is setup with https://bun.com/docs/pm/workspaces[Bun workspaces],
+simply run the following from the project root directory to install the dependencies for all
+packages:
 
 [source,bash]
 ----
 bun install
 ----
 
-This project was created using `bun init` in bun v1.3.5. https://bun.com[Bun] is a fast all-in-one JavaScript runtime.
+It's recommended to use https://github.com/nvm-sh/nvm[nvm] to manage you Nodejs version, once
+installed, use the following commands from this directory to switch to the correct version:
+
+[source,bash]
+----
+nvm install
+
+nvm use
+----
+
+== Linting and formatting
+
+This project uses https://eslint.org/[Eslint] and https://prettier.io/[Prettier] for linting and
+formatting respectively. To run the linter and formatter use following commands:
+
+[source,bash]
+----
+bun run lint:check
+bun run lint:fix
+
+bun run format:check
+bun run format:fix
+----
+
+== Running unit tests
+
+Before running the tests you'll need to install first setup playwright. Officially Playwright only
+supports Windows, MacOS and Debian based Linux distros. However there are workaround for installing
+on other distributions:
+
+* Debian
+
+[source,bash]
+----
+bunx playwright install
+----
+
+* https://github.com/microsoft/playwright/issues/29559#issuecomment-2322908078[Fedora]
+
+[source,bash]
+----
+sudo dnf install -y \
+    libicu \
+    libjpeg-turbo \
+    libwebp \
+    flite \
+    pcre \
+    libffi
+
+bunx playwright install
+----
+
+* https://github.com/microsoft/playwright/issues/8100[Arch]
+* https://github.com/microsoft/playwright/issues/26482[Docker]
+
+
+To run execute the unit tests across all packages with the [Vitest](https://vitest.dev) test runner,
+use the following command:
+
+[source,bash]
+----
+bun run vitest
+----
 
 == License
 

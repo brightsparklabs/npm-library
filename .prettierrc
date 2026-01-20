@@ -1,0 +1,13 @@
+{
+  "printWidth": 100,
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-organize-imports"],
+  "overrides": [
+    {
+      "files": "/packages/angular-toolkit/**/*.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
+}
