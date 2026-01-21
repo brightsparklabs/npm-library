@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, test } from "vitest";
-import { isAbsent, isAbsentOrEmpty, isPresent } from "./is-present-and-is-absent";
+import { isAbsent, isAbsentOrEmpty, isPresent, isPresentAndNonEmpty } from "./is-present-and-is-absent";
 
 // Test isAbsent() with the 3 variations of input values
 // (absent, empty, present).
@@ -49,7 +49,7 @@ describe("isAbsentOrEmpty()", () => {
 // Test isPresent() with the 3 variations of input values
 // (absent, empty, present).
 // Just the inverse of isAbsent()
-describe("isAbsent()", () => {
+describe("isPresent()", () => {
     test("Undefined value, should be false", () => {
         expect(isPresent(undefined)).toBe(false);
     });
@@ -63,4 +63,27 @@ describe("isAbsent()", () => {
     });
 });
 
+// Test isPresentAndNonEmpty() with 5 variations of input values
+// (absent, empty string, empty array, present, present with empty [""]).
+// Just the inverse of isAbsentOrEmpty().
+describe("isPresentAndNonEmpty()", () => {
+    test("Undefined value, should be false", () => {
+        expect(isPresentAndNonEmpty(undefined)).toBe(false);
+    });
 
+    test("Empty string (\"\") value, should be false", () => {
+        expect(isPresentAndNonEmpty("")).toBe(false);
+    });
+
+    test("Empty array (\"\") value, should be false", () => {
+        expect(isPresentAndNonEmpty([])).toBe(false);
+    });
+
+    test("Present, non-empty (\"\") value, should be true", () => {
+        expect(isPresentAndNonEmpty("foo")).toBe(true);
+    });
+
+    test("Array containing empty string ([\"\"]) value, should be true", () => {
+        expect(isPresentAndNonEmpty([""])).toBe(true);
+    });
+});
