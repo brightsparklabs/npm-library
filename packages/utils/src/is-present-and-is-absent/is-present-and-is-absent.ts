@@ -28,5 +28,16 @@ export function isAbsent<T>(value: T | null | undefined): value is undefined {
 export function isAbsentOrEmpty<T>(
   value: T | null | undefined | "" | [],
 ): value is null | undefined | "" | [] {
-  return isAbsent(value) || value === "" || (value instanceof Array && value.length === 0);
+  return isAbsent(value) || value === "" || 
+  (value instanceof Array && value.length === 0);
+}
+
+/**
+ * Returns `true` if the value is present, i.e. NOT `null` or `undefined`.
+ *
+ * @param value The value to check.
+ * @returns `true` if the value is NOT `null` or `undefined`, `false` otherwise.
+ */
+export function isPresent<T>(value: T | null | undefined): value is T {
+  return !isAbsent(value);
 }
