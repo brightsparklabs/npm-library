@@ -44,7 +44,7 @@ export function isPresent<T>(value: T | null | undefined): value is T {
 
 /**
  * Returns `true` if the value is present, i.e. NOT `null` or `undefined`,
- * and has a value, i.e. NOT "".
+ * and has a value, i.e. NOT `""`.
  *
  * @param value The value to check.
  * @returns `true` if the value is NOT an empty string (`""`),
@@ -52,4 +52,17 @@ export function isPresent<T>(value: T | null | undefined): value is T {
  */
 export function isPresentAndNonEmpty<T>(value: T | null | undefined | ""): value is T {
   return !isAbsentOrEmpty(value);
+}
+
+/**
+ * Returns `true` if the value is present and does NOT have a value,
+ * i.e. `""`, `[]`.
+ *
+ * NOTE: Other types will return `true` e.g. A `number`, class or object irregardless..
+ *
+ * @param value The value to check.
+ * @returns `true` if the value is `""` or `[]`, `false` otherwise.
+ */
+export function isPresentAndEmpty<T>(value: [] | "" | null | undefined | T): value is [] | "" {
+  return isPresent(value) && !isPresentAndNonEmpty(value);
 }
