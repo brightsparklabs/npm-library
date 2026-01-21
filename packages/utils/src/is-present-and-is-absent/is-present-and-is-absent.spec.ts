@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, test } from "vitest";
-import { isAbsent, isAbsentOrEmpty, isPresent, isPresentAndNonEmpty } from "./is-present-and-is-absent";
+import { isAbsent, isAbsentOrEmpty, isPresent, isPresentAndNonEmpty, isPresentAndEmpty } from "./is-present-and-is-absent";
 
 // Test isAbsent() with the 3 variations of input values
 // (absent, empty, present).
@@ -85,5 +85,29 @@ describe("isPresentAndNonEmpty()", () => {
 
     test("Array containing empty string ([\"\"]) value, should be true", () => {
         expect(isPresentAndNonEmpty([""])).toBe(true);
+    });
+});
+
+// Test isPresentAndEmpty() with 5 variations of input values
+// (absent, empty string, empty array, present, present with empty [""]).
+describe("isPresentAndEmpty()", () => {
+    test("Undefined value, should be false", () => {
+        expect(isPresentAndEmpty(undefined)).toBe(false);
+    });
+
+    test("Empty string (\"\") value, should be true", () => {
+        expect(isPresentAndEmpty("")).toBe(true);
+    });
+
+    test("Empty array (\"\") value, should be true", () => {
+        expect(isPresentAndEmpty([])).toBe(true);
+    });
+
+    test("Present, non-empty (\"\") value, should be false", () => {
+        expect(isPresentAndEmpty("foo")).toBe(false);
+    });
+
+    test("Array containing empty string ([\"\"]) value, should be false", () => {
+        expect(isPresentAndEmpty([""])).toBe(false);
     });
 });
