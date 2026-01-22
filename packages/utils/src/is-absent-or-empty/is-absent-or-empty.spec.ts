@@ -7,7 +7,8 @@ import { describe, expect, test } from "vitest";
 import { isAbsentOrEmpty } from "./is-absent-or-empty";
 
 /*
- * Test cases are for typical inputs and unexpected truthy inputs.
+ * Test cases focus on covering truthy inputs.
+ * As the utility aims to give explicit control over truthy values, they should all be tested for.
  * To tests truthy values, we compare against all falsy values defined in JavaScript.
  * https://developer.mozilla.org/en-US/docs/Glossary/Truthy
  */
