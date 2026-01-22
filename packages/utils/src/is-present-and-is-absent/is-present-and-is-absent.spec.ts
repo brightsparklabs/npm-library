@@ -4,110 +4,116 @@
  */
 
 import { describe, expect, test } from "vitest";
-import { isAbsent, isAbsentOrEmpty, isPresent, isPresentAndNonEmpty, isPresentAndEmpty } from "./is-present-and-is-absent";
+import {
+  isAbsent,
+  isAbsentOrEmpty,
+  isPresent,
+  isPresentAndEmpty,
+  isPresentAndNonEmpty,
+} from "./is-present-and-is-absent";
 
 // Test isAbsent() with the 3 variations of input values
 // (absent, empty, present).
 describe("isAbsent()", () => {
-    test("Undefined value, should be true", () => {
-        expect(isAbsent(undefined)).toBe(true);
-    });
+  test("Undefined value, should be true", () => {
+    expect(isAbsent(undefined)).toBe(true);
+  });
 
-    test ("Empty (\"\") value, should be false", () => {
-        expect(isAbsent("")).toBe(false);
-    });
+  test('Empty ("") value, should be false', () => {
+    expect(isAbsent("")).toBe(false);
+  });
 
-    test ("Present, non-empty (\"foo\") value, should be false", () => {
-        expect(isAbsent("foo")).toBe(false);
-    });
+  test('Present, non-empty ("foo") value, should be false', () => {
+    expect(isAbsent("foo")).toBe(false);
+  });
 });
 
 // Test isAbsentOrEmpty() with 5 variations of input values
 // (absent, empty string, empty array, present, present with empty [""]).
 describe("isAbsentOrEmpty()", () => {
-    test("Undefined value, should be true", () => {
-        expect(isAbsentOrEmpty(undefined)).toBe(true);
-    });
+  test("Undefined value, should be true", () => {
+    expect(isAbsentOrEmpty(undefined)).toBe(true);
+  });
 
-    test("Empty string (\"\") value, should be true", () => {
-        expect(isAbsentOrEmpty("")).toBe(true);
-    });
+  test('Empty string ("") value, should be true', () => {
+    expect(isAbsentOrEmpty("")).toBe(true);
+  });
 
-    test("Empty array (\"\") value, should be true", () => {
-        expect(isAbsentOrEmpty([])).toBe(true);
-    });
+  test('Empty array ("") value, should be true', () => {
+    expect(isAbsentOrEmpty([])).toBe(true);
+  });
 
-    test("Present, non-empty (\"\") value, should be false", () => {
-        expect(isAbsentOrEmpty("foo")).toBe(false);
-    });
+  test('Present, non-empty ("") value, should be false', () => {
+    expect(isAbsentOrEmpty("foo")).toBe(false);
+  });
 
-    test("Array containing empty string ([\"\"]) value, should be false", () => {
-        expect(isAbsentOrEmpty([""])).toBe(false);
-    });
+  test('Array containing empty string ([""]) value, should be false', () => {
+    expect(isAbsentOrEmpty([""])).toBe(false);
+  });
 });
 
 // Test isPresent() with the 3 variations of input values
 // (absent, empty, present).
 // Just the inverse of isAbsent()
 describe("isPresent()", () => {
-    test("Undefined value, should be false", () => {
-        expect(isPresent(undefined)).toBe(false);
-    });
+  test("Undefined value, should be false", () => {
+    expect(isPresent(undefined)).toBe(false);
+  });
 
-    test ("Empty (\"\") value, should be true", () => {
-        expect(isPresent("")).toBe(true);
-    });
+  test('Empty ("") value, should be true', () => {
+    expect(isPresent("")).toBe(true);
+  });
 
-    test ("Present, non-empty (\"foo\") value, should be true", () => {
-        expect(isPresent("foo")).toBe(true);
-    });
+  test('Present, non-empty ("foo") value, should be true', () => {
+    expect(isPresent("foo")).toBe(true);
+  });
 });
 
 // Test isPresentAndNonEmpty() with 5 variations of input values
 // (absent, empty string, empty array, present, present with empty [""]).
 // Just the inverse of isAbsentOrEmpty().
 describe("isPresentAndNonEmpty()", () => {
-    test("Undefined value, should be false", () => {
-        expect(isPresentAndNonEmpty(undefined)).toBe(false);
-    });
+  test("Undefined value, should be false", () => {
+    expect(isPresentAndNonEmpty(undefined)).toBe(false);
+  });
 
-    test("Empty string (\"\") value, should be false", () => {
-        expect(isPresentAndNonEmpty("")).toBe(false);
-    });
+  test('Empty string ("") value, should be false', () => {
+    expect(isPresentAndNonEmpty("")).toBe(false);
+  });
 
-    test("Empty array (\"\") value, should be false", () => {
-        expect(isPresentAndNonEmpty([])).toBe(false);
-    });
+  test('Empty array ("") value, should be false', () => {
+    expect(isPresentAndNonEmpty([])).toBe(false);
+  });
 
-    test("Present, non-empty (\"\") value, should be true", () => {
-        expect(isPresentAndNonEmpty("foo")).toBe(true);
-    });
+  test('Present, non-empty ("") value, should be true', () => {
+    expect(isPresentAndNonEmpty("foo")).toBe(true);
+  });
 
-    test("Array containing empty string ([\"\"]) value, should be true", () => {
-        expect(isPresentAndNonEmpty([""])).toBe(true);
-    });
+  test('Array containing empty string ([""]) value, should be true', () => {
+    expect(isPresentAndNonEmpty([""])).toBe(true);
+  });
 });
 
 // Test isPresentAndEmpty() with 5 variations of input values
 // (absent, empty string, empty array, present, present with empty [""]).
 describe("isPresentAndEmpty()", () => {
-    test("Undefined value, should be false", () => {
-        expect(isPresentAndEmpty(undefined)).toBe(false);
-    });
+  test("Undefined value, should be false", () => {
+    expect(isPresentAndEmpty(undefined)).toBe(false);
+  });
 
-    test("Empty string (\"\") value, should be true", () => {
-        expect(isPresentAndEmpty("")).toBe(true);
-    });
+  test('Empty string ("") value, should be true', () => {
+    expect(isPresentAndEmpty("")).toBe(true);
+  });
 
-    test("Empty array (\"\") value, should be true", () => {
-        expect(isPresentAndEmpty([])).toBe(true);
-    });
+  test('Empty array ("") value, should be true', () => {
+    expect(isPresentAndEmpty([])).toBe(true);
+  });
 
-    test("Present, non-empty (\"\") value, should be false", () => {
-        expect(isPresentAndEmpty("foo")).toBe(false);
-    });
+  test('Present, non-empty ("") value, should be false', () => {
+    expect(isPresentAndEmpty("foo")).toBe(false);
+  });
 
-    test("Array containing empty string ([\"\"]) value, should be false", () => {
-        expect(isPresentAndEmpty([""])).toBe(false);
-    });
+  test('Array containing empty string ([""]) value, should be false', () => {
+    expect(isPresentAndEmpty([""])).toBe(false);
+  });
 });

@@ -28,8 +28,7 @@ export function isAbsent<T>(value: T | null | undefined): value is undefined {
 export function isAbsentOrEmpty<T>(
   value: T | null | undefined | "" | [],
 ): value is null | undefined | "" | [] {
-  return isAbsent(value) || value === "" || 
-  (value instanceof Array && value.length === 0);
+  return isAbsent(value) || value === "" || (value instanceof Array && value.length === 0);
 }
 
 /**
