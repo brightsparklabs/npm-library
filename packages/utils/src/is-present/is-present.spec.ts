@@ -28,19 +28,19 @@ describe("isPresent()", () => {
     expect(isPresent(false)).toBe(true);
   });
 
-  test("Falsy (0) value, should be false", () => {
+  test("Falsy (0) value, should be true", () => {
     expect(isPresent(0)).toBe(true);
   });
 
-  test("Falsy (-0) value, should be false", () => {
+  test("Falsy (-0) value, should be true", () => {
     expect(isPresent(-0)).toBe(true);
   });
 
-  test("Falsy (0n) value, should be false", () => {
+  test("Falsy (0n) value, should be true", () => {
     expect(isPresent(0n)).toBe(true);
   });
 
-  test("Falsy (NaN) value, should be false", () => {
+  test("Falsy (NaN) value, should be true", () => {
     expect(isPresent(NaN)).toBe(true);
   });
 });

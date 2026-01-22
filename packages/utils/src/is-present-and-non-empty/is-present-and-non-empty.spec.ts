@@ -20,11 +20,11 @@ describe("isPresentAndNonEmpty()", () => {
     expect(isPresentAndNonEmpty("")).toBe(false);
   });
 
-  test('Empty array ("") value, should be false', () => {
+  test('Empty array ([]) value, should be false', () => {
     expect(isPresentAndNonEmpty([])).toBe(false);
   });
 
-  test('Present, non-empty ("") value, should be true', () => {
+  test('Present, non-empty ("foo") value, should be true', () => {
     expect(isPresentAndNonEmpty("foo")).toBe(true);
   });
 
@@ -36,19 +36,19 @@ describe("isPresentAndNonEmpty()", () => {
     expect(isPresentAndNonEmpty(false)).toBe(true);
   });
 
-  test("Falsy (0) value, should be false", () => {
+  test("Falsy (0) value, should be true", () => {
     expect(isPresentAndNonEmpty(0)).toBe(true);
   });
 
-  test("Falsy (-0) value, should be false", () => {
+  test("Falsy (-0) value, should be true", () => {
     expect(isPresentAndNonEmpty(-0)).toBe(true);
   });
 
-  test("Falsy (0n) value, should be false", () => {
+  test("Falsy (0n) value, should be true", () => {
     expect(isPresentAndNonEmpty(0n)).toBe(true);
   });
 
-  test("Falsy (NaN) value, should be false", () => {
+  test("Falsy (NaN) value, should be true", () => {
     expect(isPresentAndNonEmpty(NaN)).toBe(true);
   });
 });

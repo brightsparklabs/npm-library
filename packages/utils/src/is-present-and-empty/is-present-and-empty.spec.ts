@@ -20,11 +20,11 @@ describe("isPresentAndEmpty()", () => {
     expect(isPresentAndEmpty("")).toBe(true);
   });
 
-  test('Empty array ("") value, should be true', () => {
+  test('Empty array ([]) value, should be true', () => {
     expect(isPresentAndEmpty([])).toBe(true);
   });
 
-  test('Present, non-empty ("") value, should be false', () => {
+  test('Present, non-empty ("foo") value, should be false', () => {
     expect(isPresentAndEmpty("foo")).toBe(false);
   });
 
