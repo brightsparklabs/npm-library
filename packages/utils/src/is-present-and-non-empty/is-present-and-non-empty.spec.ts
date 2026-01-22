@@ -16,11 +16,15 @@ describe("isPresentAndNonEmpty()", () => {
     expect(isPresentAndNonEmpty(undefined)).toBe(false);
   });
 
+  test("Null value, should be false", () => {
+    expect(isPresentAndNonEmpty(null)).toBe(false);
+  });
+
   test('Empty string ("") value, should be false', () => {
     expect(isPresentAndNonEmpty("")).toBe(false);
   });
 
-  test('Empty array ([]) value, should be false', () => {
+  test("Empty array ([]) value, should be false", () => {
     expect(isPresentAndNonEmpty([])).toBe(false);
   });
 

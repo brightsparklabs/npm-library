@@ -16,6 +16,10 @@ describe("isAbsentOrEmpty()", () => {
     expect(isAbsentOrEmpty(undefined)).toBe(true);
   });
 
+  test("Null value, should be true", () => {
+    expect(isAbsentOrEmpty(null)).toBe(true);
+  });
+
   test('Empty string ("") value, should be true', () => {
     expect(isAbsentOrEmpty("")).toBe(true);
   });

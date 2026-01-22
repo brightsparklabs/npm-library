@@ -16,6 +16,10 @@ describe("isPresent()", () => {
     expect(isPresent(undefined)).toBe(false);
   });
 
+  test("Null value, should be false", () => {
+    expect(isPresent(null)).toBe(false);
+  });
+
   test('Empty ("") value, should be true', () => {
     expect(isPresent("")).toBe(true);
   });
