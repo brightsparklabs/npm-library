@@ -1,0 +1,41 @@
+/*
+ * Maintained by brightSPARK Labs.
+ * www.brightsparklabs.com
+ */
+
+import { expect, test } from "vitest";
+import { isPresent } from "./is-present";
+
+/*
+ * Test cases focus on covering truthy inputs.
+ * As the utility aims to give explicit control over truthy values, they should all be tested for.
+ * To tests truthy values, we compare against all falsy values defined in JavaScript.
+ * https://developer.mozilla.org/en-US/docs/Glossary/Truthy
+ */
+test("Undefined value, should be false", () => {
+  expect(isPresent(undefined)).toBe(false);
+});
+test("Null value, should be false", () => {
+  expect(isPresent(null)).toBe(false);
+});
+test('Empty ("") value, should be true', () => {
+  expect(isPresent("")).toBe(true);
+});
+test('Present, non-empty ("foo") value, should be true', () => {
+  expect(isPresent("foo")).toBe(true);
+});
+test("Falsy (false) value, should be true", () => {
+  expect(isPresent(false)).toBe(true);
+});
+test("Falsy (0) value, should be true", () => {
+  expect(isPresent(0)).toBe(true);
+});
+test("Falsy (-0) value, should be true", () => {
+  expect(isPresent(-0)).toBe(true);
+});
+test("Falsy (0n) value, should be true", () => {
+  expect(isPresent(0n)).toBe(true);
+});
+test("Falsy (NaN) value, should be true", () => {
+  expect(isPresent(NaN)).toBe(true);
+});
