@@ -20,10 +20,13 @@ import { isAbsent } from "../is-absent/is-absent";
  * @returns The colour as a hex code.
  */
 export function convertCSSColourToHex(cssColour: string): string {
-  const ctx = document.createElement("canvas").getContext("2d");
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
   if (isAbsent(ctx)) {
     return "#000000"; // If context creation fails, then return default.
   }
   ctx.fillStyle = cssColour;
-  return ctx.fillStyle;
+  const hexColour = ctx.fillStyle;
+  canvas.remove(); // Delete the canvas element
+  return hexColour;
 }

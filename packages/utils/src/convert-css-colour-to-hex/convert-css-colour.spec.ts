@@ -33,3 +33,10 @@ test("colour converts capital hex", () => {
 test("colour converts from css colour string in capitals to hex", () => {
   expect(convertCSSColourToHex("RED")).toBe("#ff0000");
 });
+
+test("canvas element should be deleted after running the util", () => {
+  const countBefore = document.querySelectorAll("canvas").length;
+  convertCSSColourToHex("red");
+  const countAfter = document.querySelectorAll("canvas").length;
+  expect(countBefore).toBe(countAfter);
+});
