@@ -3,6 +3,8 @@
  * www.brightsparklabs.com
  */
 
+import { isAbsent } from "../is-absent/is-absent";
+
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
 // -------------------------------------------------------------------------------------------------
@@ -17,10 +19,11 @@
  * @param cssColour A CSS colour string.
  * @returns The colour as a hex code.
  */
-
 export function convertCSSColourToHex(cssColour: string): string {
   const ctx = document.createElement("canvas").getContext("2d");
-  if (!ctx) return "#000000"; // If could not convert, then return default.
+  if (isAbsent(ctx)) {
+    return "#000000"; // If context creation fails, then return default.
+  }
   ctx.fillStyle = cssColour;
   return ctx.fillStyle;
 }

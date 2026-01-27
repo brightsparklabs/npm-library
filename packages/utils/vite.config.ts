@@ -2,6 +2,7 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
+import { playwright } from "@vitest/browser-playwright";
 import dts from "vite-plugin-dts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -18,5 +19,13 @@ export default defineConfig({
   },
   test: {
     name: "@brightsparklabs/utils",
+    globals: true,
+    browser: {
+      enabled: true,
+      headless: true,
+      screenshotFailures: false,
+      provider: playwright(),
+      instances: [{ browser: "chromium" }],
+    },
   },
 });
