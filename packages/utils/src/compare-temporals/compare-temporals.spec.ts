@@ -6,7 +6,7 @@
 import { expect, test } from "vitest";
 import { compareTemporals } from "./compare-temporals";
 
-test("DATETIME: dates with different millisecond values that are otherwise identical when compared for equality should return true", () => {
+test("DATETIME: otherwise identical dates with different millisecond values should be equal", () => {
   const alpha = new Date("2025-05-01 09:15:12:321");
   const beta = new Date("2025-05-01 09:15:12:800");
   expect(compareTemporals(alpha, "===", beta)).toBe(true);

@@ -70,6 +70,20 @@ export default defineConfig([
       ],
       "jsdoc/tag-lines": ["error", "any", { startLines: 1 }],
       "jsdoc/require-description-complete-sentence": "error",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/prefer-readonly": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ]
     },
   },
   {

@@ -3,6 +3,10 @@
  * www.brightsparklabs.com
  */
 
+// -------------------------------------------------------------------------------------------------
+// TYPES & INTERFACES
+// -------------------------------------------------------------------------------------------------
+
 /** Models the different types of temporal data. */
 export type TemporalType = "DATETIME" | "DATE" | "TIME";
 
@@ -65,7 +69,7 @@ export function compareTemporals(
   operator: "===" | "!==" | "<" | ">" | "<=" | ">=",
   b: Date,
   mode: TemporalType = "DATETIME",
-  seconds = true,
+  seconds: Boolean = true,
 ): boolean {
   let valueA: number;
   let valueB: number;
