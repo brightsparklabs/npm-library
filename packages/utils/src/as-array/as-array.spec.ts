@@ -74,29 +74,43 @@ describe("Non-Array type test cases, return value should be enclosed in array", 
     });
     test('Empty string value', () => {
       const value = "";
-      expect(asArray(value)).toBe([value]);
+      expect(asArray(value)).toStrictEqual([value]);
     });
     test('Single character string value', () => {
       const value = "a";
-      expect(asArray(value)).toBe([value]);
+      expect(asArray(value)).toStrictEqual([value]);
     });
     test('Multiple character string value', () => {
       const value = "abc";
-      expect(asArray(value)).toBe([value]);
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Single digit number value', () => {
+      const value = 0;
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Multiple digit number value', () => {
+      const value = 123;
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Boolean value', () => {
+      const value = true;
+      expect(asArray(value)).toStrictEqual([value]);
     });
 });
-
-
-
-//Test cases for records/ dict which cause errors as asArray does not accept the record type.
-//These tests can still be run and should pass
 /*
-test('Single value record/ dict, should return enclosed in array ([{"a":1}])', () => {
-  const value: Record<string, number> = {"a": 1};
+ * Testing edge cases where 'Array.isArray' or 'instanceof Array' might false positive.
+ * In this case, the Object.create makes an Array which is formatted more like a dict:
+ * Array {
+ *   "0": "a",
+ *   "1": "b",
+ *   "length": 2,
+ * },
+ * Using Array.isArray will return false, instanceof Array will return true.
+ * Array.isArray is used by asArray and is more in line with other dict handling.
+ */
+test('Object.create, should return', () => {
+  const value = Object.create( Array.prototype, {});
+  value.push("a");
+  value.push("b");
   expect(asArray(value)).toStrictEqual([value]);
 });
-test('Multiple value record/ dict, should return enclosed in array ([{"a":1, "b":2}])', () => {
-  const value: Record<string, number> = {"a": 1, "b":2}
-  expect(asArray(value)).toStrictEqual([value]);
-});
-*/

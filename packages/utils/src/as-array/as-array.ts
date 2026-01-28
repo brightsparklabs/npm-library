@@ -12,7 +12,7 @@ import { isAbsent } from "../is-absent/is-absent";
 /**
  * Converts the value to an array.
  *
- * If the value is an object, it returns a single item array of containing that object.
+ * If the value is an object, it returns a single item array containing that object.
  * If the value is an array, it returns that array verbatim.
  * If the value is null/undefined, it returns an empty array.
  *
