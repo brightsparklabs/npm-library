@@ -7,9 +7,13 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
-      "lib": ["./dist/lib"]
+      "lib": ["./dist/lib"],
+      "@brightsparklabs/utils": ["../utils/src/index.ts"]
     },
-    "rootDir": "./",
+    "rootDirs": [
+      "./",
+      "./utils"
+    ],
     "types": ["vitest/globals"],
     "typeRoots": ["./node_modules", "./node_modules/@primeng"],
     "noImplicitReturns": true,
