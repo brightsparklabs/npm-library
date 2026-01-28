@@ -3,13 +3,6 @@ import { Tag } from "primeng/tag";
 import { isAbsentOrEmpty } from "@brightsparklabs/utils";
 
 // -------------------------------------------------------------------------------------------------
-// CONSTANTS
-// -------------------------------------------------------------------------------------------------
-
-/** The delimiter to use for highlighting the text. */
-const DELIMITER = "`";
-
-// -------------------------------------------------------------------------------------------------
 // TYPES & INTERFACES
 // -------------------------------------------------------------------------------------------------
 
@@ -78,6 +71,8 @@ export class HighlightTextComponent {
 
   /** The text to highlight. */
   readonly text = input.required<string | undefined>();
+  /** The delimiter to use for highlighting the text. */
+  readonly delimiter = input<string>("`");
 
   // -----------------------------------------------------------------------------------------------
   // INSTANCE VARIABLES
@@ -138,9 +133,9 @@ export class HighlightTextComponent {
     // e.g. we could use "```" instead of "`".
     let currentIndex = 0;
     while (currentIndex < textValue.length) {
-      const startDelimiterIndex = textValue.indexOf(DELIMITER, currentIndex);
+      const startDelimiterIndex = textValue.indexOf(this.delimiter(), currentIndex);
       // Accounts for the delimiter potentially being multiple characters long.
-      const startDelimiterEndIndex = startDelimiterIndex + DELIMITER.length;
+      const startDelimiterEndIndex = startDelimiterIndex + this.delimiter().length;
 
       if (startDelimiterIndex === -1) {
         // There's no more text to highlight so add the remaining content as un-highlighted text
@@ -154,11 +149,10 @@ export class HighlightTextComponent {
         // as un-highlighted text.
         segments.push({
           value: textValue.substring(currentIndex, startDelimiterIndex),
-          highlight: false,
         });
       }
 
-      const endDelimiterIndex = textValue.indexOf(DELIMITER, startDelimiterEndIndex);
+      const endDelimiterIndex = textValue.indexOf(this.delimiter(), startDelimiterEndIndex);
       if (endDelimiterIndex === -1) {
         // There's no end delimiter so treat the text as regular un-highlighted text.
         segments.push({ value: textValue.substring(startDelimiterIndex) });
@@ -168,7 +162,7 @@ export class HighlightTextComponent {
       // Add the Highlighted text.
       const highlightedText = textValue.substring(startDelimiterEndIndex, endDelimiterIndex);
       segments.push({ value: highlightedText, highlight: true });
-      currentIndex = endDelimiterIndex + DELIMITER.length;
+      currentIndex = endDelimiterIndex + this.delimiter().length;
     }
 
     return segments;
