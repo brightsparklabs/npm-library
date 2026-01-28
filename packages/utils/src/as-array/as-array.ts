@@ -19,12 +19,12 @@ import { isAbsent } from "../is-absent/is-absent";
  * @param value The object to wrap in an array.
  * @returns An array.
  */
-  export function asArray<T>(value: T | Array<T>): Array<T> {
-    if (isAbsent(value)) {
-      return [];
-    }
-    if (Array.isArray(value)) {
-      return value;
-    }
-    return [value];
+export function asArray<T>(value: T | Array<T>): Array<T> {
+  if (isAbsent(value)) {
+    return [];
   }
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return [value];
+}
