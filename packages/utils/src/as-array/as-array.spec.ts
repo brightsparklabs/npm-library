@@ -3,54 +3,53 @@
  * www.brightsparklabs.com
  */
 
-import { expect, test } from "vitest";
+import { expect, test, describe } from "vitest";
 import { asArray } from "./as-array";
 
-/*
- * Test cases for asArray.
- */
 test("Undefined value, should return empty array ([])", () => {
   expect(asArray(undefined)).toStrictEqual([]);
 });
-test("Empty array, should return itself ([])", () => {
-  const value:Array<string> = [];
-  expect(asArray(value)).toBe(value);
-});
-test('Single empty value array, should return itself ([""])', () => {
-  const value:Array<string> = [""];
-  expect(asArray(value)).toBe(value);
-});
-test('Single value array, should return itself (["a"])', () => {
-  const value:Array<string> = ["a"];
-  expect(asArray(value)).toBe(value);
-});
-test('Multiple value array, should return itself (["a", "b", "c"])', () => {
-  const value:Array<string> = ["a", "b", "c"];
-  expect(asArray(value)).toBe(value);
-});
-test('Single empty value tuple, should return itself ([])', () => {
-  const value: [] = [];
-  expect(asArray(value)).toBe(value);
-});
-test('Single value tuple, should return itself (["a"])', () => {
-  const value: [string] = ["a"];
-  expect(asArray(value)).toBe(value);
-});
-test('Multiple value tuple, should return itself (["a", true, 1])', () => {
-  const value: [string, boolean, number] = ["a", true, 1]
-  expect(asArray(value)).toBe(value);
-});
-test('Single empty value array format object, should return itself ([])', () => {
-  const value: object = [];
-  expect(asArray(value)).toBe(value);
-});
-test('Single value array format object, should return itself (["b"])', () => {
-  const value: object = ["b"];
-  expect(asArray(value)).toBe(value);
-});
-test('Multiple value array format object, should return itself (["b", "a"])', () => {
-  const value: object = ["b", "a"];
-  expect(asArray(value)).toBe(value);
+describe("Array type test cases, input and return values should be the same", () => {
+    test("Empty array", () => {
+      const value:Array<string> = [];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single empty value array', () => {
+      const value:Array<string> = [""];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single value array', () => {
+      const value:Array<string> = ["a"];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Multiple value array', () => {
+      const value:Array<string> = ["a", "b", "c"];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single empty value tuple', () => {
+      const value: [] = [];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single value tuple', () => {
+      const value: [string] = ["a"];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Multiple value tuple', () => {
+      const value: [string, boolean, number] = ["a", true, 1]
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single empty value array format object', () => {
+      const value: object = [];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Single value array format object', () => {
+      const value: object = ["b"];
+      expect(asArray(value)).toBe(value);
+    });
+    test('Multiple value array format object', () => {
+      const value: object = ["b", "a"];
+      expect(asArray(value)).toBe(value);
+    });
 });
 /*
  * Testing different non-array types and lengths to ensure they are enclosed as a single item.
@@ -60,29 +59,31 @@ test('Multiple value array format object, should return itself (["b", "a"])', ()
  * Dictionary types are treated as single objects by asArray, 
  * so should also be enclosed in an array, not split by key values.
  */
-test('Single empty value dict format object, should return enclosed in array ([{}])', () => {
-  const value: object = {};
-  expect(asArray(value)).toStrictEqual([value]);
-});
-test('Single value dict format object, should return enclosed in array ([{"key":"a"}])', () => {
-  const value: object = {"key": "a"};
-  expect(asArray(value)).toStrictEqual([value]);
-});
-test('Multiple value dict format object, should return enclosed in array ([{"a":1, "b":2}])', () => {
-  const value:object = {"a": 1, "b":2}
-  expect(asArray(value)).toStrictEqual([value]);
-});
-test('Empty string value, should return enclosed in array ([""])', () => {
-  const value = "";
-  expect(asArray(value)).toBe([value]);
-});
-test('Single char string value, should return enclosed in array (["a"])', () => {
-  const value = "a";
-  expect(asArray(value)).toBe([value]);
-});
-test('Multiple char string value, should return enclosed in array (["abc"])', () => {
-  const value = "abc";
-  expect(asArray(value)).toBe([value]);
+describe("Non-Array type test cases, return value should be enclosed in array", () => {
+    test('Single empty value dict format object', () => {
+      const value: object = {};
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Single value dict format object', () => {
+      const value: object = {"key": "a"};
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Multiple value dict format object', () => {
+      const value:object = {"a": 1, "b":2}
+      expect(asArray(value)).toStrictEqual([value]);
+    });
+    test('Empty string value', () => {
+      const value = "";
+      expect(asArray(value)).toBe([value]);
+    });
+    test('Single character string value', () => {
+      const value = "a";
+      expect(asArray(value)).toBe([value]);
+    });
+    test('Multiple character string value', () => {
+      const value = "abc";
+      expect(asArray(value)).toBe([value]);
+    });
 });
 
 
