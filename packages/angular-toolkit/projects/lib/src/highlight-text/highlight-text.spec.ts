@@ -12,6 +12,7 @@ describe("HighlightText", () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(HighlightTextComponent);
+    fixture.componentRef.setInput('text', '');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
