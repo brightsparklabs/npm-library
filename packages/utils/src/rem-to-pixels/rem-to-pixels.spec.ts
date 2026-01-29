@@ -29,3 +29,32 @@ describe("Different rem values", () => {
     expect(remToPixels(rem)).not.toBe(Number.MAX_SAFE_INTEGER + 1);
   });
 });
+
+describe("Different font size values", () => {
+    test("32 root font size, expecting 64", () => {
+        document.documentElement.style.fontSize = "32px";
+        expect(remToPixels(2)).toBe(64);
+    });
+
+    /* 
+     * Makes sure font-size is coming from the root element.
+     * Also covers em as rem gets the root font size while em gets the parent element font size.
+     */
+    test("32 parents, 16 root font size, expecting 64", () => {
+        const rootElement = document.documentElement;
+        rootElement.style.fontSize = "16px";
+        //gets all first tier elements (e.g.<body>, <head>)
+        for (const parent of rootElement.children) {
+            (parent as HTMLElement).style.fontSize = "32px";
+        }
+        expect(remToPixels(4)).toBe(64);
+    });
+
+    //Covers cases where user can toggle UI style (e.g. dense or compact).
+    test("Dynamic root font size(32 -> 48)", () => {
+        document.documentElement.style.fontSize = "32px";
+        expect(remToPixels(2)).toBe(64);
+        document.documentElement.style.fontSize = "48px";
+        expect(remToPixels(2)).toBe(96);
+    });
+});
