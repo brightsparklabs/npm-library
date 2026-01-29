@@ -27,6 +27,7 @@ export function convertCSSColourToHex(cssColour: string): string {
   }
   ctx.fillStyle = cssColour;
   const hexColour = ctx.fillStyle;
-  canvas.remove(); // Delete the canvas element
+  // Cleanup the added canvas element from the DOM to prevent a memory leak.
+  canvas.remove();
   return hexColour;
 }

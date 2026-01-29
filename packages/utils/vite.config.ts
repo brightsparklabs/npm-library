@@ -1,8 +1,8 @@
 /// <reference types="vitest/config" />
+import { playwright } from "@vitest/browser-playwright";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
-import { playwright } from "@vitest/browser-playwright";
 import dts from "vite-plugin-dts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
