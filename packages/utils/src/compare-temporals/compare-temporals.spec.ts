@@ -37,6 +37,18 @@ describe("Validate comparing the datetime", () => {
     expect(compareTemporals(alpha, "<=", beta, "DATETIME")).toBe(true);
     expect(compareTemporals(beta, ">=", alpha, "DATETIME")).toBe(true);
   });
+
+  test("DATETIME ignores seconds when specifically disabled", () => {
+    const alpha = new Date("2025-05-01T09:15:12");
+    const beta = new Date("2025-05-01T09:15:59");
+    expect(compareTemporals(alpha, "===", beta, "DATETIME", false)).toBe(true);
+  });
+
+  test("Millisecond differences in the same second are equal", () => {
+    const alpha = new Date("2025-05-01T09:15:12.000");
+    const beta = new Date("2025-05-01T09:15:12.999");
+    expect(compareTemporals(alpha, "===", beta, "DATETIME")).toBe(true);
+  });
 });
 
 describe("Validate comparing the date", () => {
@@ -56,6 +68,14 @@ describe("Validate comparing the date", () => {
     expect(compareTemporals(alpha, "!==", beta, "DATE")).toBe(true);
     expect(compareTemporals(alpha, "<=", beta, "DATE")).toBe(true);
     expect(compareTemporals(beta, ">=", alpha, "DATE")).toBe(true);
+    expect(compareTemporals(alpha, "<=", alpha, "DATE")).toBe(true);
+    expect(compareTemporals(beta, ">=", beta, "DATE")).toBe(true);
+  });
+
+  test("Ignores milliseconds completely", () => {
+    const alpha = new Date("2025-05-01T09:15:12.000");
+    const beta = new Date("2025-05-01T09:15:12.999");
+    expect(compareTemporals(alpha, "===", beta, "DATE")).toBe(true);
   });
 });
 
@@ -82,18 +102,34 @@ describe("Validate comparing the time", () => {
     expect(compareTemporals(alpha, "!==", beta, "TIME")).toBe(true);
     expect(compareTemporals(alpha, "<=", beta, "TIME")).toBe(true);
     expect(compareTemporals(beta, ">=", alpha, "TIME")).toBe(true);
+    expect(compareTemporals(alpha, "<=", alpha, "TIME")).toBe(true);
+    expect(compareTemporals(beta, ">=", beta, "TIME")).toBe(true);
+  });
+
+  test("Millisecond differences in the same second are equal", () => {
+    const alpha = new Date("2025-05-01T09:15:12.000");
+    const beta = new Date("2025-05-02T09:15:12.999");
+    expect(compareTemporals(alpha, "===", beta, "TIME")).toBe(true);
   });
 });
 
-test("Comparisons do not mutate the input Date objects", () => {
-  const alpha = new Date("2025-05-01 9:15:12");
-  const beta = new Date("2025-05-01 9:15:13");
+describe("Edge cases and specific behaviours", () => {
+  test("Comparisons do not mutate the input Date objects", () => {
+    const alpha = new Date("2025-05-01 9:15:12");
+    const beta = new Date("2025-05-01 9:15:13");
 
-  const alphaBefore = alpha.toISOString();
-  const betaBefore = beta.toISOString();
+    const alphaBefore = alpha.toISOString();
+    const betaBefore = beta.toISOString();
 
-  compareTemporals(alpha, "===", beta);
+    compareTemporals(alpha, "===", beta);
 
-  expect(alpha.toISOString()).toBe(alphaBefore);
-  expect(beta.toISOString()).toBe(betaBefore);
+    expect(alpha.toISOString()).toBe(alphaBefore);
+    expect(beta.toISOString()).toBe(betaBefore);
+  });
+
+  test("Handles invalid Date objects", () => {
+    const valid = new Date();
+    const invalid = new Date("invalid");
+    expect(compareTemporals(valid, "<", invalid)).toBe(false);
+  });
 });
