@@ -26,7 +26,14 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true,
     rollupOptions: {
       // Add external libraries that should be excluded from the bundle
-      external: [/^@angular\/.*/, "rxjs", "rxjs/operators"],
+      external: [
+        /^@angular\/.*/,
+        "rxjs",
+        "rxjs/operators",
+        /^@brightsparklabs\/.*/,
+        /^@primeuix\/.*/,
+        /^primeng\/.*/,
+      ],
       output: {
         // Produce a single file bundle
         preserveModules: false,
