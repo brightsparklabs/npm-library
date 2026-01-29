@@ -3,64 +3,89 @@
  * www.brightsparklabs.com
  */
 
-import { expect, test, describe } from "vitest";
+import { describe, expect, test } from "vitest";
 import { compareTemporals } from "./compare-temporals";
 
-describe("DATETIME", () => {
-  test("otherwise identical dates with different millisecond values should be equal", () => {
+describe("Validate comparing the datetime", () => {
+  test("Otherwise identical dates with different millisecond values should be equal", () => {
     const alpha = new Date("2025-05-01 09:15:12:321");
     const beta = new Date("2025-05-01 09:15:12:800");
     expect(compareTemporals(alpha, "===", beta)).toBe(true);
   });
 
-  test("different dates when compared for equality should return false", () => {
+  test("Different dates when compared for equality should return false", () => {
     const alpha = new Date("2025-05-01 09:15:12:321");
     const beta = new Date("2025-05-04 09:15:50:123");
     expect(compareTemporals(alpha, "===", beta)).toBe(false);
   });
 
-  test("dates representing the same time in different timezones compare equal", () => {
-    // 9:15 UTC === 10:15 UTC+1
+  test("Dates representing the same time in different timezones compare equal", () => {
+    // 9:15 UTC === 10:15 UTC+1.
     const utc = new Date("2025-05-01T09:15:12Z");
     const utcPlusOne = new Date("2025-05-01T10:15:12+01:00");
     expect(compareTemporals(utc, "===", utcPlusOne)).toBe(true);
   });
+
+  test("All relation operators work as expected for DATETIME", () => {
+    const alpha = new Date("2025-05-01 9:15:12");
+    const beta = new Date("2025-05-01 9:15:13");
+
+    expect(compareTemporals(alpha, "===", alpha, "DATETIME")).toBe(true);
+    expect(compareTemporals(alpha, "<", beta, "DATETIME")).toBe(true);
+    expect(compareTemporals(beta, ">", alpha, "DATETIME")).toBe(true);
+    expect(compareTemporals(alpha, "!==", beta, "DATETIME")).toBe(true);
+    expect(compareTemporals(alpha, "<=", beta, "DATETIME")).toBe(true);
+    expect(compareTemporals(beta, ">=", alpha, "DATETIME")).toBe(true);
+  });
 });
 
-describe("DATE", () => {
-  test("ignores time completely", () => {
+describe("Validate comparing the date", () => {
+  test("Ignores time completely", () => {
     const alpha = new Date("2025-05-01 9:15:12");
     const beta = new Date("2025-05-01 9:15:50");
     expect(compareTemporals(alpha, "===", beta, "DATE")).toBe(true);
   });
+
+  test("All relation operators work as expected for DATE", () => {
+    const alpha = new Date("2025-05-01 9:15:12");
+    const beta = new Date("2025-05-2 9:15:13");
+
+    expect(compareTemporals(alpha, "===", alpha, "DATE")).toBe(true);
+    expect(compareTemporals(alpha, "<", beta, "DATE")).toBe(true);
+    expect(compareTemporals(beta, ">", alpha, "DATE")).toBe(true);
+    expect(compareTemporals(alpha, "!==", beta, "DATE")).toBe(true);
+    expect(compareTemporals(alpha, "<=", beta, "DATE")).toBe(true);
+    expect(compareTemporals(beta, ">=", alpha, "DATE")).toBe(true);
+  });
 });
 
-describe("TIME", () => {
-  test("respects seconds by default", () => {
+describe("Validate comparing the time", () => {
+  test("Respects seconds by default", () => {
     const alpha = new Date("2025-05-01 9:15:12");
     const beta = new Date("2025-05-01 9:15:50");
     expect(compareTemporals(alpha, "===", beta)).toBe(false);
   });
 
-  test("ignore seconds when specificly disabled", () => {
+  test("Ignore seconds when specificly disabled", () => {
     const alpha = new Date("2025-05-01 9:15:12");
     const beta = new Date("2025-05-01 9:15:50");
     expect(compareTemporals(alpha, "===", beta, "TIME", false)).toBe(true);
   });
+
+  test("All relation operators work as expected for TIME", () => {
+    const alpha = new Date("2025-05-02 8:00:00");
+    const beta = new Date("2025-05-1 9:00:00");
+
+    expect(compareTemporals(alpha, "===", alpha, "TIME")).toBe(true);
+    expect(compareTemporals(alpha, "<", beta, "TIME")).toBe(true);
+    expect(compareTemporals(beta, ">", alpha, "TIME")).toBe(true);
+    expect(compareTemporals(alpha, "!==", beta, "TIME")).toBe(true);
+    expect(compareTemporals(alpha, "<=", beta, "TIME")).toBe(true);
+    expect(compareTemporals(beta, ">=", alpha, "TIME")).toBe(true);
+  });
 });
 
-test("all relation operators work as expected", () => {
-  const alpha = new Date("2025-05-01 9:15:12");
-  const beta = new Date("2025-05-01 9:15:13");
-
-  expect(compareTemporals(alpha, "<", beta)).toBe(true);
-  expect(compareTemporals(beta, ">", alpha)).toBe(true);
-  expect(compareTemporals(alpha, "!==", beta)).toBe(true);
-  expect(compareTemporals(alpha, "<=", beta)).toBe(true);
-  expect(compareTemporals(beta, ">=", alpha)).toBe(true);
-});
-
-test("comparisons do not mutate the input Date objects", () => {
+test("Comparisons do not mutate the input Date objects", () => {
   const alpha = new Date("2025-05-01 9:15:12");
   const beta = new Date("2025-05-01 9:15:13");
 
