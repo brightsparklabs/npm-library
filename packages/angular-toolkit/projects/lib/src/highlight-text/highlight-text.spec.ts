@@ -88,7 +88,7 @@ describe("HighlightText", () => {
       expect(html.indexOf('alpha-')).toBeLessThan(html.indexOf('`beta-gamma'));
     });
 
-    it ("should complex inputs", () => {
+    it("should complex inputs", () => {
       fixture.componentRef.setInput('text', '`alp`ha`-``beta```-gamma');
       fixture.detectChanges();
       const el: HTMLElement = fixture.nativeElement;
@@ -100,6 +100,65 @@ describe("HighlightText", () => {
       expect(tags[1].textContent.trim()).toBe('-');
       expect(tags[2].textContent.trim()).toBe('beta');
       expect(tags[3].textContent.trim()).toBe('');
+    });
+  });
+
+  describe("Edge Cases", () => {
+    it("should handle undefined test input", () => {
+      fixture.componentRef.setInput('text', undefined);
+      fixture.detectChanges();
+      expect(component.textSegments()).toEqual([]);
+      expect(fixture.nativeElement.textContent.trim()).toBe('');
+    });
+
+    it("should handle multi character delimiters", () => {
+      fixture.componentRef.setInput('delimiter', '```');
+      fixture.componentRef.setInput('text', 'alpha```beta```gamma');
+      fixture.detectChanges();
+
+      expect(component.textSegments()).toEqual([
+        { value: "alpha" },
+        { value: "beta", highlight: true },
+        { value: "gamma" }
+      ]);
+
+      const tag = fixture.nativeElement.querySelector('p-tag');
+      expect(tag.textContent.trim()).toBe('beta');
+    });
+
+    it("should handle no delimiters", () => {
+      fixture.componentRef.setInput('text', 'This is a string');
+      fixture.detectChanges();
+
+      expect(component.textSegments()).toEqual([
+        { value: 'This is a string' }
+      ]);
+
+      const tags = fixture.nativeElement.querySelectorAll('p-tag');
+      expect(tags.length).toBe(0);
+    });
+
+    it("should update segments when delimiter changes", () => {
+      fixture.componentRef.setInput('text', 'alpha *beta*');
+      fixture.componentRef.setInput('delimiter', '*');
+      fixture.detectChanges();
+      // Second segment (beta) should be highlighted.
+      expect(component.textSegments()[1].highlight).toBe(true);
+
+      fixture.componentRef.setInput('delimiter', '`');
+      fixture.detectChanges();
+      // It should be a singular segment now.
+      expect(component.textSegments().length).toBe(1);
+    });
+
+    it("should update segments when text changes", () => {
+      fixture.componentRef.setInput('text', 'alpha `beta` gamma');
+      fixture.detectChanges();
+      expect(component.textSegments().length).toBe(3);
+
+      fixture.componentRef.setInput('text', 'alpha `beta`');
+      fixture.detectChanges();
+      expect(component.textSegments().length).toBe(2);
     });
   });
 });
