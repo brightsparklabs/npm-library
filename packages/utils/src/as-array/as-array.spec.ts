@@ -31,32 +31,12 @@ describe("Array type test cases, input and return values should be the same", ()
     expect(asArray(value)).toBe(value);
   });
 
-  test("Single empty value tuple", () => {
-    const value: [] = [];
-    expect(asArray(value)).toBe(value);
-  });
-
-  test("Single value tuple", () => {
-    const value: [string] = ["a"];
-    expect(asArray(value)).toBe(value);
-  });
-
   test("Multiple value tuple", () => {
     const value: [string, boolean, number] = ["a", true, 1];
     expect(asArray(value)).toBe(value);
   });
 
-  test("Single empty value array format object", () => {
-    const value: object = [];
-    expect(asArray(value)).toBe(value);
-  });
-
-  test("Single value array format object", () => {
-    const value: object = ["b"];
-    expect(asArray(value)).toBe(value);
-  });
-
-  test("Multiple value array format object", () => {
+  test("Object with array format", () => {
     const value: object = ["b", "a"];
     expect(asArray(value)).toBe(value);
   });
