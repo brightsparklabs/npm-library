@@ -70,5 +70,8 @@
       "vite-plugin-dts": "^4.5.4",
       "@vitest/browser-playwright": "^4.0.17"
     }
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
   }
 }
