@@ -1,4 +1,5 @@
 /// <reference types="vitest/config" />
+import { playwright } from "@vitest/browser-playwright";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
@@ -12,11 +13,20 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "index",
+      fileName: "index",
       formats: ["es"],
     },
     sourcemap: true,
   },
   test: {
     name: "@brightsparklabs/utils",
+    globals: true,
+    browser: {
+      enabled: true,
+      headless: true,
+      screenshotFailures: false,
+      provider: playwright(),
+      instances: [{ browser: "chromium" }],
+    },
   },
 });
