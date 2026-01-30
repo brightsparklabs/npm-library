@@ -28,6 +28,12 @@ import { formatDuration as datefnsFormatDuration, intervalToDuration } from "dat
  * @returns The formatted duration.
  */
 export function formatDuration(seconds = 0): string {
+  /*
+   * Uses actual calendar month lengths for formatting.
+   * Since we use 0 as start value, it asssume January.
+   * May lead to slightly incorrect/ inconsistent result for input values > 2678400,
+   * which is when days start getting converted to months.
+   */
   const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
 
   // Date-fns doesn't have wonderful handling for formatting the result. See open issue:
