@@ -17,12 +17,12 @@ describe("HighlightText", () => {
     await fixture.whenStable();
   });
 
-  it("should create", () => {
+  it("Should create", () => {
     expect(component).toBeTruthy();
   });
 
   describe("TextSegment", () => {
-    it("should parse text into an array of TextSegments", () => {
+    it("Should parse text into an array of TextSegments", () => {
       fixture.componentRef.setInput("text", "alpha-`beta`-gamma");
       fixture.detectChanges();
       expect(component.textSegments()).toEqual([
@@ -32,13 +32,13 @@ describe("HighlightText", () => {
       ]);
     });
 
-    it("should not highlight text if missing closing delimiter", () => {
+    it("Should not highlight text if missing closing delimiter", () => {
       fixture.componentRef.setInput("text", "alpha-`beta-gamma");
       fixture.detectChanges();
       expect(component.textSegments()).toEqual([{ value: "alpha-" }, { value: "`beta-gamma" }]);
     });
 
-    it("should handle complex cases with empty highlight segments", () => {
+    it("Should handle complex cases with empty highlight segments", () => {
       fixture.componentRef.setInput("text", "`alp`ha`-``beta```-gamma");
       fixture.detectChanges();
       expect(component.textSegments()).toEqual([
@@ -51,7 +51,7 @@ describe("HighlightText", () => {
       ]);
     });
 
-    it("should handle parsing with custom configured delimiter value", () => {
+    it("Should handle parsing with custom configured delimiter value", () => {
       fixture.componentRef.setInput("text", "alpha-*beta*-gamma");
       fixture.componentRef.setInput("delimiter", "*");
       fixture.detectChanges();
@@ -64,7 +64,7 @@ describe("HighlightText", () => {
   });
 
   describe("Element Validation", () => {
-    it("should render the DOM in the correct order", () => {
+    it("Should render the DOM in the correct order", () => {
       fixture.componentRef.setInput("text", "alpha-`beta`-gamma");
       fixture.detectChanges();
       const el: HTMLElement = fixture.nativeElement;
@@ -75,7 +75,7 @@ describe("HighlightText", () => {
       expect(html.indexOf("<p-tag")).toBeLessThan(html.indexOf("gamma"));
     });
 
-    it("should handle missing closing delimiter", () => {
+    it("Should handle missing closing delimiter", () => {
       fixture.componentRef.setInput("text", "alpha-`beta-gamma");
       fixture.detectChanges();
       const el: HTMLElement = fixture.nativeElement;
@@ -85,7 +85,7 @@ describe("HighlightText", () => {
       expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("`beta-gamma"));
     });
 
-    it("should complex inputs", () => {
+    it("Should complex inputs", () => {
       fixture.componentRef.setInput("text", "`alp`ha`-``beta```-gamma");
       fixture.detectChanges();
       const el: HTMLElement = fixture.nativeElement;
@@ -101,14 +101,14 @@ describe("HighlightText", () => {
   });
 
   describe("Edge Cases", () => {
-    it("should handle undefined test input", () => {
+    it("Should handle undefined test input", () => {
       fixture.componentRef.setInput("text", undefined);
       fixture.detectChanges();
       expect(component.textSegments()).toEqual([]);
       expect(fixture.nativeElement.textContent.trim()).toBe("");
     });
 
-    it("should handle multi character delimiters", () => {
+    it("Should handle multi character delimiters", () => {
       fixture.componentRef.setInput("delimiter", "```");
       fixture.componentRef.setInput("text", "alpha```beta```gamma");
       fixture.detectChanges();
@@ -123,7 +123,7 @@ describe("HighlightText", () => {
       expect(tag.textContent.trim()).toBe("beta");
     });
 
-    it("should handle no delimiters", () => {
+    it("Should handle no delimiters", () => {
       fixture.componentRef.setInput("text", "This is a string");
       fixture.detectChanges();
 
@@ -133,7 +133,7 @@ describe("HighlightText", () => {
       expect(tags.length).toBe(0);
     });
 
-    it("should update segments when delimiter changes", () => {
+    it("Should update segments when delimiter changes", () => {
       fixture.componentRef.setInput("text", "alpha *beta*");
       fixture.componentRef.setInput("delimiter", "*");
       fixture.detectChanges();
@@ -146,7 +146,7 @@ describe("HighlightText", () => {
       expect(component.textSegments().length).toBe(1);
     });
 
-    it("should update segments when text changes", () => {
+    it("Should update segments when text changes", () => {
       fixture.componentRef.setInput("text", "alpha `beta` gamma");
       fixture.detectChanges();
       expect(component.textSegments().length).toBe(3);
