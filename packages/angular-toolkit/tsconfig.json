@@ -10,10 +10,7 @@
       "lib": ["./dist/lib"],
       "@brightsparklabs/utils": ["../utils/src/index.ts"]
     },
-    "rootDirs": [
-      "./",
-      "./utils"
-    ],
+    "rootDirs": ["./", "./utils"],
     "types": ["vitest/globals"],
     "typeRoots": ["./node_modules", "./node_modules/@primeng"],
     "noImplicitReturns": true,

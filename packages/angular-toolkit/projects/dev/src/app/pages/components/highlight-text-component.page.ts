@@ -11,12 +11,12 @@ import { HighlightTextComponent } from "@brightsparklabs/angular-toolkit";
       <div class="highlight-text-inputs">
         <div class="input-group">
           <span>Text</span>
-          <input [ngModel]="text()" (ngModelChange)="text.set($event)">
+          <input [ngModel]="text()" (ngModelChange)="text.set($event)" />
         </div>
 
         <div class="input-group">
           <span>Delimiter</span>
-          <input [ngModel]="delimiter()" (ngModelChange)="delimiter.set($event)">
+          <input [ngModel]="delimiter()" (ngModelChange)="delimiter.set($event)" />
         </div>
       </div>
       <span>Output</span>
@@ -37,7 +37,7 @@ import { HighlightTextComponent } from "@brightsparklabs/angular-toolkit";
       flex-direction: row;
       gap: 0.5rem;
     }
-    
+
     .input-group span {
       font-weight: 600;
     }
@@ -62,7 +62,7 @@ import { HighlightTextComponent } from "@brightsparklabs/angular-toolkit";
 })
 export default class HighlightTextComponentPage {
   /** Default text that will display in the component. */
-  readonly text = signal('hello *hi*');
+  readonly text = signal("hello *hi*");
   /** Default delimiter that will be used to highlight text. */
-  readonly delimiter = signal('*');
+  readonly delimiter = signal("*");
 }

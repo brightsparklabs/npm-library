@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
-import { Tag } from "primeng/tag";
 import { isAbsentOrEmpty } from "@brightsparklabs/utils";
+import { Tag } from "primeng/tag";
 
 // -------------------------------------------------------------------------------------------------
 // TYPES & INTERFACES
