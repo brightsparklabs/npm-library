@@ -19,11 +19,11 @@ import { formatDuration as datefnsFormatDuration, intervalToDuration } from "dat
  * formatDuration(3601) = "1h 1s"
  * formatDuration() = ""
  * ```
- * 
- * NOTE: Consuming applications targeting ES2025 should use 
+ *
+ * NOTE: Consuming applications targeting ES2025 should use
  * `Intl.DurationFormat` with `style:narrow` achieve this formatting.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DurationFormat
- * 
+ *
  * @param seconds The number of seconds for the duration, to format.
  * @returns The formatted duration.
  */
@@ -35,6 +35,10 @@ export function formatDuration(seconds = 0): string {
   return datefnsFormatDuration(duration, {
     delimiter: " ",
   })
+    .replace(" years", "y")
+    .replace(" year", "y")
+    .replace(" months", "mo")
+    .replace(" month", "mo")
     .replace(" days", "d")
     .replace(" day", "d")
     .replace(" hours", "h")
