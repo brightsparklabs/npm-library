@@ -19,7 +19,8 @@ describe("Different rem values", () => {
     expect(remToPixels(0.2)).toBe(3.2);
   });
 
-  /* Javascript max number limit is 2^53 - 1.
+  /*
+   * Javascript max number limit is 2^53 - 1.
    * Comparisons can get incorrect after this value.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER.
    */
@@ -38,12 +39,12 @@ describe("Different font size values", () => {
 
   /*
    * Makes sure font-size is coming from the root element.
-   * Also covers em as rem gets the root font size while em gets the parent element font size.
+   * Also covers em, as rem gets the root font size while em gets the parent element font size.
    */
   test("32 parents, 16 root font size, expecting 64", () => {
     const rootElement = document.documentElement;
     rootElement.style.fontSize = "16px";
-    //gets all first tier elements (e.g.<body>, <head>)
+    //Gets all first tier elements (e.g.<body>, <head>).
     for (const parent of rootElement.children) {
       (parent as HTMLElement).style.fontSize = "32px";
     }
