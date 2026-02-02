@@ -21,6 +21,7 @@ export default defineConfig({
   test: {
     name: "@brightsparklabs/utils",
     globals: true,
+    setupFiles: ['./test-setup.ts'],
     browser: {
       enabled: true,
       headless: true,

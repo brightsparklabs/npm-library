@@ -33,5 +33,10 @@
     "vite-plugin-dts": "catalog:vite",
     "@types/node": "catalog:"
   },
+  "peerDependencies": {
+    "@angular/core": "catalog:angular",
+    "@angular/platform-browser-dynamic": "catalog:angular",
+    "rxjs": "catalog:angular"
+  },
   "sideEffects": false
 }
