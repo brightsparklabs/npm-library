@@ -1,4 +1,6 @@
 export * from "./compare-temporals/compare-temporals";
+export * from "./as-array/as-array";
+export * from "./convert-css-colour-to-hex/convert-css-colour-to-hex";
 export * from "./is-absent-or-empty/is-absent-or-empty";
 export * from "./is-absent/is-absent";
 export * from "./is-present-and-empty/is-present-and-empty";
