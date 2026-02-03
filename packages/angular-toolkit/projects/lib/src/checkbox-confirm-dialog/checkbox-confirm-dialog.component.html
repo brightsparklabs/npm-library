@@ -1,0 +1,29 @@
+<!--
+  Created by brightSPARK Labs
+  www.brightsparklabs.com
+-->
+
+<div class="dialog-content">
+  <div class="message">
+    <span>{{ message() }} </span>
+    <div class="checkbox-icon-container">
+      <div class="checkbox-container">
+        <p-checkbox
+          inputId="checkBox"
+          [binary]="true"
+          [value]="checked()"
+          (onChange)="checked.set($event.checked)"
+        />
+        <label style="user-select: none" for="checkBox">{{ checkboxLabel() }}</label>
+      </div>
+      @if (helpText() !== undefined) {
+        <i class="pi ti-help-circle" showDelay="1000" tooltipPosition="top" [pTooltip]="helpText()">
+        </i>
+      }
+    </div>
+  </div>
+  <div class="footer-buttons">
+    <p-button text severity="secondary" [label]="cancelLabel()" (onClick)="onCancel()" />
+    <p-button severity="primary" [label]="confirmLabel()" (onClick)="onConfirm()" />
+  </div>
+</div>
