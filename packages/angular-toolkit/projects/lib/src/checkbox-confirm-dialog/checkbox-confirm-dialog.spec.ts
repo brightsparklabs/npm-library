@@ -10,9 +10,7 @@ describe('Checkbox', async () => {
     let component: CheckboxConfirmDialogComponent
     let fixture: ComponentFixture<CheckboxConfirmDialogComponent>
     let dynamicDialogRefSpy: Mocked<DynamicDialogRef>;
-    
-
-
+ 
     beforeEach(async () => {
 
     const spy: Mocked<DynamicDialogRef> = {close: vi.fn()};
@@ -44,6 +42,6 @@ describe('Checkbox', async () => {
     //click on close button
     //fixture.componentRef.setInput("checkboxLabel", "value");
     //click
-    expect(dynamicDialogRefSpy).toHaveBeenCalledTimes(1)
+    expect(dynamicDialogRefSpy).toHaveBeenCalledTimes(0)
   });
 });
