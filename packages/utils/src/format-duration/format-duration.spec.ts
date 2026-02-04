@@ -10,7 +10,9 @@ test("Full length output including all labels (1d 1h 1m 1s)", () => {
   expect(formatDuration(90061)).toBe("1d 1h 1m 1s");
 });
 
-//intervalToDuration trims leading 0
+//The intervalToDuration() function used by formatDuration() trims the leading 0s from each unit.
+//e.g. 05 minutes > 5 minutes
+//If the unit has only 0, this also gets trimmed, so the unit should not be output.
 test("Minutes value of 0", () => {
   expect(formatDuration(7202)).toBe("2h 2s");
 });
