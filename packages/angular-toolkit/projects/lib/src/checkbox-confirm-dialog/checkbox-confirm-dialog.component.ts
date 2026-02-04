@@ -13,13 +13,13 @@ import { Tooltip } from "primeng/tooltip";
  * Custom confirm dialog with a checkbox.
  * Designed to be used with PrimeNG's dynamic dialog component:
  * https://primeng.org/dynamicdialog.
- * 
+ *
  * Dialog output values can be accessed through the dialog's onClose function.
- * 
+ *
  * @example
  * ```
  * const ref = this.dialogService.open(CheckboxConfirmDialogComponent, {...});
- * 
+ *
  * ref?.onClose.subscribe((output: CheckBoxConfirmDialogOutput) => {...});
  * ```
  */
