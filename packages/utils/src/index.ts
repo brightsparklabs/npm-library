@@ -1,3 +1,4 @@
+export * from "./compare-temporals/compare-temporals";
 export * from "./as-array/as-array";
 export * from "./convert-css-colour-to-hex/convert-css-colour-to-hex";
 export * from "./format-duration/format-duration";
@@ -6,4 +7,5 @@ export * from "./is-absent/is-absent";
 export * from "./is-present-and-empty/is-present-and-empty";
 export * from "./is-present-and-non-empty/is-present-and-non-empty";
 export * from "./is-present/is-present";
+export * from "./rem-to-pixels/rem-to-pixels";
 export * from "./sum/sum";
