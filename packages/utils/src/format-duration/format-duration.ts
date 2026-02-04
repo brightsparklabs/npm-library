@@ -27,7 +27,7 @@ import { formatDuration as datefnsFormatDuration, intervalToDuration } from "dat
  * @param seconds The number of seconds for the duration, to format.
  * @returns The formatted duration.
  */
-export function formatDuration(seconds = 0): string {
+export function formatDuration(seconds: number = 0): string {
   /*
    * Uses actual calendar month lengths for formatting.
    * Since we use 0 as start value, it asssume January.
