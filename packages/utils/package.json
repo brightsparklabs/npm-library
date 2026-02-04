@@ -26,6 +26,9 @@
     "build": "tsc && vite build",
     "test": "vitest"
   },
+  "peerDependencies": {
+    "date-fns": "catalog"
+  },
   "devDependencies": {
     "typescript": "catalog:",
     "vite": "catalog:vite",

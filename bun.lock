@@ -69,11 +69,15 @@
         "vite-plugin-dts": "catalog:vite",
         "vitest": "catalog:vite",
       },
+      "peerDependencies": {
+        "date-fns": "catalog",
+      },
     },
   },
   "catalog": {
     "@tabler/icons-webfont": "^3.36.1",
     "@types/node": "^24.0.0",
+    "date-fns": "^4.1.0",
     "playwright": "^1.57.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.0",
