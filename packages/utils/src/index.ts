@@ -1,5 +1,5 @@
-export * from "./compare-temporals/compare-temporals";
 export * from "./as-array/as-array";
+export * from "./compare-temporals/compare-temporals";
 export * from "./convert-css-colour-to-hex/convert-css-colour-to-hex";
 export * from "./format-duration/format-duration";
 export * from "./is-absent-or-empty/is-absent-or-empty";
