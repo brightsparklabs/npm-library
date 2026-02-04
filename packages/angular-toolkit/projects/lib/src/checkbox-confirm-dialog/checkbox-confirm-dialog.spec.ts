@@ -29,7 +29,6 @@ describe('Checkbox', async () => {
     //Setting a value for required input checkboxLabel.
     fixture = TestBed.createComponent(CheckboxConfirmDialogComponent);
     fixture.componentRef.setInput("checkboxLabel", "test value");
-    //fixture.componentRef.setInput("helpText", "old help text");
     component = fixture.componentInstance;
 
     dynamicDialogRefSpy = TestBed.inject(DynamicDialogRef) as Mocked<DynamicDialogRef>
@@ -55,7 +54,7 @@ describe('Checkbox', async () => {
       fixture.componentRef.setInput("confirmLabel", 'new confirm');
       fixture.componentRef.setInput("cancelLabel", 'new cancel');
       fixture.componentRef.setInput("message", 'new message');
-      //need a small delay for the fixture updates to apply
+      //Need a small delay for the fixture updates to apply.
       await delay(1);
       expect(page.getByRole('checkbox', { name: 'new checkbox', exact: true })).toBeInTheDocument();
       expect(page.getByRole('button', { name: 'new confirm', exact: true })).toBeInTheDocument();
@@ -64,7 +63,7 @@ describe('Checkbox', async () => {
       expect(page.getByText('new message', { exact: true })).toBeInTheDocument();
   });
 
-  it("Custom help text loaded/ displayed.", async () => {
+  it("Help message hover element loads with non-undefined value", async () => {
       const helpHoverElement = await document.getElementsByClassName('pi ti-help-circle')[0];
       expect(helpHoverElement).toBe(undefined);
 
@@ -74,23 +73,36 @@ describe('Checkbox', async () => {
 
       const newHelpHoverElement = await document.getElementsByClassName('pi ti-help-circle')[0];
       expect(newHelpHoverElement).not.toBe(undefined);
-      //Need to get the element to hover over before help text is displayed,
-      //but the element has no role, name or text.
-      //<i _ngcontent-ng-c1340234011="" showdelay="1000" tooltipposition="top" class="pi ti-help-circle" pc28=""></i>
-      
-      
-      /*
-      const helpHoverElement = await document.getElementsByClassName('pi ti-help-circle')[0];
-      console.log(helpHoverElement);
-      const helpHoverLocator = page.elementLocator(helpHoverElement);
-      console.log(helpHoverLocator);
-      const helpTextValue = page.getByRole('tooltip', { name: 'help text', exact: true });
+  });
 
+  it("Help message updates from default", async () => {
+      fixture.componentRef.setInput("helpText", "help text");
+      //Need a small delay for the fixture updates to apply.
+      await delay(1);
+
+      /*
+       * The help icon element doesn't have a role, name or any text values set, 
+       * so it can't be get as a Locator initially. 
+       */
+      const helpHoverElement = await document.getElementsByClassName('pi ti-help-circle')[0];
+      
+      //Default width of the help icon is 0px, which can't be hovered.
+      /*
+       * TODO: The componenet styles for 
+       * DialogService, DynamicDialogRef and/ or checkboxConfirmDialogComponent
+       * aren't being applied during testing, which is causing this issue.
+       * Once the styles have been applied this line can be removed.
+       */
+      helpHoverElement.setAttribute("style","width:50px");
+
+      //Converting the Element to a Locator, which is needed for the hover() function.
+      const helpHoverLocator = page.elementLocator(helpHoverElement);
+
+      const helpTextValue = page.getByRole('tooltip', { name: 'help text', exact: true });
       expect(helpTextValue).not.toBeInTheDocument();
       await helpHoverLocator.hover();
       await delay(1100);
       expect(helpTextValue).toBeInTheDocument();
-      */
   });
 
   it("Mock DynamicDialogRef.close callable.", () => {
@@ -106,14 +118,14 @@ describe('Checkbox', async () => {
     expect(cb).toBeChecked();
   });
 
-  it("Confirm clickable, close called.", async () => {
+  it("close() is called on confirm clicked.", async () => {
     const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, 'close');
     expect(getCloseCalls).toHaveBeenCalledTimes(0);
     await page.getByRole('button', {name: /confirm/i}).click();
     expect(getCloseCalls).toHaveBeenCalledTimes(1);
   });
 
-  it("Checkbox unchecked, cancel clicked (false, false)", async () => {
+  it("Checkbox unchecked, cancel clicked (false, false).", async () => {
     const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, 'close');
     await page.getByRole('button', {name: /cancel/i}).click();
     expect(getCloseCalls).toHaveBeenCalledWith({
@@ -122,7 +134,7 @@ describe('Checkbox', async () => {
     })
   })
 
-  it("Checkbox checked, confirm clicked (true, true)", async () => {
+  it("Checkbox checked, confirm clicked (true, true).", async () => {
     const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, 'close');
     await page.getByRole('checkbox').click();
     await page.getByRole('button', {name: /confirm/i}).click();
