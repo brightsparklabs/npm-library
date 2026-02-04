@@ -15,7 +15,7 @@ describe('Checkbox', async () => {
     beforeEach(async () => {
     
     //Mock service for the dialogService/ DynamicDialogRef.
-    const spy: Mocked<DynamicDialogRef> = {close: vi.fn(), onClose: vi.fn()};
+    const spy: Mocked<DynamicDialogRef> = {close: vi.fn()};
     
     await TestBed.configureTestingModule({
       imports: [CheckboxConfirmDialogComponent],
@@ -23,12 +23,8 @@ describe('Checkbox', async () => {
     }).compileComponents();
 
     //Setting a value for required input checkboxLabel.
-    fixture = TestBed.createComponent(CheckboxConfirmDialogComponent, {
-        bindings: [
-          //static binding  
-          inputBinding('checkboxLabel', () => "test" ),
-        ],
-    });
+    fixture = TestBed.createComponent(CheckboxConfirmDialogComponent);
+    fixture.componentRef.setInput("checkboxLabel", "test value");
     component = fixture.componentInstance;
 
     dynamicDialogRefSpy = TestBed.inject(DynamicDialogRef) as Mocked<DynamicDialogRef>
@@ -38,6 +34,15 @@ describe('Checkbox', async () => {
 
   it("Should create.", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("Default values loaded/ displayed", async () => {
+      //check each html componenet
+  });
+
+  it("Custom values loaded/ displayed", async () => {
+      //check each html componenet
+      fixture.componentRef.setInput("confirmLabel", "new confirm label");
   });
 
   it("Mock DynamicDialogRef.close callable.", () => {
@@ -56,15 +61,10 @@ describe('Checkbox', async () => {
   it("confirm clickable, close called.", async () => {
     const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, 'close');
     expect(getCloseCalls).toHaveBeenCalledTimes(0)
-    //Open?
-    //Click button.
     await page.getByRole('button', {name: /confirm/i}).click();
-    //Check for calls.
-    expect(getCloseCalls).toHaveBeenCalledTimes(1)
-    //Get the confirmed and checked values.
-    //dynamicDialogRefSpy?.onClose.subscribe((output: CheckBoxConfirmDialogOutput) => {
-    //  expect(output.checked).toBe(false);
-    //  expect(output.confirmed).toBe(true);
-    //});
+    expect(getCloseCalls).toHaveBeenCalledWith({
+      confirmed: true,
+      checked: false
+    })
   });
 });
