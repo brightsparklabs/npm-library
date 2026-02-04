@@ -80,7 +80,7 @@ describe("debouncedSignal", () => {
     const source = signal([1,2,3,4]);
     const timeDelay = signal(100);
     const debounced = runInInjectionContext(injector, () => 
-      debouncedSignal(source, source(), timeDelay)
+      debouncedSignal(source, [1,2,3,4], timeDelay)
     );
 
     source.set([1,2,3,4,5]);
@@ -96,5 +96,57 @@ describe("debouncedSignal", () => {
     await vi.advanceTimersByTimeAsync(400);
     
     expect(debounced()).toStrictEqual([1,2,3,4,5]);
+  });
+
+  it("Should always return initialValue before debounce time passes", async () => {
+    const injector = TestBed.inject(EnvironmentInjector);
+    const source = signal('initial');
+    const debounced = runInInjectionContext(injector, () => 
+      debouncedSignal(source, 'initial', 200)
+    );
+
+    source.set('a');
+    source.set('b');
+    source.set('c');
+
+    expect(debounced()).toBe('initial');
+
+    await vi.advanceTimersByTimeAsync(199);
+    expect(debounced()).toBe('initial');
+
+    await vi.advanceTimersByTimeAsync(1);
+    expect(debounced()).toBe('c');
+  });
+
+  it("Should emit immediately when debounce time is 0", async () => {
+    const injector = TestBed.inject(EnvironmentInjector);
+    const source = signal('initial');
+    const debounced = runInInjectionContext(injector, () => 
+      debouncedSignal(source, 'initial', 0)
+    );
+
+    source.set('initiall');
+    await vi.runAllTimersAsync();
+    expect(debounced()).toBe('initiall');
+  });
+
+  it("Should debounce multiple updates correctly", async () => {
+    const injector = TestBed.inject(EnvironmentInjector);
+    const source = signal('initial');
+    const debounced = runInInjectionContext(injector, () => 
+      debouncedSignal(source, 'initial', 100)
+    );
+
+    source.set('a');
+    await vi.advanceTimersByTimeAsync(100);
+    expect(debounced()).toBe('a');
+
+    source.set('b');
+    await vi.advanceTimersByTimeAsync(100);
+    expect(debounced()).toBe('b');
+
+    source.set('c');
+    await vi.advanceTimersByTimeAsync(100);
+    expect(debounced()).toBe('c');
   });
 });
