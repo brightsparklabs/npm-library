@@ -23,8 +23,16 @@ import { DialogService } from "primeng/dynamicdialog";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CheckboxConfirmDialogPage {
+  // -----------------------------------------------------------------------------------------------
+  // DEPENDENCIES
+  // -----------------------------------------------------------------------------------------------
+
   /** References the DialogService from providers. */
   private readonly dialogService = inject(DialogService);
+
+  // -----------------------------------------------------------------------------------------------
+  // INSTANCE VARIABLES
+  // -----------------------------------------------------------------------------------------------
 
   /** String for displaying/ testing onClose `checked` value. */
   protected readonly checkedValue = signal<string>("");
@@ -32,8 +40,12 @@ export default class CheckboxConfirmDialogPage {
   /** String for displaying/ testing onClose `confirmed` value. */
   protected readonly confirmedValue = signal<string>("");
 
-  /** Display dialog and handles onClose logic. */
-  onClick(): void {
+  // -----------------------------------------------------------------------------------------------
+  // PROTECTED METHODS
+  // -----------------------------------------------------------------------------------------------
+
+  /** Displays dialog and handles onClose logic. */
+  protected onClick(): void {
     const ref = this.dialogService.open(CheckboxConfirmDialogComponent, {
       header: "Set some setting...",
       modal: true,
