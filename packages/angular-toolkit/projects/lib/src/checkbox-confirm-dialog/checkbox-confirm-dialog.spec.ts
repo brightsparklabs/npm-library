@@ -12,11 +12,11 @@ import { CheckboxConfirmDialogComponent } from "./checkbox-confirm-dialog.compon
 describe("CheckboxConfirmDialog Tests", async () => {
   let component: CheckboxConfirmDialogComponent;
   let fixture: ComponentFixture<CheckboxConfirmDialogComponent>;
-  let dynamicDialogRefSpy: Mocked<DynamicDialogRef>;
-
+  let dynamicDialogRefSpy: Mocked<Pick<DynamicDialogRef, "close">>;
+  
   beforeEach(async () => {
     //Mock service for the dialogService/ DynamicDialogRef.
-    const spy: Mocked<DynamicDialogRef> = { close: vi.fn() };
+    const spy: Mocked<Pick<DynamicDialogRef, "close">> = { close: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [CheckboxConfirmDialogComponent],
