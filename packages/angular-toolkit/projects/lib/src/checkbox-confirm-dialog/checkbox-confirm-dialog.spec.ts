@@ -106,9 +106,8 @@ describe("CheckboxConfirmDialog Tests", async () => {
   });
 
   it("Mock DynamicDialogRef.close callable.", () => {
-    const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, "close");
     dynamicDialogRefSpy.close();
-    expect(getCloseCalls).toHaveBeenCalledTimes(1);
+    expect(dynamicDialogRefSpy.close).toHaveBeenCalledTimes(1);
   });
 
   it("Checkbox exists and clickable/ checkable.", async () => {
@@ -119,26 +118,23 @@ describe("CheckboxConfirmDialog Tests", async () => {
   });
 
   it("close() is called on confirm clicked.", async () => {
-    const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, "close");
-    expect(getCloseCalls).toHaveBeenCalledTimes(0);
+    expect(dynamicDialogRefSpy.close).toHaveBeenCalledTimes(0);
     await page.getByRole("button", { name: /confirm/i }).click();
-    expect(getCloseCalls).toHaveBeenCalledTimes(1);
+    expect(dynamicDialogRefSpy.close).toHaveBeenCalledTimes(1);
   });
 
   it("Checkbox unchecked, cancel clicked (false, false).", async () => {
-    const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, "close");
     await page.getByRole("button", { name: /cancel/i }).click();
-    expect(getCloseCalls).toHaveBeenCalledWith({
+    expect(dynamicDialogRefSpy.close).toHaveBeenCalledWith({
       confirmed: false,
       checked: false,
     });
   });
 
   it("Checkbox checked, confirm clicked (true, true).", async () => {
-    const getCloseCalls = vi.spyOn(dynamicDialogRefSpy, "close");
     await page.getByRole("checkbox").click();
     await page.getByRole("button", { name: /confirm/i }).click();
-    expect(getCloseCalls).toHaveBeenCalledWith({
+    expect(dynamicDialogRefSpy.close).toHaveBeenCalledWith({
       confirmed: true,
       checked: true,
     });
