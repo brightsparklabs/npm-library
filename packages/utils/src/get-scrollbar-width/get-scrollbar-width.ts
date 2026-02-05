@@ -5,12 +5,15 @@
 
 import { isPresent } from "../is-present/is-present";
 
+// -------------------------------------------------------------------------------------------------
+// CACHED VALUE
+// -------------------------------------------------------------------------------------------------
+
+let cachedScrollbarWidth: number | undefined;
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
 // -------------------------------------------------------------------------------------------------
-
-let cachedScrollbarWidth: number | undefined;
 
 /**
  * Returns the width of a scrollbar on a page in pixels. Caches a default value after first use.
@@ -32,18 +35,26 @@ export function getScrollbarWidth(
         return cachedScrollbarWidth;
     }
 
+    /** Create a scrollable page container and find the width in pixels. */
     const scrollableContainer = document.createElement("div");
     scrollableContainer.style.visibility = "hidden";
     scrollableContainer.style.overflow = "scroll";
+    // scrollableContainer.style.boxSizing = "border-box";
+    // scrollableContainer.style.height = "10px";
     document.body.appendChild(scrollableContainer);
     const containerWidth = scrollableContainer.offsetWidth;
 
+    /** Create a container without a scrollbar inside the scrollable container and find the width
+     * in pixels.
+     */
     const containerContent = document.createElement("div");
+    // containerContent.style.boxSizing = "border-box";
+    // containerContent.style.height = "20px";
     scrollableContainer.appendChild(containerContent);
     const contentWidth = containerContent.offsetWidth;
 
     scrollableContainer.parentNode!.removeChild(scrollableContainer);
-
+    console.log(containerWidth, contentWidth);
     cachedScrollbarWidth = containerWidth - contentWidth;
     return cachedScrollbarWidth;
 }
