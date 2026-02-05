@@ -81,10 +81,11 @@ describe("CheckboxConfirmDialog Tests", async () => {
      */
     const helpHoverElement = await document.getElementsByClassName("pi ti-help-circle")[0];
 
-    //Default width of the help icon is 0px, which can't be hovered.
     /*
-     * TODO: The componenet styles for
-     * DialogService, DynamicDialogRef and/ or checkboxConfirmDialog
+     * Default width of the help icon is 0px, which can't be hovered.
+     *
+     * TODO: BNL-25 - The componenet styles for
+     * DialogService, DynamicDialogRef and/ or CheckboxConfirmDialog
      * aren't being applied during testing, which is causing this issue.
      * Once the styles have been applied this line can be removed.
      */
