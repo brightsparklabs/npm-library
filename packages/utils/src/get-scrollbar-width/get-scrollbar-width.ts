@@ -9,7 +9,7 @@ import { isPresent } from "../is-present/is-present";
 // CACHED VALUE
 // -------------------------------------------------------------------------------------------------
 
-let cachedScrollbarWidth: number | undefined;
+export let cachedScrollbarWidth: number | undefined;
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
@@ -31,31 +31,33 @@ export function getScrollbarWidth(
 
     /** Return the cachedScrollbarWidth if it exists and there is no need to update the value. */
     if (isPresent(cachedScrollbarWidth) && !updateCachedWidth ) {
-
         return cachedScrollbarWidth;
     }
 
-    /** Create a scrollable page container and find the width in pixels. */
     const scrollableContainer = document.createElement("div");
     scrollableContainer.style.visibility = "hidden";
     scrollableContainer.style.overflow = "scroll";
-    // scrollableContainer.style.boxSizing = "border-box";
-    // scrollableContainer.style.height = "10px";
     document.body.appendChild(scrollableContainer);
     const containerWidth = scrollableContainer.offsetWidth;
 
-    /** Create a container without a scrollbar inside the scrollable container and find the width
-     * in pixels.
-     */
     const containerContent = document.createElement("div");
-    // containerContent.style.boxSizing = "border-box";
-    // containerContent.style.height = "20px";
     scrollableContainer.appendChild(containerContent);
     const contentWidth = containerContent.offsetWidth;
 
     scrollableContainer.parentNode!.removeChild(scrollableContainer);
-    console.log(containerWidth, contentWidth);
     cachedScrollbarWidth = containerWidth - contentWidth;
     return cachedScrollbarWidth;
 }
 
+/**
+ * A function used for testing. Forcably sets the value of cachedScrollbarWidth.
+ * Useful to check whether {@link getScrollbarWidth} is working correctly.
+ * 
+ * @param value A number or undefined.
+ */
+export function setCachedScrollbarWidth(
+    value: number | undefined,
+): void {
+
+    cachedScrollbarWidth = value;
+}
