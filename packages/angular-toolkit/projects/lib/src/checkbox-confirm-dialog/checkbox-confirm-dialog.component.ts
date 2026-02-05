@@ -30,7 +30,7 @@ import { Tooltip } from "primeng/tooltip";
   styleUrl: "./checkbox-confirm-dialog.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CheckboxConfirmDialogComponent {
+export class CheckboxConfirmDialog {
   // -----------------------------------------------------------------------------------------------
   // DEPENDENCIES
   // -----------------------------------------------------------------------------------------------

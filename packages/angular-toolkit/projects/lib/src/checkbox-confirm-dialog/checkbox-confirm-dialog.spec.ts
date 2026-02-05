@@ -7,24 +7,24 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { DynamicDialogRef } from "primeng/dynamicdialog";
 import { describe, expect, it, Mocked } from "vitest";
 import { page } from "vitest/browser";
-import { CheckboxConfirmDialogComponent } from "./checkbox-confirm-dialog.component";
+import { CheckboxConfirmDialog } from "./checkbox-confirm-dialog.component";
 
 describe("CheckboxConfirmDialog Tests", async () => {
-  let component: CheckboxConfirmDialogComponent;
-  let fixture: ComponentFixture<CheckboxConfirmDialogComponent>;
+  let component: CheckboxConfirmDialog;
+  let fixture: ComponentFixture<CheckboxConfirmDialog>;
   let dynamicDialogRefSpy: Mocked<Pick<DynamicDialogRef, "close">>;
-  
+
   beforeEach(async () => {
     //Mock service for the dialogService/ DynamicDialogRef.
     const spy: Mocked<Pick<DynamicDialogRef, "close">> = { close: vi.fn() };
 
     await TestBed.configureTestingModule({
-      imports: [CheckboxConfirmDialogComponent],
+      imports: [CheckboxConfirmDialog],
       providers: [{ provide: DynamicDialogRef, useValue: spy }],
     }).compileComponents();
 
     //Setting a value for required input checkboxLabel.
-    fixture = TestBed.createComponent(CheckboxConfirmDialogComponent);
+    fixture = TestBed.createComponent(CheckboxConfirmDialog);
     fixture.componentRef.setInput("checkboxLabel", "test value");
     component = fixture.componentInstance;
 
@@ -84,7 +84,7 @@ describe("CheckboxConfirmDialog Tests", async () => {
     //Default width of the help icon is 0px, which can't be hovered.
     /*
      * TODO: The componenet styles for
-     * DialogService, DynamicDialogRef and/ or checkboxConfirmDialogComponent
+     * DialogService, DynamicDialogRef and/ or checkboxConfirmDialog
      * aren't being applied during testing, which is causing this issue.
      * Once the styles have been applied this line can be removed.
      */
