@@ -105,11 +105,6 @@ describe("CheckboxConfirmDialog Tests", async () => {
     expect(helpTextValue).toBeInTheDocument();
   });
 
-  it("Mock DynamicDialogRef.close callable.", () => {
-    dynamicDialogRefSpy.close();
-    expect(dynamicDialogRefSpy.close).toHaveBeenCalledTimes(1);
-  });
-
   it("Checkbox exists and clickable/ checkable.", async () => {
     const cb = page.getByRole("checkbox");
     expect(cb).not.toBeChecked();
