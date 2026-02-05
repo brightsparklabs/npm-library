@@ -34,6 +34,7 @@
     "vitest": "catalog:vite"
   },
   "catalog": {
+    "date-fns": "^4.1.0",
     "typescript": "~5.9.0",
     "@types/node": "^24.0.0",
     "tslib": "^2.3.0",
