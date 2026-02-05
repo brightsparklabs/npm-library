@@ -5,17 +5,18 @@
 
 import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core";
 import {
-  CheckboxConfirmDialogComponent,
+  CheckboxConfirmDialog,
   CheckBoxConfirmDialogOutput,
 } from "@brightsparklabs/angular-toolkit";
+import { ButtonModule } from "primeng/button";
 import { DialogService } from "primeng/dynamicdialog";
 
-/** The dev page for the {@link CheckboxConfirmDialogComponent} component. */
+/** The dev page for the {@link checkboxConfirmDialog} component. */
 @Component({
-  imports: [],
+  imports: [ButtonModule],
   template: `
     <h2>Checkbox Testing Page</h2>
-    <button (click)="onClick()">click</button>
+    <p-button (click)="onClick()">click</p-button>
     <p>Checked: {{ checkedValue() }}</p>
     <p>Confirmed: {{ confirmedValue() }}</p>
   `,
@@ -46,7 +47,7 @@ export default class CheckboxConfirmDialogPage {
 
   /** Displays dialog and handles onClose logic. */
   protected onClick(): void {
-    const ref = this.dialogService.open(CheckboxConfirmDialogComponent, {
+    const ref = this.dialogService.open(CheckboxConfirmDialog, {
       header: "Set some setting...",
       modal: true,
       width: "40rem",
