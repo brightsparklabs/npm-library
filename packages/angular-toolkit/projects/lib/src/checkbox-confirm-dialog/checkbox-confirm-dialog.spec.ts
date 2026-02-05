@@ -9,10 +9,6 @@ import { describe, expect, it, Mocked } from "vitest";
 import { page } from "vitest/browser";
 import { CheckboxConfirmDialogComponent } from "./checkbox-confirm-dialog.component";
 
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 describe("CheckboxConfirmDialog Tests", async () => {
   let component: CheckboxConfirmDialogComponent;
   let fixture: ComponentFixture<CheckboxConfirmDialogComponent>;
@@ -54,8 +50,9 @@ describe("CheckboxConfirmDialog Tests", async () => {
     fixture.componentRef.setInput("confirmLabel", "new confirm");
     fixture.componentRef.setInput("cancelLabel", "new cancel");
     fixture.componentRef.setInput("message", "new message");
-    //Need a small delay for the fixture updates to apply.
-    await delay(1);
+
+    await fixture.whenStable();
+
     expect(page.getByRole("checkbox", { name: "new checkbox", exact: true })).toBeInTheDocument();
     expect(page.getByRole("button", { name: "new confirm", exact: true })).toBeInTheDocument();
     expect(page.getByRole("button", { name: "new cancel", exact: true })).toBeInTheDocument();
@@ -68,8 +65,7 @@ describe("CheckboxConfirmDialog Tests", async () => {
     expect(helpHoverElement).toBe(undefined);
 
     fixture.componentRef.setInput("helpText", "help text");
-    //need a small delay for the fixture updates to apply
-    await delay(1);
+    await fixture.whenStable();
 
     const newHelpHoverElement = await document.getElementsByClassName("pi ti-help-circle")[0];
     expect(newHelpHoverElement).not.toBe(undefined);
@@ -77,8 +73,7 @@ describe("CheckboxConfirmDialog Tests", async () => {
 
   it("Help message updates from default", async () => {
     fixture.componentRef.setInput("helpText", "help text");
-    //Need a small delay for the fixture updates to apply.
-    await delay(1);
+    await fixture.whenStable();
 
     /*
      * The help icon element doesn't have a role, name or any text values set,
@@ -100,8 +95,12 @@ describe("CheckboxConfirmDialog Tests", async () => {
     const helpTextValue = page.getByRole("tooltip", { name: "help text", exact: true });
 
     expect(helpTextValue).not.toBeInTheDocument();
+    //Using mock timers to avoid having to wait for the hover element to display.
+    vi.useFakeTimers();
     await helpHoverLocator.hover();
-    await delay(1100);
+    vi.runAllTimers();
+    vi.useRealTimers();
+
     expect(helpTextValue).toBeInTheDocument();
   });
 
