@@ -27,7 +27,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "date-fns": "catalog"
+    "date-fns": "catalog:"
   },
   "devDependencies": {
     "typescript": "catalog:",
