@@ -6,7 +6,7 @@
 import { isPresent } from "../is-present/is-present";
 
 // -------------------------------------------------------------------------------------------------
-// CACHED VALUE
+// INSTANCE VARIABLES
 // -------------------------------------------------------------------------------------------------
 
 export let cachedScrollbarWidth: number | undefined;
@@ -17,10 +17,9 @@ export let cachedScrollbarWidth: number | undefined;
 
 /**
  * Returns the width of a scrollbar on a page in pixels. Caches a default value after first use.
- * This cachedScrollbarWidth will then be returned by default to save computation. In the event
- * that cachedScrollbarWidth needs to be changed, this can be done by passing in a `true` value for 
- * updateCachedWidth.
- *
+ * This {@link cachedScrollbarWidth} will then be returned by default to save computation.
+ * In the event that {@link cachedScrollbarWidth} needs to be changed, this can be done by passing
+ * in a `true` value for {@link updateCachedWidth} parameter.
  *
  * @param updateCachedWidth An optional boolean flag, false by default.
  * @returns The pixel width of the scrollbar as a number.
@@ -50,7 +49,7 @@ export function getScrollbarWidth(
 }
 
 /**
- * A function used for testing. Forcably sets the value of cachedScrollbarWidth.
+ * A function used for testing. Sets the value of cachedScrollbarWidth.
  * Useful to check whether {@link getScrollbarWidth} is working correctly.
  * 
  * @param value A number or undefined.
