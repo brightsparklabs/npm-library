@@ -4,7 +4,7 @@
  */
 
 import { afterEach, expect, test } from "vitest";
-import { getScrollbarWidth, resetCachedScrollbarWidth } from "./get-scrollbar-width";
+import { getScrollbarWidth, scrollbarWidth } from "./get-scrollbar-width";
 
 /**
  * The number 15 is used as the expected values in the following tests.
@@ -73,3 +73,11 @@ function setScrollbarWidth(
       }
   `;
 }
+
+/**
+ * Resets the cached value of {@link scrollbarWidth.cachedScrollbarWidth} back to undefined.
+ * Necessary for testing the behaviour of {@link getScrollbarWidth} with an undefined cache value.
+ */
+export function resetCachedScrollbarWidth(): void {
+    scrollbarWidth.cachedScrollbarWidth = undefined;
+};
