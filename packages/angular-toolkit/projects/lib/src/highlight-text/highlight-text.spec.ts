@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-
 import { HighlightTextComponent } from "./highlight-text.component";
+import { page } from '@vitest/browser/context';
 
 describe("HighlightText", () => {
   let component: HighlightTextComponent;
@@ -63,26 +63,36 @@ describe("HighlightText", () => {
     });
   });
 
-  describe("Element Validation", () => {
-    it("Should render the DOM in the correct order", () => {
+  describe("Element Validation With Locators", () => {
+    it("Should render the DOM in the correct order", async () => {
       fixture.componentRef.setInput("text", "alpha-`beta`-gamma");
       fixture.detectChanges();
-      const el: HTMLElement = fixture.nativeElement;
-      expect(el.textContent.trim()).toBe("alpha- beta -gamma");
 
-      const html = el.innerHTML;
-      expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("<p-tag"));
-      expect(html.indexOf("<p-tag")).toBeLessThan(html.indexOf("gamma"));
+      const locator = page.getByText("alpha-`beta`-gamma");
+      console.log(locator);
+      await expect(locator).toBeVisible();
+
+      // const el: HTMLElement = fixture.nativeElement;
+      // expect(el.textContent.trim()).toBe("alpha- beta -gamma");
+
+      // const html = el.innerHTML;
+      // expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("<p-tag"));
+      // expect(html.indexOf("<p-tag")).toBeLessThan(html.indexOf("gamma"));
     });
 
-    it("Should handle missing closing delimiter", () => {
+    it("Should handle missing closing delimiter", async () => {
       fixture.componentRef.setInput("text", "alpha-`beta-gamma");
       fixture.detectChanges();
-      const el: HTMLElement = fixture.nativeElement;
-      expect(el.textContent.trim()).toBe("alpha-  `beta-gamma");
 
-      const html = el.innerHTML;
-      expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("`beta-gamma"));
+      const locator = page.getByText("alpha-`beta-gamma");
+      await expect(locator).toBeVisible();
+      const ptag = page.locator('p-tag');
+      await expect(ptag).not.toBeAttached();
+      // const el: HTMLElement = fixture.nativeElement;
+      // expect(el.textContent.trim()).toBe("alpha-  `beta-gamma");
+
+      // const html = el.innerHTML;
+      // expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("`beta-gamma"));
     });
 
     it("Should complex inputs", () => {

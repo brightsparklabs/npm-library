@@ -51,7 +51,7 @@ interface TextSegment {
  *```
  */
 @Component({
-  selector: "bsl-app-highlight-text",
+  selector: "bsl-highlight-text",
   imports: [Tag],
   template: `
     @for (segment of textSegments(); track $index) {
@@ -71,6 +71,7 @@ export class HighlightTextComponent {
 
   /** The text to highlight. */
   readonly text = input.required<string | undefined>();
+
   /** The delimiter to use for highlighting the text. */
   readonly delimiter = input<string>("`");
 

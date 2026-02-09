@@ -8,10 +8,9 @@
     "noPropertyAccessFromIndexSignature": true,
     "paths": {
       "lib": ["./dist/lib"],
-      "@brightsparklabs/utils": ["../utils/src/index.ts"]
     },
-    "rootDirs": ["./", "./utils"],
-    "types": ["vitest/globals"],
+    "rootDirs": ["./"],
+    "types": ["vitest/globals", "@vitest/browser/matchers"],
     "typeRoots": ["./node_modules", "./node_modules/@primeng"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

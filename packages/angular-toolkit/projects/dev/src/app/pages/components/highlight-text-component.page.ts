@@ -1,26 +1,32 @@
+/*
+ * Created by brightSPARK Labs
+ * www.brightsparklabs.com
+ */
+
 import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HighlightTextComponent } from "@brightsparklabs/angular-toolkit";
+import { InputTextModule } from "primeng/inputtext";
 
 /** The dev page for the {@link HighlightTextComponent} component. */
 @Component({
-  imports: [HighlightTextComponent, FormsModule],
+  imports: [HighlightTextComponent, FormsModule, InputTextModule],
   template: `
     <h2>Highlight Text Component Demo</h2>
     <div class="highlight-text-controls">
       <div class="highlight-text-inputs">
         <div class="input-group">
           <span>Text</span>
-          <input [ngModel]="text()" (ngModelChange)="text.set($event)" />
+          <input pInputText [(ngModel)]="text" />
         </div>
 
         <div class="input-group">
           <span>Delimiter</span>
-          <input [ngModel]="delimiter()" (ngModelChange)="delimiter.set($event)" />
+          <input pInputText [(ngModel)]="delimiter" />
         </div>
       </div>
       <span>Output</span>
-      <bsl-app-highlight-text [text]="text()" [delimiter]="delimiter()" />
+      <bsl-highlight-text [text]="text()" [delimiter]="delimiter()" />
     </div>
   `,
   styles: `
@@ -41,28 +47,17 @@ import { HighlightTextComponent } from "@brightsparklabs/angular-toolkit";
     .input-group span {
       font-weight: 600;
     }
-
-    input {
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      color: var(--p-surface-500);
-      border: 2px solid var(--p-surface-500);
-      appearance: none;
-      transition: all 0.2s ease;
-    }
-
-    input:focus {
-      outline: none;
-      color: var(--p-surface-800);
-      border: 2px solid var(--p-surface-800);
-    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HighlightTextComponentPage {
+  // -----------------------------------------------------------------------------------------------
+  // INSTANCE VARIABLES
+  // -----------------------------------------------------------------------------------------------
+
   /** Default text that will display in the component. */
-  readonly text = signal("hello *hi*");
+  protected readonly text = signal<string>("hello *hi*");
+
   /** Default delimiter that will be used to highlight text. */
-  readonly delimiter = signal("*");
+  protected readonly delimiter = signal<string>("*");
 }
