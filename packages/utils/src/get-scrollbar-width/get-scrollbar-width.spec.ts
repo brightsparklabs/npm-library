@@ -3,7 +3,7 @@
  * www.brightsparklabs.com
  */
 
-import { afterEach, beforeEach, expect, test } from "vitest";
+import { afterEach, expect, test } from "vitest";
 import { getScrollbarWidth, resetCachedScrollbarWidth } from "./get-scrollbar-width";
 
 /**
@@ -23,10 +23,9 @@ test("No cached value exists, calculate and cache the value", () => {
 });
 
 test("Cached value exists, ensure it changes when updated", () => {
-  getScrollbarWidth();
   /** Change width of the scrollbar to 14 pixels. Then ensure that this new width is returned. */
   setScrollbarWidth(14);
-  expect(getScrollbarWidth()).toBe(15);
+  expect(getScrollbarWidth(true)).toBe(14);
 });
 
 test("No cached value exists, passing true update flag. Returns new value", () => {
@@ -35,11 +34,18 @@ test("No cached value exists, passing true update flag. Returns new value", () =
 });
 
 test("Cached value already exists, return it", () => {
-  getScrollbarWidth()
   expect(getScrollbarWidth()).toBe(15);
 });
 
-test("Created DOM elements deleted after running util", () => {
+test("Created DOM elements deleted after running util, cached value exists", () => {
+  const countBefore = document.querySelectorAll("div").length;
+  getScrollbarWidth();
+  const countAfter = document.querySelectorAll("div").length;
+  expect(countBefore).toBe(countAfter);
+});
+
+test("Created DOM elements deleted after running util, cached value doesn't exist", () => {
+  resetCachedScrollbarWidth();
   const countBefore = document.querySelectorAll("div").length;
   getScrollbarWidth();
   const countAfter = document.querySelectorAll("div").length;
@@ -58,7 +64,7 @@ function setScrollbarWidth(
   width: number
 ): void {
 
-  /** Create a temporary element to alter the scrollbar width. */
+  /** Create a temporary element to override the scrollbar width. */
   const styleElem = document.createElement("style");
   document.head.appendChild(styleElem);
   styleElem.innerHTML = `

@@ -14,7 +14,7 @@ import { isPresent } from "../is-present/is-present";
  * Once it has been set, {@link getScrollbarWidth} will return this cached value to avoid redundant
  * computation, unless it is passed a boolean {@link updateCachedWidth} flag.
  */
-export let cachedScrollbarWidth: number | undefined;
+let cachedScrollbarWidth: number | undefined;
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
