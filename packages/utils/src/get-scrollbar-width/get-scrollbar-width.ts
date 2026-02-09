@@ -14,7 +14,7 @@ import { isPresent } from "../is-present/is-present";
  * Once it has been set, {@link getScrollbarWidth} will return this cached value to avoid redundant
  * computation, unless it is passed a boolean {@link updateCachedWidth} flag.
  */
-let cachedScrollbarWidth: number | undefined;
+export let cachedScrollbarWidth: number | undefined;
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
@@ -50,4 +50,12 @@ export function getScrollbarWidth(
     scrollableContainer.parentNode!.removeChild(scrollableContainer);
     cachedScrollbarWidth = containerWidth - contentWidth;
     return cachedScrollbarWidth;
+}
+
+/**
+ * Resets the cache back to undefined.
+ * Necessary for testing the behaviour of {@link getScrollbarWidth} with an undefined cache value.
+ */
+export function resetCachedScrollbarWidth(): void {
+    cachedScrollbarWidth = undefined;
 }

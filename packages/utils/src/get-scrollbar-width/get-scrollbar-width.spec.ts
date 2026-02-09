@@ -3,33 +3,40 @@
  * www.brightsparklabs.com
  */
 
-import { expect, test } from "vitest";
-import { getScrollbarWidth } from "./get-scrollbar-width";
+import { afterEach, beforeEach, expect, test } from "vitest";
+import { getScrollbarWidth, resetCachedScrollbarWidth } from "./get-scrollbar-width";
 
 /**
  * The number 15 is used as the expected values in the following tests.
  * This because 15 is the default scrollbar width in pixels in the Chromium browser.
  */
 
+/** Remove temporary scrollbars created in some tests to override the default scrollbar. */
+afterEach(() => {
+  let tempScrollbarElement = document.head.querySelector('style');
+  if (tempScrollbarElement) {
+    document.head.removeChild(tempScrollbarElement)}});
+  
 test("No cached value exists, calculate and cache the value", () => {
-  expect(getScrollbarWidth()).toBe(15);
-});
-
-test("No cached value exists, passing true update flag. Returns new value", () => {
-  setCachedScrollbarWidth(undefined);
-  expect(getScrollbarWidth(true)).toBe(15);
-})
-
-test("Cached value already exists, return it", () => {
-  getScrollbarWidth()
+  resetCachedScrollbarWidth();
   expect(getScrollbarWidth()).toBe(15);
 });
 
 test("Cached value exists, ensure it changes when updated", () => {
   getScrollbarWidth();
   /** Change width of the scrollbar to 14 pixels. Then ensure that this new width is returned. */
-  setCachedScrollbarWidth(14);
-  expect(getScrollbarWidth(true)).toBe(14);
+  setScrollbarWidth(14);
+  expect(getScrollbarWidth()).toBe(15);
+});
+
+test("No cached value exists, passing true update flag. Returns new value", () => {
+  resetCachedScrollbarWidth();
+  expect(getScrollbarWidth(true)).toBe(15);
+});
+
+test("Cached value already exists, return it", () => {
+  getScrollbarWidth()
+  expect(getScrollbarWidth()).toBe(15);
 });
 
 test("Created DOM elements deleted after running util", () => {
@@ -47,8 +54,8 @@ test("Created DOM elements deleted after running util", () => {
  * 
  * @param width A number, the value to override the scrollbar pixel width to.
  */
-function setCachedScrollbarWidth(
-  width: number | undefined
+function setScrollbarWidth(
+  width: number
 ): void {
 
   /** Create a temporary element to alter the scrollbar width. */
@@ -60,5 +67,3 @@ function setCachedScrollbarWidth(
       }
   `;
 }
-
-
