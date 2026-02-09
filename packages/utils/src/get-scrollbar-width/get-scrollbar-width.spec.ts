@@ -15,7 +15,9 @@ import { getScrollbarWidth, scrollbarWidth } from "./get-scrollbar-width";
 afterEach(() => {
   let tempScrollbarElement = document.head.querySelector('style');
   if (tempScrollbarElement) {
-    document.head.removeChild(tempScrollbarElement)}});
+    document.head.removeChild(tempScrollbarElement);
+  };
+});
   
 test("No cached value exists, calculate and cache the value", () => {
   resetCachedScrollbarWidth();
@@ -72,7 +74,7 @@ function setScrollbarWidth(
           width: ${width}px !important;
       }
   `;
-}
+};
 
 /**
  * Resets the cached value of {@link scrollbarWidth.cachedScrollbarWidth} back to undefined.

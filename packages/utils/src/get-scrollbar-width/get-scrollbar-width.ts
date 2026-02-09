@@ -14,7 +14,9 @@ import { isPresent } from "../is-present/is-present";
  * The object is necessary for testing, so that the cached value can be reset to undefined from
  * the testing file.
  */
-type ScrollbarWidth = { cachedScrollbarWidth: number | undefined; }
+type ScrollbarWidth = {
+    cachedScrollbarWidth: number | undefined;
+};
 
 // -------------------------------------------------------------------------------------------------
 // INSTANCE VARIABLES
@@ -27,7 +29,7 @@ type ScrollbarWidth = { cachedScrollbarWidth: number | undefined; }
  */
 export let scrollbarWidth:ScrollbarWidth = {
     cachedScrollbarWidth: undefined
-} 
+}; 
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
@@ -48,7 +50,7 @@ export function getScrollbarWidth(
     /** Return the cachedScrollbarWidth if it exists and there is no need to update the value. */
     if (isPresent(scrollbarWidth.cachedScrollbarWidth) && !updateCachedWidth ) {
         return scrollbarWidth.cachedScrollbarWidth;
-    }
+    };
 
     const scrollableContainer = document.createElement("div");
     scrollableContainer.style.visibility = "hidden";
