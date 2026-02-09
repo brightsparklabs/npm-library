@@ -37,11 +37,11 @@ export default class DebouncedSignalPage {
   // -----------------------------------------------------------------------------------------------
 
   /** String signal to be debounced. */
-  readonly text = signal<string>("");
+  protected readonly text = signal<string>("");
 
   /** The time in milliseconds to debounce by. */
-  readonly delay = signal<number>(1000);
+  protected readonly delay = signal<number>(1000);
 
   /** The value of the debounced string signal. */
-  readonly delayedText: Signal<string> = debouncedSignal(this.text, "", this.delay);
+  protected readonly delayedText: Signal<string> = debouncedSignal(this.text, "", this.delay);
 }
