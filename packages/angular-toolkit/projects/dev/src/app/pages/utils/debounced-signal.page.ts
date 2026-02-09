@@ -3,7 +3,7 @@
  * www.brightsparklabs.com
  */
 
-import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, signal, type Signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { debouncedSignal } from "@brightsparklabs/angular-toolkit";
 import { InputTextModule } from "primeng/inputtext";
@@ -37,11 +37,11 @@ export default class DebouncedSignalPage {
   // -----------------------------------------------------------------------------------------------
 
   /** String signal to be debounced. */
-  readonly text = signal("");
+  readonly text = signal<string>("");
 
   /** The time in milliseconds to debounce by. */
-  readonly delay = signal(1000);
+  readonly delay = signal<number>(1000);
 
   /** The value of the debounced string signal. */
-  readonly delayedText = debouncedSignal(this.text, "", this.delay);
+  readonly delayedText: Signal<string> = debouncedSignal(this.text, "", this.delay);
 }
