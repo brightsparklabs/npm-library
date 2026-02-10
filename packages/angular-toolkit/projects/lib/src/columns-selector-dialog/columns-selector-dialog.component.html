@@ -1,0 +1,54 @@
+<p-dialog
+  draggable="false"
+  [modal]="true"
+  [style]="{ minWidth: '800px', height: '60vh', minHeight: '400px' }"
+  [(visible)]="visible"
+>
+  <div cdkDropListGroup class="container">
+    <div class="columns-list-container">
+      <h2>Columns</h2>
+
+      <p-picklist
+        breakpoint="1400px"
+        [source]="hiddenColumns()"
+        [target]="visibleColumns()"
+        [dragdrop]="true"
+        [responsive]="true"
+        
+      >
+        <ng-template #item let-item>
+          {{ item.name }}
+        </ng-template>
+      </p-picklist>
+        <!-- @for (column of hiddenColumns(); track column) {
+          <div class="columns-box" cdkDrag>
+            <i class="pi ti-grip-vertical"> </i>{{ column.header }}
+          </div>
+        } -->
+      </div>
+    </div>
+    
+
+    <!-- <div class="columns-list-container">
+      <h2>Visible Columns</h2>
+
+      <div
+        id="visible-list"
+        cdkDropList
+        class="columns-list"
+        [cdkDropListData]="_visibleColumns()"
+        (cdkDropListDropped)="handleDrop($event)"
+      >
+        @for (column of _visibleColumns(); track column) {
+            <div class="columns-box" cdkDrag>
+              <i class="pi ti-grip-vertical"></i>{{ column.header }}
+            </div>
+          }
+      </div>
+      <div class="buttons-container">
+        <p-button label="Reset to default" text severity="secondary" (onClick)="handleReset()" />
+        <p-button label="Save" (onClick)="handleSave()" />
+      </div>
+    </div> -->
+  <!-- </div> -->
+</p-dialog>
