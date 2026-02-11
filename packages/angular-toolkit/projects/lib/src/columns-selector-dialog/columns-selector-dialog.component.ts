@@ -61,11 +61,6 @@ export class ColumnsSelectorDialogComponent {
     equal: (_a,_b) => this.visible() === false
   });
 
-  /** The total number of fixed columns. */
-  // private readonly fixedCount = computed<number>(
-  //   () => this.columns().filter((c) => c["fixed"]).length,
-  // );
-
 
   // -----------------------------------------------------------------------------------------------
   // PROTECTED METHODS

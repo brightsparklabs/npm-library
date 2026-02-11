@@ -1,32 +1,36 @@
 <p-dialog
   draggable="false"
+  header="Page Preferences"
   [modal]="true"
-  [style]="{ minWidth: '800px', height: '60vh', minHeight: '400px' }"
+  [closable]="false"
+  [resizable]="false"
+  [style]="{
+    'min-width': '60vw',
+    'max-width': '80vw', 
+    'max-height': '80vh', }"
   [(visible)]="visible"
 >
-  <div cdkDropListGroup class="container">
-    <div class="columns-list-container">
-      <h2>Columns</h2>
-        <div class="picklist-container">
-          <h2>Picklist Columns</h2>
-          <p-picklist
-            breakpoint="1400px"
-            targetHeader="hiddenColumns"
-            sourceHeader="visiblecolumns"
-            [target]="hiddenColumns()"
-            [source]="_visibleColumns()"
-            [dragdrop]="true"
-            [responsive]="true"  
-          >
-            <ng-template #item let-column>
-              <div class="column-box">
-                {{ column.header }}
-              </div>
-            </ng-template>
-          </p-picklist>
-        </div>
+  <h2>Column Visibility and Ordering</h2>
+    <div class="modal-body">
+          <div class="picklist-container">
+            <p-picklist
+              breakpoint="1400px"
+              targetHeader="hiddenColumns"
+              sourceHeader="visiblecolumns"
+              [target]="hiddenColumns()"
+              [source]="_visibleColumns()"
+              [dragdrop]="true"
+              [responsive]="true"  
+            >
+              <ng-template #item let-column>
+                <div class="column-box">
+                  {{ column.header }}
+                </div>
+              </ng-template>
+            </p-picklist>
+          </div>
+
     </div>
-  </div>
   <div class="buttons-container">
     <p-button label="Cancel" text severity="secondary" (onClick)="handleCancel()" />
     <p-button label="Reset to default" text severity="secondary" (onClick)="handleReset()" />
