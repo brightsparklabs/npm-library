@@ -3,10 +3,11 @@
  * www.brightsparklabs.com.
  */
 
-import { ChangeDetectionStrategy, Component, model, input, linkedSignal, /*computed*/ } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, input, linkedSignal, untracked, /*computed*/ } from '@angular/core';
 import { Button } from "primeng/button";
 import { Dialog } from "primeng/dialog";
 import { PickListModule } from 'primeng/picklist';
+
 
 /**
  * Placeholder.
@@ -42,16 +43,23 @@ export class ColumnsSelectorDialogComponent {
 
   /**
    * The list of columns which are actively visible. We use this such that we only sync the
-   * update {@link visibleColumns} when the user saves the changes via {@link onSave}.
+   * update {@link visibleColumns} when the user saves the changes via {@link handleSave}.
    */
   protected readonly _visibleColumns = linkedSignal<Array<TableColumn>>(() =>
-    this.visibleColumns(),
+    [...this.visibleColumns()],
   );
 
   /** The list of columns which are hidden. */
-  protected readonly hiddenColumns = linkedSignal<Array<TableColumn>>(() =>
-    this.columns().filter((c) => !this.visibleColumns().includes(c)),
-  );
+  protected readonly hiddenColumns = linkedSignal<boolean,Array<TableColumn>>({
+    source: () => this.visible(),
+    computation: (source, previous) => {
+      if (source === true) {
+        return untracked(() => this.columns().filter((c) => !this.visibleColumns().includes(c)))
+      }
+      return previous?.value ?? [];
+    },
+    equal: (_a,_b) => this.visible() === false
+  });
 
   /** The total number of fixed columns. */
   // private readonly fixedCount = computed<number>(
@@ -66,13 +74,30 @@ export class ColumnsSelectorDialogComponent {
   /** Saves the changes to the visible columns and closes the modal. */
   protected handleSave(): void {
     this.visibleColumns.set([...this._visibleColumns()]);
+
+    console.log(`_Visible columns = ${this._visibleColumns}`);
+    console.log(`Visible columns = ${this.visibleColumns}`);
+
     this.visible.set(false);
   }
 
   /** Resets the columns to the default view. */
   protected handleReset(): void {
-    this._visibleColumns.set(this.columns());
+
+    console.log(`Columns before reset = ${this.columns()}`);
+
+    this._visibleColumns.set([...this.columns()]);
     this.hiddenColumns.set([]);
+
+    console.log(`Columns after reset = ${this.columns()}`);
+
+  }
+
+  /** Cancel out of the modal, return everything to the last saved state. */
+  protected handleCancel(): void {
+
+    this.visibleColumns.set([...this.visibleColumns()]);
+    this.visible.set(false);
   }
 }
 

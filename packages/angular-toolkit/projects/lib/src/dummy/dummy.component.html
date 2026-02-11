@@ -1,0 +1,18 @@
+<p-button
+      icon="pi ti-adjustments-horizontal"
+      ariaLabel="Configure columns"
+      outlined
+      (onClick)="showColumnsSelector.set(!showColumnsSelector())"
+    />
+    <bsl-columns-selector-dialog
+      [columns]="defaultTableColumns()"
+      [(visible)]="showColumnsSelector"
+      [(visibleColumns)]="visibleTableColumns"
+    />
+
+<div>
+    Visible columns = {{ visibleTableColumns()}}
+    <p></p>
+    Default columns = {{ defaultTableColumns() }}
+    <p></p>
+</div>
