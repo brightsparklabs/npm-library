@@ -25,7 +25,11 @@ export default defineConfig({
       enabled: true,
       headless: true,
       screenshotFailures: false,
-      provider: playwright(),
+      provider: playwright({
+        launchOptions: {
+          ignoreDefaultArgs: ['--hide-scrollbars']
+        }
+      }),
       instances: [{ browser: "chromium" }],
     },
   },
