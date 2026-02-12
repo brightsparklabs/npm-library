@@ -13,12 +13,12 @@ import { getScrollbarWidth, scrollbarWidth } from "./get-scrollbar-width";
 
 /** Remove temporary scrollbars created in some tests to override the default scrollbar. */
 afterEach(() => {
-  let tempScrollbarElement = document.head.querySelector('style');
+  let tempScrollbarElement = document.head.querySelector("style");
   if (tempScrollbarElement) {
     document.head.removeChild(tempScrollbarElement);
-  };
+  }
 });
-  
+
 test("No cached value exists, calculate and cache the value", () => {
   resetCachedScrollbarWidth();
   expect(getScrollbarWidth()).toBe(15);
@@ -57,15 +57,12 @@ test("Created DOM elements deleted after running util, cached value doesn't exis
 /**
  * A function used for testing to achieve different values for scrollbar width.
  * It overrides the default scrollbar with a scrollbar of width equal to {@link width} pixels.
- * Useful to check whether {@link getScrollbarWidth} behaves correctly when updating the cached 
+ * Useful to check whether {@link getScrollbarWidth} behaves correctly when updating the cached
  * value.
- * 
+ *
  * @param width A number, the value to override the scrollbar pixel width to.
  */
-function setScrollbarWidth(
-  width: number
-): void {
-
+function setScrollbarWidth(width: number): void {
   /** Create a temporary element to override the scrollbar width. */
   const styleElem = document.createElement("style");
   document.head.appendChild(styleElem);
@@ -74,12 +71,12 @@ function setScrollbarWidth(
           width: ${width}px !important;
       }
   `;
-};
+}
 
 /**
  * Resets the cached value of {@link scrollbarWidth.cachedScrollbarWidth} back to undefined.
  * Necessary for testing the behaviour of {@link getScrollbarWidth} with an undefined cache value.
  */
 export function resetCachedScrollbarWidth(): void {
-    scrollbarWidth.cachedScrollbarWidth = undefined;
-};
+  scrollbarWidth.cachedScrollbarWidth = undefined;
+}

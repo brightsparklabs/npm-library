@@ -9,27 +9,27 @@ import { isPresent } from "../is-present/is-present";
 // TYPES & INTERFACES
 // -------------------------------------------------------------------------------------------------
 
-/** 
+/**
  * Type to hold the cachedScrollbarWidth value in.
  * The object is necessary for testing, so that the cached value can be reset to undefined from
  * the testing file.
  */
 type ScrollbarWidth = {
-    cachedScrollbarWidth: number | undefined;
+  cachedScrollbarWidth: number | undefined;
 };
 
 // -------------------------------------------------------------------------------------------------
 // INSTANCE VARIABLES
 // -------------------------------------------------------------------------------------------------
 
-/** 
+/**
  * Object to hold the cached value of scrollbar width set by {@link getScrollbarWidth}.
  * Once it has been set, {@link getScrollbarWidth} will return this cached value to avoid redundant
  * computation, unless it is passed a boolean {@link updateCachedWidth} flag.
  */
-export let scrollbarWidth:ScrollbarWidth = {
-    cachedScrollbarWidth: undefined
-}; 
+export let scrollbarWidth: ScrollbarWidth = {
+  cachedScrollbarWidth: undefined,
+};
 
 // -------------------------------------------------------------------------------------------------
 // PUBLIC METHODS
@@ -44,25 +44,23 @@ export let scrollbarWidth:ScrollbarWidth = {
  * @param updateCachedWidth An optional boolean flag, false by default.
  * @returns The pixel width of the scrollbar as a number.
  */
-export function getScrollbarWidth(
-    updateCachedWidth: boolean = false
-): number {
-    /** Return the cachedScrollbarWidth if it exists and there is no need to update the value. */
-    if (isPresent(scrollbarWidth.cachedScrollbarWidth) && !updateCachedWidth ) {
-        return scrollbarWidth.cachedScrollbarWidth;
-    };
-
-    const scrollableContainer = document.createElement("div");
-    scrollableContainer.style.visibility = "hidden";
-    scrollableContainer.style.overflow = "scroll";
-    document.body.appendChild(scrollableContainer);
-    const containerWidth = scrollableContainer.offsetWidth;
-
-    const containerContent = document.createElement("div");
-    scrollableContainer.appendChild(containerContent);
-    const contentWidth = containerContent.offsetWidth;
-
-    scrollableContainer.parentNode!.removeChild(scrollableContainer);
-    scrollbarWidth.cachedScrollbarWidth = containerWidth - contentWidth;
+export function getScrollbarWidth(updateCachedWidth: boolean = false): number {
+  /** Return the cachedScrollbarWidth if it exists and there is no need to update the value. */
+  if (isPresent(scrollbarWidth.cachedScrollbarWidth) && !updateCachedWidth) {
     return scrollbarWidth.cachedScrollbarWidth;
+  }
+
+  const scrollableContainer = document.createElement("div");
+  scrollableContainer.style.visibility = "hidden";
+  scrollableContainer.style.overflow = "scroll";
+  document.body.appendChild(scrollableContainer);
+  const containerWidth = scrollableContainer.offsetWidth;
+
+  const containerContent = document.createElement("div");
+  scrollableContainer.appendChild(containerContent);
+  const contentWidth = containerContent.offsetWidth;
+
+  scrollableContainer.parentNode!.removeChild(scrollableContainer);
+  scrollbarWidth.cachedScrollbarWidth = containerWidth - contentWidth;
+  return scrollbarWidth.cachedScrollbarWidth;
 }
