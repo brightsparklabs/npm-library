@@ -1,0 +1,28 @@
+/*
+ * Created by brightSPARK Labs
+ * www.brightsparklabs.com
+ */
+
+.footer-buttons {
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+}
+.message {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  .checkbox-icon-container {
+    display: flex;
+    justify-content: space-between;
+    .checkbox-container {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}

@@ -80,6 +80,21 @@ export class App {
     );
   });
 
+  /** The collection of all the available pages for utils. */
+  protected readonly utilPages = computed<Array<MenuItem>>(() => {
+    // Reload the content any time the navigate ends.
+    this.navigationEnd();
+
+    const dashboardRoute = this.router.config.find((r) => r.path === "utils");
+
+    return (
+      dashboardRoute?.children?.map((route) => ({
+        routerLink: `/utils/${route.path}`,
+        label: route.path!,
+      })) ?? []
+    );
+  });
+
   /** The current theme of the application. */
   protected readonly theme = signal<"LIGHT" | "DARK">(
     window.matchMedia("(prefers-color-scheme: dark)").matches ? "DARK" : "LIGHT",
