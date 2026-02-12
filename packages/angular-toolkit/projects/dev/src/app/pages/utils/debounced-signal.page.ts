@@ -9,7 +9,7 @@ import { debouncedSignal } from "@brightsparklabs/angular-toolkit";
 import { InputTextModule } from "primeng/inputtext";
 import { SliderModule } from "primeng/slider";
 
-/** The dev page for the thingo. */
+/** The dev page for the debounced signal utility. */
 @Component({
   imports: [FormsModule, SliderModule, InputTextModule],
   template: `
