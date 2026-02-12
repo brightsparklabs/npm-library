@@ -20,5 +20,15 @@
       </li>
     }
   </ul>
+  Utils
+  <ul>
+    @for (utilPage of utilPages(); track utilPage.routerLink) {
+      <li>
+        <a [routerLink]="utilPage.routerLink" (click)="expanded.set(false)">
+          {{ utilPage.label }}
+        </a>
+      </li>
+    }
+  </ul>
 </p-drawer>
 <router-outlet />
