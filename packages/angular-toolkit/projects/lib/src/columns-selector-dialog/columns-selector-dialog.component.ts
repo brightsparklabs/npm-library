@@ -3,7 +3,7 @@
  * www.brightsparklabs.com.
  */
 
-import { ChangeDetectionStrategy, Component, model, input, linkedSignal, untracked, /*computed*/ } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, input, linkedSignal, untracked, } from '@angular/core';
 import { Button } from "primeng/button";
 import { Dialog } from "primeng/dialog";
 import { PickListModule } from 'primeng/picklist';
@@ -70,9 +70,6 @@ export class ColumnsSelectorDialogComponent {
   protected handleSave(): void {
     this.visibleColumns.set([...this._visibleColumns()]);
 
-    console.log(`_Visible columns = ${this._visibleColumns}`);
-    console.log(`Visible columns = ${this.visibleColumns}`);
-
     this.visible.set(false);
   }
 
@@ -120,7 +117,9 @@ export class ColumnsSelectorDialogComponent {
 
 
 
-
+// TODO: Typescript record to make TableColumn more generic
+// Add Check what the fields are in Teraflow as well
+// Add some sort of config to choose which field to use
 
 
 // -------------------------------------------------------------------------------------------------
