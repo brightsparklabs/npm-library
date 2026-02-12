@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ColumnsSelectorDialogComponent } from './columns-selector-dialog.component';
+import { ColumnsSelectorDialogComponent , TableColumn } from './columns-selector-dialog.component';
 
-const DEFAULT_COLUMNS = [
+const DEFAULT_COLUMNS: TableColumn[] = [
   { field: "firstName", header: "First name", width: "10rem" },
   { field: "lastNameName", header: "Last name", width: "10rem" },
   { field: "dateOfBirth", header: "Date of birth", width: "10rem" },
@@ -28,131 +28,205 @@ describe('ColumnsSelectorDialogComponent Regular Tests', async () => {
     await fixture.whenStable();
   });
 
+  //DONE
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  //DONE
   it('visibleColumns should just be default columns', () => {
     expect(component.visibleColumns()).toEqual(component.columns());
   });
 
+  //DONE
   it('component should close after cancel is hit', () => {
-
-    // Ensure component is open.
     expect(component.visible()).toBeTruthy();
-
-    // Call the cancel function.
     (component as any)['handleCancel']();
-
-    // Ensure component is closed.
     expect(component.visible()).toBeFalsy();
   });
 
+  //DONE
   it('no changes made, visibleColumns should not change when saved', () => {
-    // Ensure component is open.
     expect(component.visible()).toBeTruthy();
-
     let temp = component.visibleColumns();
     (component as any)['handleSave']();
-
-    // visibleColumns should be equal the same thing it was before saving.
     expect(component.visibleColumns()).toEqual(temp);
-    
   });
 
+  //DONE
   it('no changes made, component should not be visible after save', () => {
     expect(component.visible()).toBeTruthy();
     (component as any)['handleSave']();
     expect(component.visible()).toBeFalsy();
   });
 
+  //DONE / TODO
+  it('no changes made, reset makes _visibleColumns reset to visibleColumns', () => {
+    expect(component.visible()).toBeTruthy();
+    (component as any)['handleReset']();
+    // TODO: Figure out how to get [object Object] as the actual values.
+    expect(component.visibleColumns()).toEqual((component as any)['_visibleColumns']());
+  });
+
+//--------------------------------------------------------------------------------------------------
+/** All tests after involve making some change to the columns */
+//--------------------------------------------------------------------------------------------------
+
+  //DONE  
   it('changes made, cancel hit, changes should not be applied', () => {
 
     // Component is open
     expect(component.visible()).toBeTruthy();
-    // Get the preferences before doing anything
-    let temp = component.visibleColumns();
 
-    // TODO: Figure out how to simulate dragging and dropping. Need to move from _visibleColumns
-    // to hiddenColumns or other way around
+    const visibleColumnsBeforeChange = structuredClone(component.visibleColumns());
+    const _visibleColumnsBeforeChange = structuredClone((component as any)['_visibleColumns']());
+    const hiddenBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
-    // Expect _visibleColumns and hiddenColumns to be changed
-    // Save the temphiddenColumns
+    // Manually take element from _visibleColumns and put in hiddenColumns to simulate drag/drop.
+    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    ((component as any)['hiddenColumns']()).push(a);
+
+    // visibleColumns shouldn't have changed
+    // _visibleColumns should have changed
+    // hiddenColumns should have changed
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect((component as any)['hiddenColumns']()).not.toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).not.toEqual(_visibleColumnsBeforeChange);
 
     // Cancel button
     (component as any)['handleCancel']();
-
-    // Expect hiddenColumns != tempHiddenColumns
-
-    // Expect visibleColumns == temp
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect(component.visible()).toBeFalsy();
 
   });
 
+  //DONE
   it('changes made, save hit, changes should be applied', () => {
     
     // Component is open
     expect(component.visible()).toBeTruthy();
 
-    // Get preferences before save
-    let temp = component.visibleColumns();
+    const visibleColumnsBeforeChange = structuredClone(component.visibleColumns());
+    const _visibleColumnsBeforeChange = structuredClone((component as any)['_visibleColumns']());
+    const hiddenBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
-    // Make some change to the columns
+    // Manually take element from _visibleColumns and put in hiddenColumns to simulate drag/drop.
+    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,2);
+    ((component as any)['hiddenColumns']()).push(a);
 
+    // visibleColumns shouldn't have changed
+    // _visibleColumns should have changed
+    // hiddenColumns should have changed
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect((component as any)['hiddenColumns']()).not.toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).not.toEqual(_visibleColumnsBeforeChange);
+
+    // Save button
     (component as any)['handleSave']();
-
-    // Expect temp != visibleColumns
+    // visibleColumns should have changed
+    expect(component.visibleColumns()).not.toEqual(visibleColumnsBeforeChange);
+    expect(component.visible()).toBeFalsy();
   });
 
-  it('changes made, save hit, modal closed and opened, visibleColumns should be correct', () => {
+  //DONE
+  it('changes made, save hit, modal closed visibleColumns should be correct', () => {
 
-    //Component open
+    // Component is open
+    expect(component.visible()).toBeTruthy();
 
-    //Make some change to the columns, put a field in hidden
+    const visibleColumnsBeforeChange = structuredClone(component.visibleColumns());
+    const _visibleColumnsBeforeChange = structuredClone((component as any)['_visibleColumns']());
+    const hiddenBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
-    //Get temp variable of _visibleColumns
+    // Manually take element from _visibleColumns and put in hiddenColumns to simulate drag/drop.
+    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,2);
+    ((component as any)['hiddenColumns']()).push(a);
 
-    //Save changes
+    // visibleColumns shouldn't have changed
+    // _visibleColumns should have changed
+    // hiddenColumns should have changed
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect((component as any)['hiddenColumns']()).not.toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).not.toEqual(_visibleColumnsBeforeChange);
 
-    //Reopen the modal, _visibleColumns should equal the temp var tempvariableColumns
+    const _visibleColumnsAfterChange = structuredClone((component as any)['_visibleColumns']());
+
+    // Save button
+    (component as any)['handleSave']();
+
+    // Component is closed
+    expect(component.visible()).toBeFalsy();
+
+    // Check that visibleColumns is the same as _visibleColumns was before the modal closed
+    expect(component.visibleColumns()).toEqual(_visibleColumnsAfterChange);
   })
 
+  //DONE
+  it('changes made but not saved, reset makes _visibleColumns the same as columns', () => {
 
-  it('no changes made, reset makes _visibleColumns reset to columns', () => {
-
-    //Component open
+    // Component is open
     expect(component.visible()).toBeTruthy();
+
+    const visibleColumnsBeforeChange = structuredClone(component.visibleColumns());
+    const _visibleColumnsBeforeChange = structuredClone((component as any)['_visibleColumns']());
+    const hiddenBeforeChange = structuredClone((component as any)['hiddenColumns']());
+
+    // Manually take element from _visibleColumns and put in hiddenColumns to simulate drag/drop.
+    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,2);
+    ((component as any)['hiddenColumns']()).push(a);
+
+    // visibleColumns shouldn't have changed
+    // _visibleColumns should have changed
+    // hiddenColumns should have changed
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect((component as any)['hiddenColumns']()).not.toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).not.toEqual(_visibleColumnsBeforeChange);
 
     //handleReset
     (component as any)['handleReset']();
 
-    // TODO: Figure out how to get [object Object] as the actual values.
-    let tempVisibleColumns = (component as any)['_visibleColumns']();
-    console.log(`_visibleColumns = ${tempVisibleColumns}`);
-
-    //_visibleColumns == visibleColumns
-    expect(component.visibleColumns()).toEqual(tempVisibleColumns);
+    // _visibleChanges should now equal _visibleChangesBeforeChange again.
+    // _visibleChanges should equal the saved preferences after reset.
+    expect((component as any)['_visibleColumns']()).toEqual(_visibleColumnsBeforeChange);
+    expect((component as any)['_visibleColumns']()).toEqual(visibleColumnsBeforeChange);
 
   });
 
-  it('changes made but not saved, reset makes _visibleColumns the same as columns', () => {
 
-    //Component open
-
-    //Make a change, move something to hiddenColumns
-
-    //handleReset
-
-    //_visibleColumns == visibleColumns
-
-  });
-
+  //THIS TEST IS NOT WORKING. ISSUE WITH SAVE AND THEN RESETTING. I THINK IT MIGHT BE AN ISSUE
+  // WITH REOPENING THE MODAL AFTER SAVING/CANCELLING.
+  // I don't think reopening workings properly in this test environment.
+  // In practice, when you reopen, it creates a new instance, but here we are using same instance.
   it('changes made and saved, reset and save, visibleColumns the same as columns', () => {
 
     // Component open
+    expect(component.visible()).toBeTruthy();
 
     //Make a change, move something to hidden Columns
+    const visibleColumnsBeforeChange = structuredClone(component.visibleColumns());
+    const _visibleColumnsBeforeChange = structuredClone((component as any)['_visibleColumns']());
+    const hiddenBeforeChange = structuredClone((component as any)['hiddenColumns']());
+
+    // Manually take element from _visibleColumns and put in hiddenColumns to simulate drag/drop.
+    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,2);
+    ((component as any)['hiddenColumns']()).push(a);
+
+    // visibleColumns shouldn't have changed
+    // _visibleColumns should have changed
+    // hiddenColumns should have changed
+    expect(component.visibleColumns()).toEqual(visibleColumnsBeforeChange);
+    expect((component as any)['hiddenColumns']()).not.toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).not.toEqual(_visibleColumnsBeforeChange);
 
     //handleSave 
+    (component as any)['handleSave']();
+    expect(component.visibleColumns()).not.toEqual(visibleColumnsBeforeChange);
+
+    (component as any)['handleReset']();
+    expect((component as any)['hiddenColumns']()).toEqual(hiddenBeforeChange);
+    expect((component as any)['_visibleColumns']()).toEqual(_visibleColumnsBeforeChange);
+    
+
 
     //handleReset - _visibleColumns should equal columns
 

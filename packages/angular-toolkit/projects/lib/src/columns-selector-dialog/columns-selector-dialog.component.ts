@@ -76,12 +76,10 @@ export class ColumnsSelectorDialogComponent {
   /** Resets the columns to the default view. */
   protected handleReset(): void {
 
-    console.log(`Columns before reset = ${this.columns()}`);
 
     this._visibleColumns.set([...this.columns()]);
     this.hiddenColumns.set([]);
 
-    console.log(`Columns after reset = ${this.columns()}`);
 
   }
 
