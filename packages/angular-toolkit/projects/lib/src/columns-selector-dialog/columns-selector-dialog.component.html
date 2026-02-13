@@ -15,16 +15,17 @@
           <div class="picklist-container">
             <p-picklist
               breakpoint="1400px"
-              targetHeader="hiddenColumns"
-              sourceHeader="visiblecolumns"
               [target]="hiddenColumns()"
               [source]="_visibleColumns()"
+              [showSourceControls]="false"
+              [showTargetControls]="false"
               [dragdrop]="true"
-              [responsive]="true"  
+              [responsive]="false"  
+              [metaKeySelection]="true"
             >
               <ng-template #item let-column>
                 <div class="column-box">
-                  {{ column.header }}
+                  {{column[label()]}}
                 </div>
               </ng-template>
             </p-picklist>

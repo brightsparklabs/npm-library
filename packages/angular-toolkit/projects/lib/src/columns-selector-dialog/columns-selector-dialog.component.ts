@@ -3,7 +3,7 @@
  * www.brightsparklabs.com.
  */
 
-import { ChangeDetectionStrategy, Component, model, input, linkedSignal, untracked, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, input, linkedSignal, untracked } from '@angular/core';
 import { Button } from "primeng/button";
 import { Dialog } from "primeng/dialog";
 import { PickListModule } from 'primeng/picklist';
@@ -28,14 +28,22 @@ export class ColumnsSelectorDialogComponent {
   readonly visible = model.required<boolean>();
 
   /** The list of columns which are actively visible. */
-  readonly visibleColumns = model.required<Array<TableColumn>>();
+  readonly visibleColumns = model.required<Array<GenericTableData>>();
 
   // -----------------------------------------------------------------------------------------------
   // COMPONENT INPUTS
   // -----------------------------------------------------------------------------------------------
 
+
   /** The list of all the columns which can be displayed within the table. */
-  readonly columns = input.required<Array<TableColumn>>();
+  readonly columns = input.required<Array<GenericTableData>>();
+
+  /**
+   * Jdoc.
+   */
+  readonly label = input<string>('header');
+
+
 
   // -----------------------------------------------------------------------------------------------
   // INSTANCE VARIABLES
@@ -45,16 +53,15 @@ export class ColumnsSelectorDialogComponent {
    * The list of columns which are actively visible. We use this such that we only sync the
    * update {@link visibleColumns} when the user saves the changes via {@link handleSave}.
    */
-  protected readonly _visibleColumns = linkedSignal<Array<TableColumn>>(() =>
+  protected readonly _visibleColumns = linkedSignal<Array<GenericTableData>>(() =>
     [...this.visibleColumns()],
   );
 
   /** The list of columns which are hidden. */
-  protected readonly hiddenColumns = linkedSignal<boolean,Array<TableColumn>>({
+  protected readonly hiddenColumns = linkedSignal<boolean,Array<GenericTableData>>({
     source: () => this.visible(),
     computation: (source, previous) => {
       if (source === true) {
-        console.log(`return val = ${untracked(() => this.columns().filter((c) => !this.visibleColumns().includes(c)))}`);
         return untracked(() => this.columns().filter((c) => !this.visibleColumns().includes(c)))
       }
       return previous?.value ?? [];
@@ -111,34 +118,15 @@ export class ColumnsSelectorDialogComponent {
 
 
 
-
-
-
-
-
-// TODO: Typescript record to make TableColumn more generic
-// Add Check what the fields are in Teraflow as well
-// Add some sort of config to choose which field to use
-
-
 // -------------------------------------------------------------------------------------------------
 // TYPES & INTERFACES
 // -------------------------------------------------------------------------------------------------
 
-/** Models a column in the table. */
-export interface TableColumn {
-  /** The field in the data to use for the column. */
-  field: string;
+/**
+ * Jdoc.
+ */
+export interface GenericTableData {
 
-  /** The label to use for the columns header. */
-  header: string;
-
-  /** The width of the columns e.g. "50px", "3rem" etc. */
-  width: string;
-
-  /** The type of filter control to use for the column.  */
-  // filterType: TreeTableFilterType["type"];
-
-  /** If the column should be fixed in it's position. */
-  // fixed?: boolean;
+  /** Jdoc. */
+  label:string;
 }

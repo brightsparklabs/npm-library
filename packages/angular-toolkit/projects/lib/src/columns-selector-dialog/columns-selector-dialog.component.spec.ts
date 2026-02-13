@@ -1,15 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ColumnsSelectorDialogComponent , TableColumn } from './columns-selector-dialog.component';
+import { ColumnsSelectorDialogComponent , GenericTableData } from './columns-selector-dialog.component';
+import { page } from "vitest/browser";
 
-const DEFAULT_COLUMNS: TableColumn[] = [
-  { field: "firstName", header: "First name", width: "10rem" },
-  { field: "lastNameName", header: "Last name", width: "10rem" },
-  { field: "dateOfBirth", header: "Date of birth", width: "10rem" },
-  { field: "age", header: "Age", width: "10rem" },
+
+const DEFAULT_COLUMNS: GenericTableData[] = [
+  { field: "firstName", name: "First name"},
+  { field: "lastNameName", name: "Last name"},
+  { field: "dateOfBirth", name: "Date of birth"},
+  { field: "age", name: "Age"},
 ]
-const MOCK_SAVED_PREFERENCES: TableColumn[] = [
-  { field: "firstName", header: "First name", width: "10rem" },
-  { field: "lastNameName", header: "Last name", width: "10rem" },
+const MOCK_SAVED_PREFERENCES: GenericTableData[] = [
+  { field: "firstName", header: "First name"},
+  { field: "lastNameName", header: "Last name"},
 ]
 
 describe('ColumnsSelectorDialogComponent tests with no saved preferences', async () => {
@@ -41,10 +43,15 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     expect(component.visibleColumns()).toEqual(component.columns());
   });
 
-  it('modal should close after cancel', () => {
+  it('modal should close after cancel', async () => {
     expect(component.visible()).toBeTruthy();
-    (component as any)['handleCancel']();
+    await expect(page.getByRole("dialog")).toBeInTheDocument();
+
+    await page.getByRole("button", {name: "cancel"}).click();
+    await expect(page.getByRole("dialog")).not.toBeInTheDocument();
+    // (component as any)['handleCancel']();
     expect(component.visible()).toBeFalsy();
+
   });
 
   it('no changes made, save should not change visibleColumns and modal should close', () => {
@@ -67,7 +74,7 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */
@@ -89,7 +96,7 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */
@@ -110,7 +117,7 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */
@@ -136,7 +143,7 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     expect(sumOfColumnsBeforeChange).toEqual(totalColumns);
 
     /** Make a change. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** The sum of the columns in _visibleColumns and hiddenColumns shouldn't have changed. */
@@ -229,7 +236,7 @@ describe('ColumnsSelectorDialogComponent tests with saved preferences', async ()
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */ 
@@ -251,7 +258,7 @@ describe('ColumnsSelectorDialogComponent tests with saved preferences', async ()
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */
@@ -272,7 +279,7 @@ describe('ColumnsSelectorDialogComponent tests with saved preferences', async ()
     const hiddenColumnsBeforeChange = structuredClone((component as any)['hiddenColumns']());
 
     /** Manually move element from _visibleColumns to hiddenColumns to simulate drag/drop. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** visibleColumns shouldn't have changed, _visibleColumns and hiddenColumns should have. */
@@ -302,7 +309,7 @@ describe('ColumnsSelectorDialogComponent tests with saved preferences', async ()
     expect(sumOfColumnsBeforeChange).toEqual(totalColumns);
 
     /** Make a change. */
-    let a:TableColumn = ((component as any)['_visibleColumns']()).splice(1,1);
+    let a:GenericTableData = ((component as any)['_visibleColumns']()).splice(1,1);
     ((component as any)['hiddenColumns']()).push(a);
 
     /** The sum of the columns in _visibleColumns and hiddenColumns shouldn't have changed. */
