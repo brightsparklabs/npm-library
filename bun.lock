@@ -54,6 +54,7 @@
         "@angular/cdk": "catalog:angular",
         "@angular/common": "catalog:angular",
         "@angular/core": "catalog:angular",
+        "@brightsparklabs/utils": "workspace:*",
         "@primeuix/themes": "catalog:angular",
         "@tabler/icons-webfont": "catalog:",
         "primeng": "catalog:angular",
