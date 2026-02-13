@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { HighlightTextComponent } from "./highlight-text.component";
 import { page } from "vitest/browser";
+import { HighlightTextComponent } from "./highlight-text.component";
 
 describe("HighlightText", () => {
   let component: HighlightTextComponent;
@@ -68,38 +68,53 @@ describe("HighlightText", () => {
       fixture.componentRef.setInput("text", "alpha-`beta`-gamma");
       fixture.detectChanges();
 
-      const locator = page.getByText("alpha-`beta`-gamma");
-      console.log(locator);
-      await expect(locator).toBeVisible();
+      const alpha = page.getByText("alpha-");
+      await expect.element(alpha).toBeVisible();
 
-      // const el: HTMLElement = fixture.nativeElement;
-      // expect(el.textContent.trim()).toBe("alpha- beta -gamma");
+      const beta = page.getByText("beta");
+      await expect.element(alpha).toBeVisible();
 
-      // const html = el.innerHTML;
-      // expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("<p-tag"));
-      // expect(html.indexOf("<p-tag")).toBeLessThan(html.indexOf("gamma"));
+      const gamma = page.getByText("-gamma");
+      await expect.element(gamma).toBeVisible();
+
+      const alphaEl = alpha.element();
+      const betaEl = beta.element();
+      const gammaEl = gamma.element();
+
+      // compareDocumentPosition returns a bitmask describing the relative position.
+      // DOCUMENT_POSITION_FOLLOWING means the second node comes after the first.
+      const isAlphaBeforeBeta =
+        alphaEl.compareDocumentPosition(betaEl) & Node.DOCUMENT_POSITION_FOLLOWING;
+      const isBetaBeforeGamma =
+        betaEl.compareDocumentPosition(gammaEl) & Node.DOCUMENT_POSITION_FOLLOWING;
+      expect(isAlphaBeforeBeta).toBeTruthy();
+      expect(isBetaBeforeGamma).toBeTruthy();
     });
 
     it("Should handle missing closing delimiter", async () => {
       fixture.componentRef.setInput("text", "alpha-`beta-gamma");
       fixture.detectChanges();
 
-      const locator = page.getByText("alpha-`beta-gamma");
-      await expect(locator).toBeVisible();
-      // const ptag = page.locator('p-tag');
-      // await expect(ptag).not.toBeAttached();
-      // const el: HTMLElement = fixture.nativeElement;
-      // expect(el.textContent.trim()).toBe("alpha-  `beta-gamma");
+      const alpha = page.getByText("alpha-");
+      await expect.element(alpha).toBeVisible();
 
-      // const html = el.innerHTML;
-      // expect(html.indexOf("alpha-")).toBeLessThan(html.indexOf("`beta-gamma"));
+      const literal = page.getByText("`beta-gamma");
+      await expect.element(literal).toBeVisible();
+
+      const alphaEl = alpha.element();
+      const literalEl = literal.element();
+
+      const isAlphaBeforeLiteral =
+        alphaEl.compareDocumentPosition(literalEl) & Node.DOCUMENT_POSITION_FOLLOWING;
+
+      expect(isAlphaBeforeLiteral).toBeTruthy();
     });
 
     it("Should complex inputs", () => {
       fixture.componentRef.setInput("text", "`alp`ha`-``beta```-gamma");
       fixture.detectChanges();
       const el: HTMLElement = fixture.nativeElement;
-      expect(el.textContent.trim()).toBe("alp ha -beta -gamma");
+      expect(el.textContent.trim()).toBe("alpha-beta-gamma");
 
       const tags = Array.from(el.querySelectorAll("p-tag"));
       expect(tags.length).toBe(4);

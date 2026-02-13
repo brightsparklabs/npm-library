@@ -58,7 +58,7 @@ interface TextSegment {
       @if (segment.highlight) {
         <p-tag severity="secondary" [value]="segment.value" />
       } @else {
-        {{ segment.value }}
+        <span>{{ segment.value }}</span>
       }
     }
   `,
