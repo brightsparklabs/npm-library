@@ -54,6 +54,7 @@ export class ColumnsSelectorDialogComponent {
     source: () => this.visible(),
     computation: (source, previous) => {
       if (source === true) {
+        console.log(`return val = ${untracked(() => this.columns().filter((c) => !this.visibleColumns().includes(c)))}`);
         return untracked(() => this.columns().filter((c) => !this.visibleColumns().includes(c)))
       }
       return previous?.value ?? [];
