@@ -1,15 +1,21 @@
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { Button } from 'primeng/button';
-import { ColumnsSelectorDialogComponent, TableColumn } from '../columns-selector-dialog/columns-selector-dialog.component';
+import { ColumnsSelectorDialogComponent, GenericTableData } from '../columns-selector-dialog/columns-selector-dialog.component';
 
 const DEFAULT_COLUMNS = [
-  { field: "firstName", header: "First name", width: "10rem" },
-  { field: "lastNameName", header: "Last name", width: "10rem" },
-  { field: "dateOfBirth", header: "Date of birth", width: "10rem" },
+  { label: "First name"},
+  { label: "Last name"},
+  { label: "Date of birth"},
+]
+
+const TEST_COLUMNS = [
+  { label: "First name"},
+  { label: "Last name"},
 ]
 
 /**
- * Jdoc.
+ * A component used purely for dev testing the {@link ColumnsSelectorDialogComponent}.
+ * Creates a button to open the dialog, and loads in some test data.
  */
 @Component({
   selector: 'bsl-dummy',
@@ -22,15 +28,12 @@ const DEFAULT_COLUMNS = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-/** 
- * Jdoc. 
- */
 export class DummyComponent {
 
-  /** Jdoc. */
+  /** The dialog doesn't open automatically. Need to press the button to open it. */
   protected readonly showColumnsSelector = signal<boolean>(false);
-  /** Jdoc. */
-  readonly defaultTableColumns = input<Array<TableColumn>>(DEFAULT_COLUMNS);
-  /** Jdoc. */
-  readonly visibleTableColumns = signal<Array<TableColumn>>(DEFAULT_COLUMNS);
+  /** Pass in all of the columns. */
+  readonly defaultTableColumns = input<Array<GenericTableData>>(DEFAULT_COLUMNS);
+  /** Pass in the columns that you want to be visible. */
+  readonly visibleTableColumns = signal<Array<GenericTableData>>(TEST_COLUMNS);
 }

@@ -1,18 +1,31 @@
+/*
+ * Created by brightSPARK Labs
+ * www.brightsparklabs.com
+ */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ColumnsSelectorDialogComponent , GenericTableData } from './columns-selector-dialog.component';
 import { page } from "vitest/browser";
 
 
+/** 
+ * Test data to populate the dialog.
+ * With this data, 'First name', 'Last name' and 'Date of birth' should appear in _visibleColumns
+ * and 'Age' should appear in hiddenColumns. 
+ * 
+ * TODO: This is not how the data is loading.
+ * I believe this is an issue with the hiddenColumns linkedSignal logic.
+ */
 const DEFAULT_COLUMNS: GenericTableData[] = [
-  { field: "firstName", name: "First name"},
-  { field: "lastNameName", name: "Last name"},
-  { field: "dateOfBirth", name: "Date of birth"},
-  { field: "age", name: "Age"},
+  { label: "First name"},
+  { label: "Last name"},
+  { label: "Date of birth"},
+  { label: "Age"},
 ]
 const MOCK_SAVED_PREFERENCES: GenericTableData[] = [
-  { field: "firstName", header: "First name"},
-  { field: "lastNameName", header: "Last name"},
-  { field: "dateOfBirth", name: "Date of birth"},
+  { label: "First name"},
+  { label: "Last name"},
+  { label: "Date of birth"},
 ]
 
 describe('ColumnsSelectorDialogComponent tests with no saved preferences', async () => {
@@ -36,36 +49,25 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     await fixture.whenStable();
   });
 
-  //DONE
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  //DONE
-  it('visibleColumns should equal columns if there is no saved preferences', () => {
-    expect(component.visibleColumns()).toEqual(component.columns());
+  it('visibleColumns should not equal columns', () => {
+    expect(component.visibleColumns()).not.toEqual(component.columns());
   });
 
-  //DONE. USE THIS AS AN EXAMPLE
-  it('modal should close after cancel', async () => {
-
-    // Check the modal is open
+  it('dialog should be open, and close after cancel', async () => {
     await expect(page.getByRole("dialog")).toBeInTheDocument();
-    // Click the cancel button
     await page.getByRole("button", {name: "Cancel"}).click();
-    // Check the modal is closed
     await expect(page.getByRole("dialog")).not.toBeInTheDocument();
-    // Check the visible flag is correctly updated
     expect(component.visible()).toBeFalsy();
   });
 
-  //DONE.
   it('no changes made, save should not change visibleColumns and modal should close', async () => {
 
     // Make a copy of visibleColumns before save
     let visibleColumnsBeforeSave = structuredClone(component.visibleColumns());
-
-    // Click the save button
     await page.getByRole("button", {name: "Save"}).click();
 
     // visibleColumns is the same before and after save
@@ -78,80 +80,88 @@ describe('ColumnsSelectorDialogComponent tests with no saved preferences', async
     expect(component.visible()).toBeFalsy();
   });
 
+  //TODO: Fix this test and all those following that involve drag/drop.
   it('changes made, reset makes _visibleColumns reset to columns', async () => {    
-    
-    // Drag 'First name' into the hidden columns. NOT WORKING. TARGET IS NOT SHOWING UP I THINK
-    await page.getByRole("option", {name: "First name"}).dropTo(page.getByRole("listbox", {name: "Target"}));
+
+    // The 'Target' listbox never becomes visible. 
+    await page.getByRole("option", {name: "First name"})
+      .dropTo(page.getByRole("listbox", {name: "Target"}));
 
     // Ensure drag and drop worked. 'First name' should be in Target
-    expect(page.getByRole("listbox", {name: "Target"}).getByRole("option")).toHaveTextContent("First Name");
-    expect(page.getByRole("listbox", {name: "Source"}).getByRole("option")).not.toHaveTextContent("First Name");
+    expect(page.getByRole("listbox", {name: "Target"})
+      .getByRole("option"))
+      .toHaveTextContent("First Name");
+    expect(page.getByRole("listbox", {name: "Source"})
+      .getByRole("option"))
+      .not.toHaveTextContent("First Name");
 
-    // Click reset.
     await page.getByRole("button", {name: "Reset to default"}).click();
 
     // First name should be in Source and not target
-    expect(page.getByRole("listbox", {name: "Source"}).getByRole("option")).toHaveTextContent("First Name");
-    expect(page.getByRole("listbox", {name: "Target"}).getByRole("option")).not.toHaveTextContent("First Name");
-
+    expect(page.getByRole("listbox", {name: "Source"})
+      .getByRole("option"))
+      .toHaveTextContent("First Name");
+    expect(page.getByRole("listbox", {name: "Target"})
+      .getByRole("option"))
+      .not.toHaveTextContent("First Name");
   });
 
+  //TODO: Fix when drag/drop is working.
   it('changes made, cancel, changes should not be applied', async () => {
 
-    const visibleColumnsLengthBefore = component.visibleColumns().length;
+    // First name is in source.
+    expect(page.getByRole("listbox", {name: "Source"})
+      .getByRole("option"))
+      .toHaveTextContent("First Name");
 
-    // DRAG/DROP
-    // TODO: Drag first name from source to target
+    //TODO: Insert working .dropTo here. Drag first name from source to target
 
     await page.getByRole("button", {name: "Cancel"}).click();
 
-    // Check somehow that visibleColumns hasn't changed. Maybe the length?
-    // TODO: Does visibleColumnsLengthBefore update?
-    expect(visibleColumnsLengthBefore).toEqual(component.visibleColumns().length);
+    // First name is still in source after cancel.
+    expect(page.getByRole("listbox", {name: "Source"})
+      .getByRole("option"))
+      .toHaveTextContent("First Name");
   });
 
   it('changes made, save, changes should be applied', async () => {
 
-    const visibleColumnsLengthBefore = component.visibleColumns().length; 
-
-    //TODO: DRAG/DROP
+    //TODO: Insert working .dropTo here. Drag first name from source to target
 
     await page.getByRole("button", {name: "Save"}).click();
 
-    /** visibleColumns should change after save. */
-    expect(visibleColumnsLengthBefore).not.toEqual(component.visibleColumns().length);
+    // Reopen dialog.
+    fixture.componentRef.setInput('visible', true);
+    await expect(page.getByRole("dialog")).toBeInTheDocument();
+
+    // First name should be in hidden.
+    expect(page.getByRole("listbox", {name: "Target"})
+      .getByRole("option"))
+      .toHaveTextContent("First Name"); 
   });
 
 
   it('duplicate bug when moving elements', async () => {
 
-    // Select one element from source list
+    // Duplicate bug. Refer to BNL-26 Ticket for additional details.
 
-    // Drop it in target list
+    /**
+     * Bug is with the actual Primeng picklist component.
+     * 
+     * Instructions to replicate.
+     * 1. Highlight an element from source list, and drag it in the target list.
+     * 2. Then highlight another element in the source list, and drag it to the target list.
+     *    The first element moved should now appear twice in target list.
+     */
 
-    // Then using ctrl (or turn off metaKeySelection in HTML), select two elements from source list
-
-    // Drop both elements in target list
-
-    // The first element in target list should now be duplicated
-
-
-    // ADDITIONAL CASE:
-
-    // Select one element from source list, drop in target list
-
-    // Select another element in source list (ensure you highlight it, click on it once to highlight, and then again to drag, or hold ctrl on the first click)
-
-    // Drag second element over. First element will be duplicated
-
-    
-    // Both of these cases are repeatable in both the dev environment and on the primeng component page.
   });
 
   
 });
 
-
+/**
+ * Edge case tests, revolving around the dialog receiving empty lists of columns and visibleColumns.
+ */
 describe('ColumnsSelectorDialogComponent edge cases', async () => {
   let component: ColumnsSelectorDialogComponent;
   let fixture: ComponentFixture<ColumnsSelectorDialogComponent>;
@@ -173,20 +183,17 @@ describe('ColumnsSelectorDialogComponent edge cases', async () => {
     await fixture.whenStable();
   });
 
-  it('empty columns loaded, modal still opens and can be closed', () => {
-
+  it('empty columns loaded, modal still opens and can be closed', async () => {
     expect(component.visible()).toBeTruthy();    
     expect(component.visibleColumns()).toEqual([]);
-    (component as any)['handleCancel']();
+    await page.getByRole("button", {name: "Cancel"}).click();
     expect(component.visible()).toBeFalsy();
   });
 
-  it('empty columns loaded, save', () => {
-
+  it('empty columns loaded, save', async () => {
     expect(component.visibleColumns()).toEqual([]);
-    (component as any)['handleSave']();
+    await page.getByRole("button", {name: "Save"}).click();
     expect(component.visible()).toBeFalsy();
   });
-
 });
 

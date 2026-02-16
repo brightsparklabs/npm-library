@@ -12,7 +12,13 @@
 >
   <h2>Column Visibility and Ordering</h2>
     <div class="modal-body">
-          <div class="picklist-container" role="testrole123" aria-label="TestLabel123">
+          <div class="picklist-container">
+            <!-- 
+              [metaKeySelection]="true" means that you have to hold ctrl to highlight
+              multiple items in the picklist at once.
+              To replicate the Duplicate items bug, either set this to false, or hold ctrl
+              when selecting elements.
+             -->
             <p-picklist
               breakpoint="1400px"
               sourceHeader="Visible Columns"
