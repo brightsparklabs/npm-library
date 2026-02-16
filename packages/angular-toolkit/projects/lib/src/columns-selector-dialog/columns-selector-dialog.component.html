@@ -12,9 +12,13 @@
 >
   <h2>Column Visibility and Ordering</h2>
     <div class="modal-body">
-          <div class="picklist-container">
+          <div class="picklist-container" role="testrole123" aria-label="TestLabel123">
             <p-picklist
               breakpoint="1400px"
+              sourceHeader="Visible Columns"
+              targetHeader="Hidden Columns"
+              sourceAriaLabel="Source"
+              targetAriaLabel="Target"
               [target]="hiddenColumns()"
               [source]="_visibleColumns()"
               [showSourceControls]="false"
