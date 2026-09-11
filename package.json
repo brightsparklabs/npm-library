@@ -35,10 +35,13 @@
   },
   "catalog": {
     "date-fns": "^4.1.0",
+    "lodash-es": "^4.18.1",
     "typescript": "~5.9.0",
     "@types/node": "^24.0.0",
+    "@types/lodash-es": "^4.17.12",
     "tslib": "^2.3.0",
     "playwright": "^1.57.0",
+    "change-case": "^5.4.4",
     "@tabler/icons-webfont": "^3.36.1"
   },
   "catalogs": {
