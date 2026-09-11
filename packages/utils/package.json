@@ -27,14 +27,17 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "date-fns": "catalog:"
+    "date-fns": "catalog:",
+    "lodash-es": "catalog:",
+    "change-case": "catalog:"
   },
   "devDependencies": {
     "typescript": "catalog:",
     "vite": "catalog:vite",
     "vitest": "catalog:vite",
     "vite-plugin-dts": "catalog:vite",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "@types/lodash-es": "catalog:"
   },
   "sideEffects": false
 }
