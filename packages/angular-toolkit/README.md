@@ -1,12 +1,19 @@
 # BSL Angular Toolkit
 
-The Angular Toolkit is a collection of components, styles/themes and Angular utilities which are
-commonly used across BSL projects.
+The Angular Toolkit is a collection of components, styles/themes and Angular utilities which are commonly used across BSL projects.
 
-The library code can be found in [./projects/lib](./projects/lib) and a basic dev showcase app using
-the library has been setup in [./projects/dev](./projects/dev).
+The library code can be found in [./projects/lib](./projects/lib) and a basic dev showcase app using the library has been setup in [./projects/dev](./projects/dev).
 
 This project is using the [Analog](https://analogjs.org/) meta-framework for Angular.
+
+## Prerequisites
+
+Some components make use of utility functions exported by the `@brightsparklabs/utils` library located within this workspace.
+In order to use them here you must first build that library.
+
+```bash
+cd ../utils && bun run build
+```
 
 ## Development server
 
@@ -24,8 +31,8 @@ Then you can start the development server with:
 bun run start
 ```
 
-Once the dev server is running, open your browser and navigate to `http://localhost:5173/`. The
-application will automatically reload whenever you modify any of the dev source files in [./projects/dev/src](./projects/dev/src)
+Once the dev server is running, open your browser and navigate to `http://localhost:5173/`.
+The application will automatically reload whenever you modify any of the dev source files in [./projects/dev/src](./projects/dev/src)
 
 ## Code scaffolding
 
