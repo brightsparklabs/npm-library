@@ -4,6 +4,7 @@
  */
 
 import { describe, expect, test } from "vitest";
+
 import { capitaliseFirstLetter } from "./capitalise-first-letter";
 
 describe("capitaliseFirstLetter", () => {
@@ -37,5 +38,13 @@ describe("capitaliseFirstLetter", () => {
 
   test("preserves the remainder of a multi-word string", () => {
     expect(capitaliseFirstLetter("hello world")).toBe("Hello world");
+  });
+
+  test("returns empty for null values", () => {
+    expect(capitaliseFirstLetter(null as unknown as string)).toBe("");
+  });
+
+  test("returns empty for undefined values", () => {
+    expect(capitaliseFirstLetter(undefined as unknown as string)).toBe("");
   });
 });

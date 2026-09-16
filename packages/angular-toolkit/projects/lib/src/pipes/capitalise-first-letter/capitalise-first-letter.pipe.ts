@@ -9,6 +9,17 @@ import { capitaliseFirstLetter } from "@brightsparklabs/utils";
 
 /**
  * Custom pipe for capitalising the first letter of a string.
+ *
+ * @example
+ * ```
+ * Usage:
+ *
+ *   {{ <string> | capitaliseFirstLetter }}
+ *
+ * Example:
+ *
+ *   {{ "test sentence" | capitaliseFirstLetter }} // Test sentence
+ * ```
  */
 @Pipe({
   name: "capitaliseFirstLetter",

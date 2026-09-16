@@ -18,6 +18,7 @@ import { Pipe, PipeTransform } from "@angular/core";
  *
  *   {{ "Fred" | inArray: allowedUsers }}
  * ```
+ * @deprecated In `OnPush` templates use the `Array.includes` method directly.
  */
 @Pipe({ name: "inArray" })
 export class InArrayPipe implements PipeTransform {

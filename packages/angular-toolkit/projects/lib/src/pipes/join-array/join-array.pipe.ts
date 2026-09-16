@@ -18,6 +18,7 @@ import { Pipe, PipeTransform } from "@angular/core";
  *
  *   {{ usernames | joinArray: ", " }}
  * ```
+ * @deprecated In `OnPush` templates use the `Array.join` method directly.
  */
 @Pipe({ name: "joinArray" })
 export class JoinArrayPipe implements PipeTransform {
