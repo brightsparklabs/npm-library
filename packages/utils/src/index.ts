@@ -1,7 +1,9 @@
 export * from "./as-array/as-array";
+export * from "./capitalise-first-letter/capitalise-first-letter";
 export * from "./compare-temporals/compare-temporals";
 export * from "./convert-css-colour-to-hex/convert-css-colour-to-hex";
 export * from "./format-duration/format-duration";
+export * from "./format-underscore-string/format-underscore-string";
 export { getScrollbarWidth } from "./get-scrollbar-width/get-scrollbar-width";
 export * from "./is-absent-or-empty/is-absent-or-empty";
 export * from "./is-absent/is-absent";
@@ -9,4 +11,5 @@ export * from "./is-present-and-empty/is-present-and-empty";
 export * from "./is-present-and-non-empty/is-present-and-non-empty";
 export * from "./is-present/is-present";
 export * from "./rem-to-pixels/rem-to-pixels";
+export * from "./split-camel-case-to-words/split-camel-case-to-words";
 export * from "./sum/sum";

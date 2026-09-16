@@ -11,11 +11,11 @@ import { isAbsentOrEmpty } from "../is-absent-or-empty/is-absent-or-empty";
 
 /**
  * Returns `true` if the value is present, i.e. NOT `null` or `undefined`,
- * and has a value, i.e. NOT `""`.
+ * and has a value, i.e. NOT `""` or an empty array ([]).
  *
  * @param value The value to check.
- * @returns `true` if the value is NOT an empty string (`""`),
- * `null` or `undefined`, `false` otherwise.
+ * @returns `true` if the value is NOT an empty string (`""`), empty array ([]),
+ * `null`, or `undefined`, `false` otherwise.
  */
 export function isPresentAndNonEmpty<T>(value: T | null | undefined | ""): value is T {
   return !isAbsentOrEmpty(value);

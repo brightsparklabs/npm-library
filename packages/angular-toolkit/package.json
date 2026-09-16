@@ -25,8 +25,10 @@
     "@angular/cdk": "catalog:angular",
     "@angular/common": "catalog:angular",
     "@angular/core": "catalog:angular",
+    "@brightsparklabs/utils": "workspace:*",
     "@primeuix/themes": "catalog:angular",
     "@tabler/icons-webfont": "catalog:",
+    "lodash-es": "catalog:",
     "primeng": "catalog:angular"
   },
   "devDependencies": {
@@ -44,6 +46,8 @@
     "@angular/platform-browser": "catalog:angular",
     "@angular/router": "catalog:angular",
     "@brightsparklabs/angular-toolkit": "workspace:*",
+    "@brightsparklabs/utils": "workspace:*",
+    "@types/lodash-es": "catalog:",
     "@vitest/browser-playwright": "catalog:vite",
     "ng-packagr": "catalog:angular",
     "nodemon": "^3.1.11",
